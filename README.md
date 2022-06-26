@@ -8,7 +8,7 @@
 merge的话，要自己弄pull request，我会定期merge pull request的代码的。
 
 每个人都有一个专属brench，brench的名字是自己的名字。
-要切换到自己的brench，可以用下面的命令：
+要切换到自己的brench，可以用下面的命令：  
 `git checkout 你的名字`  
 比如我的就是：
 `git checkout yu_liang`  
