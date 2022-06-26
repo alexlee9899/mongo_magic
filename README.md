@@ -9,35 +9,35 @@ merge的话，要自己弄pull request，我会定期merge pull request的代码
 
 每个人都有一个专属brench，brench的名字是自己的名字。
 要切换到自己的brench，可以用下面的命令：
-'git checkout 你的名字'
+`git checkout 你的名字`
 比如我的就是：
-'git checkout yu_liang'
+`git checkout yu_liang`
 
 
 ===============================================================
 
 每次写完了，可以用下面的命令push到自己的brench：
-'git add .'
-'git commit -m "message"'
-'git push'
+`git add .`
+`git commit -m "message"`
+`git push`
 
 如果要想merge到master，在push到自己的brench以后，在github网页上做pull request，我会帮你merge到master。
 
 第一次可能会报错没有远端链接，可以用下面的命令：
 
-'git push --set-upstream origin 你的名字（yu_liang)'
+`git push --set-upstream origin 你的名字（yu_liang)`
 
 ===============================================================
 
 每次如果master有更新，可以用下面的命令pull到自己的brench：
-'git add .'
-'git commit -m "message"'
-'git push'
-'git checkout master'
-'git pull'
-'git checkout 你的名字'
-'git rebase master'
-'git push'
+`git add .`
+`git commit -m "message"`
+`git push`
+`git checkout master`
+`git pull`
+`git checkout 你的名字`
+`git rebase master`
+`git push`
 
 如果有冲突，给我说，我帮你看看。但是千万不要随便弄到master里面
 
