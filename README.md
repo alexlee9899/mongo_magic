@@ -23,6 +23,10 @@ merge的话，要自己弄pull request，我会定期merge pull request的代码
 
 如果要想merge到master，在push到自己的brench以后，在github网页上做pull request，我会帮你merge到master。
 
+第一次可能会报错没有远端链接，可以用下面的命令：
+
+'git push --set-upstream origin 你的名字（yu_liang)'
+
 ===============================================================
 
 每次如果master有更新，可以用下面的命令pull到自己的brench：
