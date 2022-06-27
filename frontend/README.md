@@ -1,8 +1,24 @@
 前端启动：
 
-首次在电脑上要跑：
-yarn install
+首次在电脑上要跑：   
+`yarn install`   
 
-之后每次就是
-yarn start
+之后每次就是   
+`yarn start`   
 
+写react要注意几点：   
+  1. 不要用class组件，全部使用react hook 函数组件。 函数组件就是定义一个箭头函数然后return 页面的内容。
+  2. 不要用state，用props
+  3. 不要用this.setState，用useState
+  4. 不要用this.props，用props
+  5. 所有函数用箭头函数
+  6. 变量用let，不要用var
+  7. 常量用const
+  8. 不要用if else，用switch case
+
+现在还没确定用什么ui库，可以用ant-design或者material-ui。    
+
+这个应该不看代码风格，但是尽量写好一点吧，以后各位找工作展示的话可能会很有帮助。
+
+
+  
