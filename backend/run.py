@@ -13,7 +13,10 @@ import db
 
 app = Flask(__name__)
 api = Api(app, title='API for Mongo Magic', default ='Api list', default_label='')
-database = db.db_connect()
+
+
+from controller.users import users_blueprint
+app.register_blueprint(users_blueprint)
 
 
 if __name__ == '__main__':
