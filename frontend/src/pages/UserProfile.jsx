@@ -9,6 +9,10 @@ export default function UserProfile() {
     const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
 
+    /**
+     * Get user profile from backend
+     * @returns 
+     */
     const getProfile = () => fetch (`http://127.0.0.1:5000/users/profile`,{
         method: "GET",
         headers: {
@@ -16,7 +20,8 @@ export default function UserProfile() {
             'Authorization': 'Bearer ' + localStorage.getItem('userToken')
             },
         Bearer: localStorage.getItem('userToken')
-}).then(res => res.json())
+    })
+    .then(res => res.json())
     .then(data => {
         if (data) {
             setUser(data);
@@ -31,6 +36,9 @@ export default function UserProfile() {
     }, [])
 
     return (
+        /**
+         * Render user profile if there is a valid token
+         */
         (user !== null) ?
         (<div>
             <h1>User Profile</h1>
@@ -40,7 +48,7 @@ export default function UserProfile() {
             <p>Photo</p>
         </div>)
         :
-        (
+        (   
             (localStorage.getItem('userToken') !== null) ?
             (<div>
                 <h1>Loading...</h1>
