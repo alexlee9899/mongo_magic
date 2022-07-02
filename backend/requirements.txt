@@ -8,7 +8,6 @@ Flask==2.1.2
 flask-restx==0.5.1
 Flask-SQLAlchemy==2.5.1
 fonttools==4.33.3
-gpg==1.17.1
 idna==3.3
 importlib-metadata==4.12.0
 itsdangerous==2.1.2
