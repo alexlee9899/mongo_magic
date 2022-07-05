@@ -3,11 +3,20 @@ import styled from 'styled-components'
 import { Layout, Menu, Image, Space, Card } from 'antd';
 import logo from '../assets/logo.png';
 import dashboardLogo from '../assets/dashboardLogo.png';
+import dashboardLogoSelected from '../assets/dashboardLogoSelected.png';
 import resultsLogo from '../assets/resultsLogo.png';
+import resultsLogoSelected from '../assets/resultsLogoSelected.png';
 import analyticsLogo from '../assets/analyticsLogo.png';
+import analyticsLogoSelected from '../assets/analyticsLogoSelected.png';
 import rankingLogo from '../assets/rankingLogo.png';
+import rankingLogoSelected from '../assets/rankingLogoSelected.png';
 import dashBoardLines from '../assets/dashboardLines.png';
+import profileLogo from '../assets/profileLogo.png';
+import profileLogoSelected from '../assets/profileLogoSelected.png';
+import settingsLogo from '../assets/settingsLogo.png';
+import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css'
+import { OmitProps } from "antd/lib/transfer/ListBody";
 
 const {Header, Sider, Content, Footer}  = Layout;
 
@@ -72,6 +81,7 @@ const UserNameCompany = styled.div`
 
 const DashboardLogo = (e) => {
     const marRight = e.size;
+    // console.log(e);
     return (
         <MenuLogo src={e.src} style={{ marginRight: `${marRight}px` }} >
         </MenuLogo>
@@ -83,6 +93,7 @@ export default function DashBoard() {
     const textRef = useRef();
     const [logoOffsetLeft, setLogoOffsetLeft] = useState(0);
     const [textOffsetLeft, setTextOffsetLeft] = useState(0);
+    const [itemSelected, setItemSelected] = useState(null);
     
     useEffect(() => {
         window.addEventListener("resize", getPosition);
@@ -108,7 +119,7 @@ export default function DashBoard() {
     }
 
     const itemSelect = (e) =>{
-
+        setItemSelected(e.key);
 }
     
 
@@ -122,30 +133,30 @@ export default function DashBoard() {
                 </HeaderLogo>
                 {/* <b style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: '700', fontSize:'16px' }}>Main Menu</b> */}
                 <MainMenuContainer>
-                    <Menu onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
-                    <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="0"  >
+                    <Menu id = "menu" defaultSelectedKeys={'1'} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
+                    <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="200"  >
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
                     </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo id='db' style={{}} src={dashboardLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="1">
+                        <Menu.Item icon={<DashboardLogo id='1' src={(itemSelected == '1') ? (dashboardLogoSelected): (dashboardLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="1">
                             Dashboard
                         </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo src={resultsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="2">
+                        <Menu.Item icon={<DashboardLogo id='2' src={(itemSelected == '2') ? (resultsLogoSelected): (resultsLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="2">
                             Results
                         </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo src={analyticsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="3">
+                        <Menu.Item icon={<DashboardLogo id='3' src={(itemSelected == '3') ? (analyticsLogoSelected): (analyticsLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="3">
                             Analytics
                         </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo src={rankingLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemLast} key="4">
+                        <Menu.Item icon={<DashboardLogo id='4' src={(itemSelected == '4') ? (rankingLogoSelected): (rankingLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemLast} key="4">
                             Ranking
                         </Menu.Item>
                 {/* <li style={{ marginLeft:`${logoOffsetLeft + 10}px`, fontWeight: '700'}}>Others</li> */}
-                        <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="5">
+                        <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="100">
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Others</b>
                         </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo src={dashboardLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="6">
+                        <Menu.Item icon={<DashboardLogo id='5' src={(itemSelected == '5') ? (profileLogoSelected): (profileLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="5">
                             Profile
                         </Menu.Item>
-                        <Menu.Item icon={<DashboardLogo src={resultsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="7">
+                        <Menu.Item icon={<DashboardLogo id='6' src={(itemSelected == '6') ? (settingsLogoSelected): (settingsLogo) } size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="6">
                             Settings
                         </Menu.Item>
                     </Menu>
