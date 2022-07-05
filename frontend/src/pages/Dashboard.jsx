@@ -15,8 +15,7 @@ import profileLogo from '../assets/profileLogo.png';
 import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
-import '../App.css'
-import { OmitProps } from "antd/lib/transfer/ListBody";
+import '../App.css';
 
 const {Header, Sider, Content, Footer}  = Layout;
 
@@ -93,7 +92,7 @@ export default function DashBoard() {
     const textRef = useRef();
     const [logoOffsetLeft, setLogoOffsetLeft] = useState(0);
     const [textOffsetLeft, setTextOffsetLeft] = useState(0);
-    const [itemSelected, setItemSelected] = useState(null);
+    const [itemSelected, setItemSelected] = useState(1);
     
     useEffect(() => {
         window.addEventListener("resize", getPosition);
