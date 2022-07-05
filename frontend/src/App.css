@@ -60,3 +60,12 @@ li.ant-menu-item.ant-menu-item-only-child{
   font-size: 18px;
   line-height: 50px;
 }
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+  background-color:#00695E;
+  border-radius: 20px;
+}
+
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+  border-right: 0;
+}

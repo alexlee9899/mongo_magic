@@ -59,15 +59,6 @@ const DashboardLogo = (e) => {
     )
 }
 
-// const ResultsLogo = () => {
-//     return (
-//         <MenuLogo src={ResultsLogo} >
-//         </MenuLogo>
-//     )
-// }
-
-
-
 export default function DashBoard() {
     const imgRef = useRef();
     const textRef = useRef();
@@ -87,8 +78,15 @@ export default function DashBoard() {
     let menuItemStyle = {
         marginTop: '20px',
         marginLeft: logoOffsetLeft + 14,
-        padding: '0',
+        padding: '0 15px',
     };
+
+    let menuItemLast = {
+        marginTop: '20px',
+        marginLeft: logoOffsetLeft + 14,
+        padding: '0 15px',
+        marginBottom: '40px',
+    }
 
 
     return (
@@ -99,22 +97,35 @@ export default function DashBoard() {
                     <TopLogo src={logo} alt="logo" ref={imgRef}/>
                     <LogoText ref={textRef}>G'Tracker</LogoText>
                 </HeaderLogo>
+                {/* <b style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: '700', fontSize:'16px' }}>Main Menu</b> */}
                 <MainMenuContainer>
-                <Menu style={{ 'width':'100%', 'position':'relative', 'display': 'block'}}>
-                    <b style={{marginLeft:`${logoOffsetLeft}px`}}>Main Menu</b>
-                    <Menu.Item icon={<DashboardLogo src={dashboardLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="1">
-                        Dashboard
+                    <Menu style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
+                    <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="0"  >
+                            <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
                     </Menu.Item>
-                    <Menu.Item icon={<DashboardLogo src={resultsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="2">
-                        Results
-                    </Menu.Item>
-                    <Menu.Item icon={<DashboardLogo src={analyticsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="3">
-                        Analytics
-                    </Menu.Item>
-                    <Menu.Item icon={<DashboardLogo src={rankingLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="4">
-                        Ranking
-                    </Menu.Item>
-                </Menu>
+                        <Menu.Item icon={<DashboardLogo src={dashboardLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="1">
+                            Dashboard
+                        </Menu.Item>
+                        <Menu.Item icon={<DashboardLogo src={resultsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="2">
+                            Results
+                        </Menu.Item>
+                        <Menu.Item icon={<DashboardLogo src={analyticsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="3">
+                            Analytics
+                        </Menu.Item>
+                        <Menu.Item icon={<DashboardLogo src={rankingLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemLast} key="4">
+                            Ranking
+                        </Menu.Item>
+                {/* <li style={{ marginLeft:`${logoOffsetLeft + 10}px`, fontWeight: '700'}}>Others</li> */}
+                        <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="5">
+                            <b style={{ fontWeight: '700', fontSize:'16px'}}>Others</b>
+                        </Menu.Item>
+                        <Menu.Item icon={<DashboardLogo src={dashboardLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14} />} style={menuItemStyle} key="6">
+                            Profile
+                        </Menu.Item>
+                        <Menu.Item icon={<DashboardLogo src={resultsLogo} size={textOffsetLeft - logoOffsetLeft - 56 + 14}/>} style={menuItemStyle} key="7">
+                            Settings
+                        </Menu.Item>
+                    </Menu>
                 </MainMenuContainer>
             </Sider>
             <Layout>
