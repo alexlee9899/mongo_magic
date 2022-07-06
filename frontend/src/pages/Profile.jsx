@@ -65,7 +65,7 @@ export default function Profile() {
         //         <h1>Login First</h1>
         //         </div>)
         // )
-        <Dashboard page='profile'></Dashboard>
+        <Dashboard page='Profile'></Dashboard>
     )
 }
 

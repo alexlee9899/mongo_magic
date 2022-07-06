@@ -94,12 +94,12 @@ const DashboardLogo = (e) => {
  * decode the url parameters
  */
 const pageKeys = {
-    'dashboard': '1',
-    'results': '2',
-    'analytics': '3',
-    'ranking': '4',
-    'profile': '5',
-    'settings': '6',
+    'Dashboard': '1',
+    'Results': '2',
+    'Analytics': '3',
+    'Ranking': '4',
+    'Profile': '5',
+    'Settings': '6',
 }
 
 function getKeyByValue(object, value) {
@@ -111,7 +111,7 @@ function getKeyByValue(object, value) {
  * so we need to set default props
  */
 DashBoard.defaultProps = {
-    page: 'dashboard'
+    page: 'Dashboard'
 }
 
 export default function DashBoard(props) {
@@ -207,7 +207,7 @@ export default function DashBoard(props) {
                     <div>
                         <MenuLogo src={dashBoardLines} style={{ marginRight:'20px' }}>
                         </MenuLogo> 
-                        <DashBoardText>Dashboard</DashBoardText>
+                        <DashBoardText>{props.page}</DashBoardText>
                     </div>
                     <UserContainer>
                     <Image
