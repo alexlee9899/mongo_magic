@@ -4,8 +4,12 @@ import { BrowserRouter as Router,Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
+import Results from './pages/Results';
+import Analytics from './pages/Analytics';
+import Ranking from './pages/Ranking';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 import { Layout } from 'antd';
 
 function App() {
@@ -18,7 +22,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/users/dashboard" element={<Dashboard />} />
-            <Route path="/users/dashboard/profile" element={<UserProfile />} />
+            <Route path="/users/results" element={<Results />} />
+            <Route path="/users/analytics" element={<Analytics />} />
+            <Route path="/users/ranking" element={<Ranking />} />
+            <Route path="/users/profile" element={<Profile />} />
+            <Route path="/users/settings" element={<Settings />} />
           </Routes>
         </Router>
       </Layout>

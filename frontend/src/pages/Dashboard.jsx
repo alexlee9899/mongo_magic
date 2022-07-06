@@ -16,6 +16,7 @@ import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 const {Header, Sider, Content, Footer}  = Layout;
 
@@ -77,28 +78,62 @@ const UserContainer = styled.div`
 const UserNameCompany = styled.div`
 
 `
-
+/**
+ * 
+ * @param {*} e 
+ * @returns Logo with correct offset
+ */
 const DashboardLogo = (e) => {
     const marRight = e.size;
-    // console.log(e);
     return (
         <MenuLogo src={e.src} style={{ marginRight: `${marRight}px` }} >
         </MenuLogo>
     )
 }
+/**
+ * decode the url parameters
+ */
+const pageKeys = {
+    'dashboard': '1',
+    'results': '2',
+    'analytics': '3',
+    'ranking': '4',
+    'profile': '5',
+    'settings': '6',
+}
 
-export default function DashBoard() {
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
+
+/**
+ * If loading page from dashboard url there is no props
+ * so we need to set default props
+ */
+DashBoard.defaultProps = {
+    page: 'dashboard'
+}
+
+export default function DashBoard(props) {
     const imgRef = useRef();
     const textRef = useRef();
     const [logoOffsetLeft, setLogoOffsetLeft] = useState(0);
     const [textOffsetLeft, setTextOffsetLeft] = useState(0);
-    const [itemSelected, setItemSelected] = useState(1);
+    const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
+    let navigate = useNavigate();
+
     
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
+        if (!props.page){
+            setItemSelected(pageKeys['dashboard']);
+        }
     }, []);
 
+    /**
+     * Find and apply logo offset and text offset
+     */
     const getPosition = () => {
         setLogoOffsetLeft(imgRef.current.offsetLeft);
         setTextOffsetLeft(textRef.current.offsetLeft);
@@ -117,9 +152,15 @@ export default function DashBoard() {
         marginBottom: '40px',
     }
 
+    /**
+     * navigation and set item selected
+     * @param {*} e 
+     */
     const itemSelect = (e) =>{
         setItemSelected(e.key);
-}
+        const pageName = getKeyByValue(pageKeys, e.key);
+        navigate(`/users/${pageName}`);
+    }
     
 
     return (
@@ -132,7 +173,7 @@ export default function DashBoard() {
                 </HeaderLogo>
                 {/* <b style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: '700', fontSize:'16px' }}>Main Menu</b> */}
                 <MainMenuContainer>
-                    <Menu id = "menu" defaultSelectedKeys={'1'} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
+                    <Menu id = "menu" defaultSelectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
                     <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="200"  >
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
                     </Menu.Item>
@@ -190,4 +231,5 @@ export default function DashBoard() {
         </Layout>
     </>
   );
+
 }
