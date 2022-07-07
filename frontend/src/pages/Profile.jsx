@@ -1,14 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useSearchParams } from 'react-router-dom';
 import { message } from 'antd';
+import Dashboard from "./Dashboard";
 
 message.config({
     maxCount: 1,
 })
 
-export default function UserProfile() {
+export default function Profile() {
     const [searchParams] = useSearchParams();
     const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
@@ -46,24 +46,25 @@ export default function UserProfile() {
         /**
          * Render user profile if there is a valid token
          */
-        (user !== null) ?
-        (<div>
-            <h1>User Profile</h1>
-            <p>Name: {user.fullname}</p>
-            <p>Email: {user.email}</p>
-            <p>Org: {user.org}</p>
-            <p>Photo</p>
-        </div>)
-        :
-        (   
-            (localStorage.getItem('userToken') !== null) ?
-            (<div>
-                <h1>Loading...</h1>
-            </div>):
-            (<div>
-                <h1>Login First</h1>
-                </div>)
-        )
+        // (user !== null) ?
+        // (<div>
+        //     <h1>User Profile</h1>
+        //     <p>Name: {user.fullname}</p>
+        //     <p>Email: {user.email}</p>
+        //     <p>Org: {user.org}</p>
+        //     <p>Photo</p>
+        // </div>)
+        // :
+        // (   
+        //     (localStorage.getItem('userToken') !== null) ?
+        //     (<div>
+        //         <h1>Loading...</h1>
+        //     </div>):
+        //     (<div>
+        //         <h1>Login First</h1>
+        //         </div>)
+        // )
+        <Dashboard page='Profile'></Dashboard>
     )
 }
 
