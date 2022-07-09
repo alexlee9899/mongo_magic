@@ -27,10 +27,30 @@ export default function Profile() {
             const data = await response.json();
             setUser(data); 
             } else {
-                message.error("Error: " + response.statusText, 2);
+                const responseContent = (
+                    <>
+                        <h>Please Login</h>
+                        <br></br>
+                        <h>Redirecting...</h>
+                    </>
+                );
+                message.error(responseContent, 2)
+                .then(() => {
+                    window.location.href = "/login";
+                });
             }
         } catch (error){
-            console.log("Error: " + error);
+            const responseContent = (
+                <>
+                    <h>Please Login</h>
+                    <br></br>
+                    <h>Redirecting...</h>
+                </>
+            );
+            message.error(responseContent, 2)
+            .then(() => {
+                window.location.href = "/login";
+            });
         }
     }
 
@@ -39,7 +59,6 @@ export default function Profile() {
         if (localStorage.getItem('userToken') !== null) {
             getProfile();
         }
-        console.log('once');
     }, [])
 
     return (
