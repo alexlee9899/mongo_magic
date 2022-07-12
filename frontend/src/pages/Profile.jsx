@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { message } from 'antd';
 import Dashboard from "./Dashboard";
+import backend_url from "../config/api";
 
 message.config({
     maxCount: 1,
@@ -15,7 +16,7 @@ export default function Profile() {
 
     const getProfile = async() =>{
         try{
-            const response = await fetch  (`http://127.0.0.1:5000/users/profile`,{
+            const response = await fetch  (`${backend_url}/users/profile`,{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
