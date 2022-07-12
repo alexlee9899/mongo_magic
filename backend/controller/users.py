@@ -21,3 +21,7 @@ def get_profile():
 @jwt_required()
 def update_profile():
   return user_update_profile(request)
+
+@users_blueprint.route('/', methods=['GET'])
+def hello():
+  return "hello"
