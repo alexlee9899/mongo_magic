@@ -6,6 +6,31 @@
 之后每次就是   
 `yarn start`   
 
+
+===============================================================
+后端全部上云了：
+
+URL：http://mongomagicv1-env-1.eba-p8jpdc25.ap-southeast-2.elasticbeanstalk.com
+
+API接口：
+
+`[GET] /users/profile`   
+
+`[POST] /users/register`   
+`[POST] /users/login`   
+`[POST] /users/logout`   
+`[POST] /users/update_profile`   
+
+
+前端的我已经设置了全局的url变量，所以直接引用就行。
+
+`import backend_url from "../config/api";`   
+
+用法：     
+ `${backend_url}/users/profile`  
+
+================================================================
+
 写react要注意几点：   
   1. 不要用class组件，全部使用react hook 函数组件。 函数组件就是定义一个箭头函数然后return 页面的内容。
   2. 不要用state，用props
