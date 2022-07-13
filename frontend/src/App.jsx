@@ -13,23 +13,30 @@ import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 
+export const ProfileContext = React.createContext();
+
 function App() {
+  const [profile, setProfile] = React.useState(null);
+
   return (
     <div style={{ height: '100%' }}>
       <Layout style={{ height: '100%' }}>
         <Router>
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/users/dashboard" element={<Dashboard />} />
-            <Route path="/users/results" element={<Results />} />
-            <Route path="/users/analytics" element={<Analytics />} />
-            <Route path="/users/ranking" element={<Ranking />} />
-            <Route path="/users/profile" element={<Profile />} />
-            <Route path="/users/settings" element={<Settings />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <ProfileContext.Provider value={(profile, setProfile)}>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/home' element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/users/dashboard" element={<Dashboard />} />
+              <Route path="/users/results" element={<Results />} />
+              <Route path="/users/analytics" element={<Analytics />} />
+              <Route path="/users/ranking" element={<Ranking />} />
+              <Route path="/users/profile" element={<Profile />} />
+              <Route path="/users/settings" element={<Settings />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ProfileContext.Provider>
         </Router>
       </Layout>
     </div>

@@ -1,7 +1,8 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import styled from 'styled-components';
-import { Layout, Image, Space } from 'antd';
+import { Layout, Image, Space, message } from 'antd';
 import dashBoardLines from '../assets/dashboardLines.png';
+import { getProfile } from '../utils/requests';
 
 import '../App.css';
 
@@ -33,6 +34,31 @@ const UserNameCompany = styled.div`
 
 `
 export default function HeaderBar(props){
+    const [profile, setProfile] = useState({});
+
+    useEffect(() => {
+        getProfile().then(res => {
+            if (res.ok){
+                res.json().then(data => {
+                    setProfile(data);
+                }
+                );
+            }else{
+                            const responseContent = (
+                <>
+                    <h>Please Login</h>
+                    <br></br>
+                    <h>Redirecting...</h>
+                </>
+            );
+            message.error(responseContent, 2)
+            .then(() => {
+                // window.location.href = "/login";
+            });
+            }
+        })
+},[]);
+
     return(
         <Header style={{ backgroundColor:'#FBFBFB', display:'flex', justifyContent:'space-between' }}>
             <div>
@@ -50,8 +76,8 @@ export default function HeaderBar(props){
             /> 
                 <UserNameCompany>
                     <Space direction="vertical" size='small' style={{marginLeft:'10px', diaplay:'flex', position:'relative', textAlign:'center'}}>
-                        <p style={{position:'relative', top:'-10px', lineHeight:'10px', fontWeight:'bold' }}>name</p>
-                        <p style={{position:'relative', top:'-20px', lineHeight:'10px' }}>company</p>
+                        <p style={{position:'relative', top:'-10px', lineHeight:'10px', fontWeight:'bold' }}>{profile.fullname}</p>
+                        <p style={{position:'relative', top:'-20px', lineHeight:'10px' }}>{profile.org}</p>
                     </Space>
                 </UserNameCompany>
             </UserContainer>

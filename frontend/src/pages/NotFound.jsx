@@ -50,7 +50,7 @@ const BackToHomeBtn = styled.img`
     min-height: 50px;
     min-width: 100px;
 `
-const goHome = () => {
+const goHome = (e) => {
     window.location.href = "/";
 }
 

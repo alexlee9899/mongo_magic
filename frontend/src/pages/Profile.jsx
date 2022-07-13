@@ -30,27 +30,6 @@ export default function Profile() {
     console.log(user);
 
     return (
-        /**
-         * Render user profile if there is a valid token
-         */
-        // (user !== null) ?
-        // (<div>
-        //     <h1>User Profile</h1>
-        //     <p>Name: {user.fullname}</p>
-        //     <p>Email: {user.email}</p>
-        //     <p>Org: {user.org}</p>
-        //     <p>Photo</p>
-        // </div>)
-        // :
-        // (   
-        //     (localStorage.getItem('userToken') !== null) ?
-        //     (<div>
-        //         <h1>Loading...</h1>
-        //     </div>):
-        //     (<div>
-        //         <h1>Login First</h1>
-        //         </div>)
-        // )
         <>
         <Navbar  page='Profile'></Navbar>
         <Layout>
