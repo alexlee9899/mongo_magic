@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import logo from './image/logo.png';
 const Container = styled.div`
   display: flex;
@@ -8,7 +8,6 @@ const Container = styled.div`
   align-items: center;
   padding: 48px 72px 24px;
   gap: 166px;
-
   position: absolute;
   height: 131px;
   left: -1px;
@@ -52,9 +51,7 @@ const Name = styled.div`
   font-weight: 600;
   font-size: 30px;
   line-height: 40px;
-
   letter-spacing: 0.02em;
-
   color: #126D62;
 `
 const NavbarContainer = styled.div`
@@ -63,7 +60,6 @@ const NavbarContainer = styled.div`
   align-items: center;
   padding: 8px;
   gap: 56px;
-
   width: 428px;
   height: 40px;
 `
@@ -79,7 +75,6 @@ const LinkBox = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 24px;
-
   letter-spacing: 0.02em;
   color: #222222;
 `
@@ -123,10 +118,8 @@ const RegisterBtn = styled.button`
   align-items: center;
   padding: 16px 24px;
   gap: 10px;
-
   width: 126px;
   height: 59px;
-
   border: 2px solid #126D62;
   font-family: 'Poppins';
   font-style: normal;
@@ -140,6 +133,13 @@ const RegisterBtn = styled.button`
   color: #126D62;
 `
 const Navbar = () => {
+  const navigate = useNavigate();
+  const JumpLogin = () => {
+    navigate('/login')
+  }
+  const JumpSignup = () => {
+    navigate('/signup')
+  }
   return (
     <Container>
       <LogoContainer>
@@ -149,14 +149,14 @@ const Navbar = () => {
         <Name>G’ Tracker</Name>
       </LogoContainer>
       <NavbarContainer>
-        <LinkBox>Home</LinkBox>
-        <LinkBox>Rankings</LinkBox>
+        <LinkBox><Link to='/'>Home</Link></LinkBox>
+        <LinkBox><Link to='/users/ranking'>Rankings</Link></LinkBox>
         <LinkBox>Help</LinkBox>
         <LinkBox>About</LinkBox>
       </NavbarContainer>
       <ButtonContainer>
-        <LoginBtn>Login</LoginBtn>
-        <RegisterBtn>Register</RegisterBtn>
+        <LoginBtn onClick={JumpLogin}>Login</LoginBtn>
+        <RegisterBtn onClick={JumpSignup}>Register</RegisterBtn>
       </ButtonContainer>
     </Container>
   )
