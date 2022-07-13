@@ -1,8 +1,9 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
 import { Layout, Image, Space, message } from 'antd';
 import dashBoardLines from '../assets/dashboardLines.png';
 import { getProfile } from '../utils/requests';
+import { ProfileContext } from '../App';
 
 import '../App.css';
 
@@ -35,29 +36,13 @@ const UserNameCompany = styled.div`
 `
 export default function HeaderBar(props){
     const [profile, setProfile] = useState({});
+    const prof = useContext(ProfileContext);
 
     useEffect(() => {
-        getProfile().then(res => {
-            if (res.ok){
-                res.json().then(data => {
-                    setProfile(data);
-                }
-                );
-            }else{
-                            const responseContent = (
-                <>
-                    <h>Please Login</h>
-                    <br></br>
-                    <h>Redirecting...</h>
-                </>
-            );
-            message.error(responseContent, 2)
-            .then(() => {
-                // window.location.href = "/login";
-            });
-            }
-        })
-},[]);
+        if (prof.providerProfile.profile) {
+            setProfile(prof.providerProfile.profile);
+        }
+    },[prof]);
 
     return(
         <Header style={{ backgroundColor:'#FBFBFB', display:'flex', justifyContent:'space-between' }}>

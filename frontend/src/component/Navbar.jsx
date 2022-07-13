@@ -89,14 +89,6 @@ function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-/**
- * If loading page from dashboard url there is no props
- * so we need to set default props
- */
-// Dashboard.defaultProps = {
-//     page: 'Dashboard'
-// }
-
 export default function NavBar(props) {
     const imgRef = useRef();
     const textRef = useRef();

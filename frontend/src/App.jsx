@@ -12,17 +12,36 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
+import { getProfile } from './utils/requests';
 
 export const ProfileContext = React.createContext();
 
 function App() {
   const [profile, setProfile] = React.useState(null);
 
+  const providerProfile = React.useMemo(() => ( {profile, setProfile} ), [profile, setProfile]);
+
+  React.useEffect(() => {
+      getProfile().then(res =>
+      {
+        if (res.ok){
+          res.json().then(
+            data => {
+              setProfile(data);
+            }
+          )
+        }
+        else{
+          localStorage.remove('userToken');
+        }
+      })
+  }, [localStorage.getItem('userToken')]);
+
   return (
     <div style={{ height: '100%' }}>
       <Layout style={{ height: '100%' }}>
         <Router>
-          <ProfileContext.Provider value={(profile, setProfile)}>
+          <ProfileContext.Provider value={{providerProfile}}>
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/home' element={<HomePage />} />
