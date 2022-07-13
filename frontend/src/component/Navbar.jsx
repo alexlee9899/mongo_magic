@@ -10,7 +10,6 @@ import analyticsLogo from '../assets/analyticsLogo.png';
 import analyticsLogoSelected from '../assets/analyticsLogoSelected.png';
 import rankingLogo from '../assets/rankingLogo.png';
 import rankingLogoSelected from '../assets/rankingLogoSelected.png';
-import dashBoardLines from '../assets/dashboardLines.png';
 import profileLogo from '../assets/profileLogo.png';
 import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
@@ -18,7 +17,7 @@ import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
-const {Header, Sider, Content}  = Layout;
+const { Sider }  = Layout;
 
 const HeaderLogo = styled.div`
     position: relative;
@@ -60,12 +59,7 @@ const MenuLogo = styled.img`
     height: 28px;
     position: relative; 
 `
-const UserContainer = styled.div`
-    display: flex;
-`
-const UserNameCompany = styled.div`
 
-`
 /**
  * 
  * @param {*} e 
@@ -114,9 +108,9 @@ export default function NavBar(props) {
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
-        if (!props.page){
-            setItemSelected(pageKeys['dashboard']);
-        }
+        // if (!props.page){
+        //     setItemSelected(pageKeys['dashboard']);
+        // }
     }, []);
     /**
      * Find and apply logo offset and text offset

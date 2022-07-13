@@ -5,7 +5,7 @@ import '../App.css';
 import HeaderBar from '../component/HeaderBar'
 import Navbar from '../component/Navbar'
 
-const {Header, Sider, Content}  = Layout;
+const { Content }  = Layout;
 
 export default function DashBoard(props) {
 

@@ -1,10 +1,9 @@
 import React from "react";
-import Dashboard from "./Dashboard";
 import { Layout } from 'antd';
 import HeaderBar from '../component/HeaderBar'
 import Navbar from '../component/Navbar'
 
-const {Header, Sider, Content}  = Layout;
+const { Content }  = Layout;
 
 export default function Settings() {
     return (

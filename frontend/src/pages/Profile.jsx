@@ -7,7 +7,7 @@ import {getProfile} from '../utils/requests';
 import HeaderBar from '../component/HeaderBar'
 import Navbar from '../component/Navbar'
 
-const {Header, Sider, Content}  = Layout;
+const { Content }  = Layout;
 
 message.config({
     maxCount: 1,
@@ -57,7 +57,7 @@ export default function Profile() {
             <HeaderBar page='Profile'>
             </HeaderBar>
             <Content>
-                
+
             </Content>
         </Layout>
     </>
