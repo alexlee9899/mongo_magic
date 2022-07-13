@@ -32,7 +32,8 @@ function App() {
           )
         }
         else{
-          localStorage.remove('userToken');
+          localStorage.removeItem('userToken');
+          setProfile(null);
         }
       })
   }, [localStorage.getItem('userToken')]);

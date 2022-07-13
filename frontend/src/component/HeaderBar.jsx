@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from "react";
+import { React, useEffect, useState, useContext, useMemo } from "react";
 import styled from 'styled-components';
 import { Layout, Image, Space, message } from 'antd';
 import dashBoardLines from '../assets/dashboardLines.png';
@@ -42,6 +42,19 @@ export default function HeaderBar(props){
         if (prof.providerProfile.profile) {
             setProfile(prof.providerProfile.profile);
         }
+        if (! localStorage.getItem('userToken')){
+                const responseContent = (
+                        <>
+                            <h>Please Login</h>
+                            <br></br>
+                            <h>Redirecting...</h>
+                        </>
+                    );
+                    message.error(responseContent, 2)
+                    .then(() => {
+                        window.location.href = "/login";
+                    });
+                }
     },[prof]);
 
     return(

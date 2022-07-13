@@ -27,8 +27,6 @@ export default function Profile() {
         }
     }, [])
 
-    console.log(user);
-
     return (
         <>
         <Navbar  page='Profile'></Navbar>
