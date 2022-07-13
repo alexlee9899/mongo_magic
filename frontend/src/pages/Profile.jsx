@@ -1,9 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { message } from 'antd';
+import { message, Layout } from 'antd';
 import Dashboard from "./Dashboard";
-import backend_url from "../config/api";
+import {getProfile} from '../utils/requests';
+import HeaderBar from '../component/HeaderBar'
+import Navbar from '../component/Navbar'
+
+const {Header, Sider, Content}  = Layout;
 
 message.config({
     maxCount: 1,
@@ -14,53 +18,16 @@ export default function Profile() {
     const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
 
-    const getProfile = async() =>{
-        try{
-            const response = await fetch  (`${backend_url}/users/profile`,{
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-                    },
-                Bearer: localStorage.getItem('userToken')
-            });
-            if (response.ok){
-            const data = await response.json();
-            setUser(data); 
-            } else {
-                const responseContent = (
-                    <>
-                        <h>Please Login</h>
-                        <br></br>
-                        <h>Redirecting...</h>
-                    </>
-                );
-                message.error(responseContent, 2)
-                .then(() => {
-                    window.location.href = "/login";
-                });
-            }
-        } catch (error){
-            const responseContent = (
-                <>
-                    <h>Please Login</h>
-                    <br></br>
-                    <h>Redirecting...</h>
-                </>
-            );
-            message.error(responseContent, 2)
-            .then(() => {
-                window.location.href = "/login";
-            });
-        }
-    }
-
-
     useEffect(() => {
         if (localStorage.getItem('userToken') !== null) {
-            getProfile();
+            getProfile().then(data => {
+                setUser(data);
+            }
+            );
         }
     }, [])
+
+    console.log(user);
 
     return (
         /**
@@ -84,7 +51,16 @@ export default function Profile() {
         //         <h1>Login First</h1>
         //         </div>)
         // )
-        <Dashboard page='Profile'></Dashboard>
+        <>
+        <Navbar  page='Profile'></Navbar>
+        <Layout>
+            <HeaderBar page='Profile'>
+            </HeaderBar>
+            <Content>
+                
+            </Content>
+        </Layout>
+    </>
     )
 }
 
