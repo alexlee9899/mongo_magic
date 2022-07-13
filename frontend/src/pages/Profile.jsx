@@ -1,8 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { message } from 'antd';
+import { message, Layout } from 'antd';
 import Dashboard from "./Dashboard";
+import {getProfile} from '../utils/requests';
+import HeaderBar from '../component/HeaderBar'
+import Navbar from '../component/Navbar'
+
+const { Content }  = Layout;
 
 message.config({
     maxCount: 1,
@@ -13,34 +18,16 @@ export default function Profile() {
     const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
 
-    const getProfile = async() =>{
-        try{
-            const response = await fetch  (`http://127.0.0.1:5000/users/profile`,{
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-                    },
-                Bearer: localStorage.getItem('userToken')
-            });
-            if (response.ok){
-            const data = await response.json();
-            setUser(data); 
-            } else {
-                message.error("Error: " + response.statusText, 2);
-            }
-        } catch (error){
-            console.log("Error: " + error);
-        }
-    }
-
-
     useEffect(() => {
         if (localStorage.getItem('userToken') !== null) {
-            getProfile();
+            getProfile().then(data => {
+                setUser(data);
+            }
+            );
         }
-        console.log('once');
     }, [])
+
+    console.log(user);
 
     return (
         /**
@@ -64,7 +51,16 @@ export default function Profile() {
         //         <h1>Login First</h1>
         //         </div>)
         // )
-        <Dashboard page='Profile'></Dashboard>
+        <>
+        <Navbar  page='Profile'></Navbar>
+        <Layout>
+            <HeaderBar page='Profile'>
+            </HeaderBar>
+            <Content>
+
+            </Content>
+        </Layout>
+    </>
     )
 }
 
