@@ -3,17 +3,16 @@ import Navbar from './Navbar';
 import homeImg from './image/30202458.png';
 import topImg from './image/homeImg1.png';
 import featureImg from './image/21.png';
-import sustainability from './image/sustainability 1.jpeg';
+import sustainability from './image/sustainability 1.png';
 import check from './image/check.png';
+import sosmed from './image/sosmed.png';
+import footLogo from './image/foot logo.png';
 const Property = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  width: 1440px;
   height: 2316px;
 `
 const Home = styled.div`
-  width: 1440px;
   height: 900px;
   background: url(${homeImg});
   background-size: cover;
@@ -25,22 +24,17 @@ const ButtonContainer = styled.div`
   align-items: center;
   padding: 16px 24px;
   gap: 10px;
-
   position: absolute;
   width: 163px;
   height: 59px;
   left: 80px;
   top: 622px;
-
   background: #126D62;
   border-radius: 12px;
 `
 const Button = styled.button`
   width: 115px;
   height: 27px;
-
-  /* Paragraph Semi Bold 18pt */
-
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
@@ -71,7 +65,6 @@ const BigText = styled.div`
   left: 80px;
   right: 614px;
   top: 262px;
-
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
@@ -89,7 +82,6 @@ const TopImg = styled.img`
 const Feature = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1440px;
   height: 900px;
   background: url(${featureImg});
   background-size: cover;
@@ -97,8 +89,8 @@ const Feature = styled.div`
 const Sustainability = styled.img`
   width: 584px;
   height: 868px;
-  left: 39px;
-  top: 22px;
+  margin-left: 39px;
+  margin-top: 22px;
 `
 const RightBox = styled.div`
   display: flex;
@@ -107,9 +99,9 @@ const RightBox = styled.div`
   padding: 0px;
   gap: 72px;
   height: 807px;
-  left: 720px;
+  margin-right: 70px;
   right: 72px;
-  top: 84px;
+  margin-top: 84px;
 `
 const RightTitleBOX = styled.div`
   display: flex;
@@ -117,11 +109,8 @@ const RightTitleBOX = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 24px;
-
   width: 648px;
   height: 204px;
-  /* Inside auto layout */
-
   flex: none;
   order: 0;
   align-self: stretch;
@@ -130,9 +119,6 @@ const RightTitleBOX = styled.div`
 const BigRT = styled.div`
   width: 648px;
   height: 120px;
-
-  /* Heading 1 */
-
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
@@ -199,12 +185,13 @@ const FeatureBoxRight = styled.div`
   flex-direction: column;
   height: 104px;
   width: 576px;
+  margin-left: 30px;
 `
 const Check = styled.img`
   width: 32px;
   height: 32px;
 `
-const FeatureTitle = styled.h4`
+const FeatureTitle = styled.text`
   width: 576px;
   font-family: 'Poppins';
   font-style: normal;
@@ -217,6 +204,67 @@ const FeatureTitle = styled.h4`
 `
 const FeatureText = styled.div`
   width: 576px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.02em;
+  color: #94959B;
+`
+const Footer = styled.div`
+  height: 516px;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+`
+const LeftSection = styled.div`
+  width: 232px;
+  height: 132.5px;
+  margin-left: 71px;
+  margin-top: 72.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+const Sosmed = styled.img`
+  width: 184px;
+  height: 48px;
+`
+const FootLogo = styled.img`
+  width: 232px;
+  height: 56px;
+`
+const RightSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 126px;
+  width: 794px;
+  height: 316px;
+  margin-right: 72px;
+  margin-top: 72px;
+`
+const Sitemap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 26px;
+`
+const FootTitle = styled.text`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: 0.02em;
+  color: #222222;
+`
+const FootText = styled.text`
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
@@ -274,6 +322,32 @@ const HomePageComponent = () => {
           </FeaturesBox>
         </RightBox>
       </Feature>
+      <Footer>
+        <LeftSection>
+          <FootLogo src={footLogo}></FootLogo>
+          <Sosmed src={sosmed}></Sosmed>
+        </LeftSection>
+        <RightSection>
+          <Sitemap>
+            <FootTitle>Sitemap</FootTitle>
+            <FootText>Home</FootText>
+            <FootText>Features</FootText>
+          </Sitemap>
+          <Sitemap>
+            <FootTitle>Landing</FootTitle>
+            <FootText>Property</FootText>
+            <FootText>Personal Website</FootText>
+            <FootText>Web Developer</FootText>
+            <FootText>Online Course</FootText>
+            <FootText>Donation</FootText>
+          </Sitemap>
+          <Sitemap>
+            <FootTitle>Utility</FootTitle>
+            <FootText>FAQ</FootText>
+            <FootText>Terms & Conditions</FootText>
+          </Sitemap>
+        </RightSection>
+      </Footer>
     </Property>
   )
 }
