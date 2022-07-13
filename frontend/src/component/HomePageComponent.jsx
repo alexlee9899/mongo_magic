@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Navbar from './Navbar';
 import homeImg from './image/30202458.png';
 import topImg from './image/homeImg1.png';
 import featureImg from './image/21.png';
@@ -7,6 +6,7 @@ import sustainability from './image/sustainability 1.png';
 import check from './image/check.png';
 import sosmed from './image/sosmed.png';
 import footLogo from './image/foot logo.png';
+import HomeNavbar from "./HomeNavbar";
 const Property = styled.div`
   display: flex;
   flex-direction: column;
@@ -277,7 +277,7 @@ const HomePageComponent = () => {
   return(
     <Property>
       <Home>
-        <Navbar></Navbar>
+        <HomeNavbar></HomeNavbar>
         <ButtonContainer><Button>Getting Test</Button></ButtonContainer>
         <SmallText>Knowing the sustainability progress of your organisations is important for planning further</SmallText>
         <BigText>Get your guides for sustainability</BigText>
