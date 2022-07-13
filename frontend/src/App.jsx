@@ -10,6 +10,7 @@ import Analytics from './pages/Analytics';
 import Ranking from './pages/Ranking';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/users/ranking" element={<Ranking />} />
             <Route path="/users/profile" element={<Profile />} />
             <Route path="/users/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </Layout>

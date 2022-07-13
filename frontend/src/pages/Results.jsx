@@ -1,6 +1,19 @@
 import React from "react";
-import Dashboard from "./Dashboard";
+import { Layout } from 'antd';
+import HeaderBar from '../component/HeaderBar'
+import Navbar from '../component/Navbar'
 
+const { Content }  = Layout;
 export default function Results() {
-    return <Dashboard page='Results'/>;
+    return (
+        <>
+        <Navbar  page='Results'></Navbar>
+        <Layout>
+            <HeaderBar page='Results'>
+            </HeaderBar>
+            <Content>
+            </Content>
+        </Layout>
+    </>
+    );
 }
