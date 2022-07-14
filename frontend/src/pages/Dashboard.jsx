@@ -3,8 +3,6 @@ import { Layout } from 'antd';
 import '../App.css';
 
 import HeaderBar from '../component/HeaderBar'
-import Navbar from '../component/Navbar'
-
 const { Content } = Layout;
 
 export default function DashBoard(props) {

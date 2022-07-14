@@ -1,6 +1,6 @@
 import { React, useRef, useEffect, useState } from "react";
 import styled from 'styled-components';
-import { Layout, Menu, Image, Space } from 'antd';
+import { Layout, Menu } from 'antd';
 import logo from '../assets/logo.png';
 import dashboardLogo from '../assets/dashboardLogo.png';
 import dashboardLogoSelected from '../assets/dashboardLogoSelected.png';

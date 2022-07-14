@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout } from 'antd';
 import HeaderBar from '../component/HeaderBar'
-import Navbar from '../component/Navbar'
 
 const { Content }  = Layout;
 export default function Results() {

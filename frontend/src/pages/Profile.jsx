@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
-import { useSearchParams } from 'react-router-dom';
-import { message, Layout, Image, Upload, Button, Input } from 'antd';
+import { message, Layout, Upload, Button, Input } from 'antd';
 import HeaderBar from '../component/HeaderBar'
 import uploadAvatar from '../assets/uploadAvatar.png';
 import { ProfileContext } from '../App';
@@ -16,18 +15,18 @@ message.config({
 })
 
 export default function Profile() {
-    const [searchParams] = useSearchParams();
-    const userId = searchParams.get("id");
+    // const [searchParams] = useSearchParams();
+    // const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
-    const [imgReady, setImgReady] = React.useState(false);
+    // const [imgReady, setImgReady] = React.useState(false);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
 
-    const saveImage = () => {
-        if (imgUrl) {
-            setUser({ ...user, photo: imgUrl });
-        }
-    }
+    // const saveImage = () => {
+    //     if (imgUrl) {
+    //         setUser({ ...user, photo: imgUrl });
+    //     }
+    // }
 
 
     useEffect(() => {
@@ -69,14 +68,14 @@ export default function Profile() {
                 fileToDataUrl(info.file.originFileObj)
                     .then(response => {
                         setImgUrl(response);
-                        setImgReady(false);
+                        // setImgReady(false);
                         setUser({ ...user, photo: response });
                         info.file.status = 'done';
                     });
             }
         },
         onRemove(info) {
-            setImgReady(false);
+            // setImgReady(false);
             setImgUrl({});
         },
         style: avatarStyle,

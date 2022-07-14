@@ -1,9 +1,8 @@
 import React from "react";
 import { Layout } from 'antd';
-import HeaderBar from '../component/HeaderBar'
-import Navbar from '../component/Navbar'
+import HeaderBar from '../component/HeaderBar';
 
-const {Header, Sider, Content}  = Layout;
+const { Content}  = Layout;
 
 export default function Ranking() {
     return (
