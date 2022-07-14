@@ -112,7 +112,7 @@ export default function Profile() {
                     <Input size="large" maxLength='20' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setUser({ ...user, fullname: e.target.value })} />
                     </div>
                     <div style={{width:'40vw', marginTop:'20px'}}>
-                    <h3> Email(required)</h3>
+                    <h3> Email (required)</h3>
                     <Input size="large" maxLength='40' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setUser({ ...user, email: e.target.value })}/>
                     </div>
                     <div style={{width:'40vw', marginTop:'20px'}}>

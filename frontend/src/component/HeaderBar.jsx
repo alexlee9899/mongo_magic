@@ -4,6 +4,7 @@ import { Layout, Image, Space, message } from 'antd';
 import dashBoardLines from '../assets/dashboardLines.png';
 // import { getProfile } from '../utils/requests';
 import { ProfileContext } from '../App';
+import { checkToken } from '../utils/functions';
 
 import '../App.css';
 
@@ -42,19 +43,20 @@ export default function HeaderBar(props) {
         if (prof.providerProfile.profile) {
             setProfile(prof.providerProfile.profile);
         }
-        if (!localStorage.getItem('userToken')) {
-            const responseContent = (
-                <>
-                    <h>Please Login</h>
-                    <br></br>
-                    <h>Redirecting...</h>
-                </>
-            );
-            message.error(responseContent, 2)
-                .then(() => {
-                    window.location.href = "/login";
-                });
-        }
+        // if (!localStorage.getItem('userToken')) {
+        //     const responseContent = (
+        //         <>
+        //             <h>Please Login</h>
+        //             <br></br>
+        //             <h>Redirecting...</h>
+        //         </>
+        //     );
+        //     message.error(responseContent, 2)
+        //         .then(() => {
+        //             window.location.href = "/login";
+        //         });
+        // }
+        checkToken();
     }, [prof]);
 
     return (

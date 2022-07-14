@@ -1,3 +1,5 @@
+import {message} from 'antd';
+
 export function removeNavbar() {
     const navbar = document.getElementById("Dashboard_sider");
     if (navbar) {
@@ -20,4 +22,20 @@ export function fileToDataUrl(file) {
     });
     reader.readAsDataURL(file);
     return dataUrlPromise;
+}
+
+export function checkToken() {
+    if (!localStorage.getItem('userToken')) {
+        const responseContent = (
+            <>
+                <h>Please Login</h>
+                <br></br>
+                <h>Redirecting...</h>
+            </>
+        );
+        message.error(responseContent, 2)
+            .then(() => {
+                window.location.href = "/login";
+            });
+    }
 }

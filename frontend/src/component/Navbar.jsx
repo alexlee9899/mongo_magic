@@ -16,6 +16,7 @@ import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { checkToken } from '../utils/functions';
 
 const { Sider }  = Layout;
 
@@ -101,6 +102,7 @@ export default function NavBar(props) {
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
+        checkToken();
     }, []);
     /**
      * Find and apply logo offset and text offset
