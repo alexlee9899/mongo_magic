@@ -8,7 +8,7 @@ const {Header, Sider, Content}  = Layout;
 export default function Ranking() {
     return (
         <>
-        <Navbar page='Ranking'></Navbar>
+        {/* <Navbar page='Ranking'></Navbar> */}
         <Layout>
             <HeaderBar page='Ranking'>
             </HeaderBar>

@@ -8,7 +8,7 @@ const { Content }  = Layout;
 export default function Settings() {
     return (
         <>
-        <Navbar  page='Settings'></Navbar>
+        {/* <Navbar  page='Settings'></Navbar> */}
         <Layout>
             <HeaderBar page='Settings'>
             </HeaderBar>

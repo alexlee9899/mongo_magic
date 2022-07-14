@@ -7,11 +7,12 @@ const { Content }  = Layout;
 export default function Results() {
     return (
         <>
-        <Navbar  page='Results'></Navbar>
+        {/* <Navbar  page='Results'></Navbar> */}
         <Layout>
             <HeaderBar page='Results'>
             </HeaderBar>
             <Content>
+            result content
             </Content>
         </Layout>
     </>
