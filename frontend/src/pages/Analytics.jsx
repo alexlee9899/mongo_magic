@@ -1,14 +1,13 @@
 import React from "react";
 import { Layout } from 'antd';
 import HeaderBar from '../component/HeaderBar'
-import Navbar from '../component/Navbar'
 
 const { Content }  = Layout;
 
 export default function Ranking() {
     return (
         <>
-        <Navbar page='Analytics'></Navbar>
+        {/* <Navbar page='Analytics'></Navbar> */}
         <Layout>
             <HeaderBar page='Analytics'>
             </HeaderBar>

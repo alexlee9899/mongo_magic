@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from 'styled-components';
 import Image404 from "../assets/404.png";
 import backToHome from "../assets/404BackToHomeBtn.png";
+import { removeNavbar } from "../utils/functions";
 
 const ImageContainer = styled.img`
     display: block;
@@ -50,18 +51,22 @@ const BackToHomeBtn = styled.img`
     min-height: 50px;
     min-width: 100px;
 `
-const goHome = () => {
+const goHome = (e) => {
     window.location.href = "/";
 }
 
 export default function NotFound() {
+    useEffect(() => {
+        removeNavbar();
+    }, []);
+
     return (
-        <div style={{ background:'#F6F6F6', height: '100%', width:'100%', textAlign:'center', justifyContent:'center', alignContent:''}}>
-            <ImageContainer src={Image404}/>
+        <div style={{ background: '#F6F6F6', height: '100%', width: '100%', textAlign: 'center', justifyContent: 'center', alignContent: '' }}>
+            <ImageContainer src={Image404} />
             <Text404>404 Not Found</Text404>
             <TextDescription>Oops! It seems like the page you are looking for is not available! </TextDescription>
             <TextDescription>Please try again with another page or go back to home.</TextDescription>
-            <BackToHomeBtn onClick={()=>goHome()} className='back_home' src={backToHome}/>
+            <BackToHomeBtn onClick={() => goHome()} className='back_home' src={backToHome} />
         </div>
     );
-    }
+}

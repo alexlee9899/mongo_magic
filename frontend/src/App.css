@@ -68,6 +68,14 @@ li.ant-menu-item.ant-menu-item-only-child{
 
 .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
   border-right: 0;
+  border-radius: 20px;
+}
+
+/*
+  Change border radius for unselected menu item so deselected item doesn't have a square border the border disappears
+*/
+li.ant-menu-item {
+  border-radius: 20px;
 }
 
 /*  
@@ -79,4 +87,11 @@ li.ant-menu-item.ant-menu-item-only-child{
 
 .ant-menu-item-selected {
   color: white;
+}
+
+.ant-upload.ant-upload-drag {
+  width: 300px;
+  height:300px;
+  border:0;
+  background: fixed;
 }
