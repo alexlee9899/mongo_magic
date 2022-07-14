@@ -52,6 +52,14 @@ export default function Profile() {
         maxHeight:'100%',
     }
 
+    let uploadStyle = {
+        borderRadius: '4px',
+        background: '#126D62',
+        color: '#fff',
+        width: '15vw',
+        marginTop:'50px'
+    }
+
     const props = {
         name: 'file',
         maxCount: 1,
@@ -89,16 +97,17 @@ export default function Profile() {
                     </div>
                     <div style={{width:'40vw', marginTop:'100px'}}>
                     <h3> Name</h3>
-                    <Input size="large" style={{width:'40vw'}} value={prof.providerProfile.profile.fullname}/>
+                    <Input size="large" maxLength='20' style={{width:'40vw'}} value={prof.providerProfile.profile.fullname}/>
                     </div>
                     <div style={{width:'40vw', marginTop:'20px'}}>
                     <h3> Email(required)</h3>
-                    <Input size="large" style={{width:'40vw'}} value={prof.providerProfile.profile.email}/>
+                    <Input size="large" maxLength='40' style={{width:'40vw'}} value={prof.providerProfile.profile.email}/>
                     </div>
                     <div style={{width:'40vw', marginTop:'20px'}}>
                     <h3> Organisation Name</h3>
-                    <Input size="large" style={{width:'40vw'}} value={prof.providerProfile.profile.org}/>
+                    <Input size="large" maxLength='50' style={{width:'40vw'}} value={prof.providerProfile.profile.org}/>
                     </div>
+                    <Button style={uploadStyle}>Update My Profile</Button>
                 </Content>
             </Layout>) : (<></>)
             }
