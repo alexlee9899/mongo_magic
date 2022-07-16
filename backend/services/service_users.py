@@ -65,6 +65,11 @@ def user_update_profile(req):
   identity = get_jwt_identity()
   db_col = db['users']
   user = db_col.find_one({'email': identity})
-  # for key in req.keys():
-  #   db_col.update_one({'email': identity}, {'$set': {key: req[key]}})
-  return "success"
+  if not req.keys():
+    return make_response(json.dumps({'message': 'Missing required fields'}), 400)
+  for key in req.keys():
+    if key == 'email' and db_col.find_one({'email': req['email']}):
+      return make_response(json.dumps({'message': 'Email already exists'}), 400)
+    db_col.update_one({'email': identity}, {'$set': {key: req[key]}})
+  return make_response(json.dumps({'message': 'Profile updated'}), 200)
+
