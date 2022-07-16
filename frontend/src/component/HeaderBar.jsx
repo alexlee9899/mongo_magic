@@ -39,10 +39,8 @@ const UserNameCompany = styled.div`
 export default function HeaderBar(props) {
     const [profile, setProfile] = useState(undefined);
     const prof = useContext(ProfileContext);
-
-    console.log('okokkokko');
     useEffect(() => {
-        if (prof.providerProfile.profile && (! objectEqual(prof.providerProfile.profile, profile))) {
+        if (prof.providerProfile.profile && (!objectEqual(prof.providerProfile.profile, profile))) {
             setProfile(prof.providerProfile.profile);
         }
         if (!prof?.providerProfile?.profile) {
@@ -87,6 +85,9 @@ export default function HeaderBar(props) {
     }, [prof.providerProfile.profile, prof.providerProfile.setProfile]);
 
     const objectEqual = (obj1, obj2) => {
+        if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+            return false;
+        }
         const obj1Length = Object.keys(obj1).length;
         const obj2Length = Object.keys(obj2).length;
 
