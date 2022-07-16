@@ -34,7 +34,7 @@ export function checkToken() {
         </>
     );
     if (!localStorage.getItem('userToken')) {
-        message.error(responseContent, 2)
+        message.error(responseContent, 0.1)
             .then(() => {
                 window.location.href = "/login";
             });
@@ -42,12 +42,22 @@ export function checkToken() {
     else {
         getProfile().then(res => {
             if (!res.ok) {
-                message.error(responseContent, 2)
+                message.error(responseContent, 0.1)
                     .then(() => {
                         window.location.href = "/login";
                     });
             }
         })
     }
-
 }
+
+export const asyncLocalStorage = {
+    setItem: async (key, value) =>{
+        await Promise.resolve();
+        return localStorage.setItem(key, value);
+    },
+    getItem: async(key) =>{
+        await Promise.resolve();
+        return localStorage.getItem(key);
+    }
+};
