@@ -4,7 +4,7 @@ import HeaderBar from '../component/HeaderBar';
 
 const { Content}  = Layout;
 
-export default function Ranking() {
+const Ranking= () => {
     return (
         <>
         {/* <Navbar page='Ranking'></Navbar> */}
@@ -17,3 +17,4 @@ export default function Ranking() {
     </>
     );
 }
+export default Ranking;

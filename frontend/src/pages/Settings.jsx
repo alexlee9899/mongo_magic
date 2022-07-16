@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from 'antd';
 import HeaderBar from '../component/HeaderBar'
 
-export default function Settings() {
+const Settings = () => {
     return (
         <>
         {/* <Navbar  page='Settings'></Navbar> */}
@@ -13,3 +13,5 @@ export default function Settings() {
     </>
     );
 }
+
+export default Settings;

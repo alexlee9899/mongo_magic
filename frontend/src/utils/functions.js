@@ -1,3 +1,6 @@
+import { message } from 'antd';
+import { getProfile } from './requests'
+
 export function removeNavbar() {
     const navbar = document.getElementById("Dashboard_sider");
     if (navbar) {
@@ -21,3 +24,40 @@ export function fileToDataUrl(file) {
     reader.readAsDataURL(file);
     return dataUrlPromise;
 }
+
+export function checkToken() {
+    const responseContent = (
+        <>
+            <h>Please Login</h>
+            <br></br>
+            <h>Redirecting...</h>
+        </>
+    );
+    if (!localStorage.getItem('userToken')) {
+        message.error(responseContent, 0.1)
+            .then(() => {
+                window.location.href = "/login";
+            });
+    } 
+    else {
+        getProfile().then(res => {
+            if (!res.ok) {
+                message.error(responseContent, 0.1)
+                    .then(() => {
+                        window.location.href = "/login";
+                    });
+            }
+        })
+    }
+}
+
+export const asyncLocalStorage = {
+    setItem: async (key, value) =>{
+        await Promise.resolve();
+        return localStorage.setItem(key, value);
+    },
+    getItem: async(key) =>{
+        await Promise.resolve();
+        return localStorage.getItem(key);
+    }
+};

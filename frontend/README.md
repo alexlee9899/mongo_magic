@@ -45,5 +45,20 @@ API接口：
 
 这个应该不看代码风格，但是尽量写好一点吧，按照6080要求，用es6的语法。以后各位找工作展示的话可能会很有帮助。
 
+===============================================================
 
   
+
+API 请求在src/utils/requests.js里, 默认导出的apiRequest(), 参数以object形式传入
+以上面提供的接口为例，参数格式为：
+
+`[POST] /users/register`   
+
+{
+  method: ’GET'不用写，'POST‘就写'POST'
+  url: /users/register
+  body: 有要求就写没有就不写
+}
+
+requests.js下面有封装好的例子可以直接拿来用
+

@@ -4,6 +4,8 @@ import { Layout, Image, Space, message } from 'antd';
 import dashBoardLines from '../assets/dashboardLines.png';
 // import { getProfile } from '../utils/requests';
 import { ProfileContext } from '../App';
+import { checkToken } from '../utils/functions';
+import { getProfile, userLogout } from '../utils/requests';
 
 import '../App.css';
 
@@ -35,12 +37,37 @@ const UserNameCompany = styled.div`
 
 `
 export default function HeaderBar(props) {
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState(undefined);
     const prof = useContext(ProfileContext);
 
     useEffect(() => {
-        if (prof.providerProfile.profile) {
+        if (prof.providerProfile.profile && profile === undefined) {
             setProfile(prof.providerProfile.profile);
+        }
+        if (! prof?.providerProfile?.profile) {
+                getProfile().then(res => {
+                    if (res.ok) {
+                        res.json().then(
+                            data => {
+                                prof.providerProfile.setProfile(data);
+                                setProfile(data);
+                            }
+                        )
+                    }   else {
+                        const responseContent = (
+                            <>
+                                <h>Please Login</h>
+                                <br></br>
+                                <h>Redirecting...</h>
+                            </>
+                        );
+                        message.error(responseContent, 2)
+                            .then(() => {
+                                window.location.href = "/login";
+                            });
+
+                    }
+                })
         }
         if (!localStorage.getItem('userToken')) {
             const responseContent = (
@@ -55,9 +82,11 @@ export default function HeaderBar(props) {
                     window.location.href = "/login";
                 });
         }
+        // checkToken();
     }, [prof]);
 
     return (
+        (profile === undefined ? <></> :
         <Header style={{ backgroundColor: '#FBFBFB', display: 'flex', justifyContent: 'space-between' }}>
             <div>
                 <MenuLogo src={dashBoardLines} style={{ marginRight: '20px' }}>
@@ -80,5 +109,6 @@ export default function HeaderBar(props) {
                 </UserNameCompany>
             </UserContainer>
         </Header>
+        )
     )
 }
