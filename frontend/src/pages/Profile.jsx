@@ -10,6 +10,7 @@ import { updateProfile } from "../utils/requests";
 import LoadingIcon from "../component/LoadingIcon";
 import LoginChecker from "../component/LoginChecker";
 import { getProfile } from "../utils/requests";
+import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 const { Dragger } = Upload;
@@ -23,6 +24,7 @@ const Profile = () => {
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
     const [change, setChange] = React.useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (prof.providerProfile.profile) {
@@ -91,7 +93,12 @@ const Profile = () => {
         updateProfile(data)
             .then(res => {
                 if (res.ok) {
-                    message.success('Profile updated successfully');
+                    if (data?.email) {
+                        message.success('Email Updated, Please Login Again');
+                        navigate('/login');
+                    } else{
+                        message.success('Profile updated successfully');
+                    }
                     prof.providerProfile.setProfile( { ...prof.providerProfile.profile, ...data });
                 }
                 else {
@@ -103,7 +110,7 @@ const Profile = () => {
 
     return (
         <>
-            <LoginChecker></LoginChecker>
+            {/* <LoginChecker></LoginChecker> */}
             <Layout>
                     <HeaderBar page='Profile'>
                     </HeaderBar>

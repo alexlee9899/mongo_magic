@@ -1,5 +1,5 @@
 import { React, useRef, useEffect, useState } from "react";
-import { LogoutOutlined } from '@ant-design/icons';
+    import { LogoutOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
 import logo from '../assets/logo.png';
@@ -99,6 +99,8 @@ export default function NavBar(props) {
     const [textOffsetLeft, setTextOffsetLeft] = useState(null);
     const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
     let navigate = useNavigate();
+    const themeColor = '#126D62';
+    const [logoutHover, setLogoutHover] = useState(undefined);
 
     
     useEffect(() => {
@@ -138,6 +140,14 @@ export default function NavBar(props) {
     }
     
 
+    const handleLogoutMouseOn = () => {
+        setLogoutHover(themeColor);
+    }
+
+    const handleLogoutMouseOff = () =>{
+        setLogoutHover(undefined);
+    }
+
     return (
     <>
             <Sider id="Dashboard_sider">
@@ -176,8 +186,9 @@ export default function NavBar(props) {
                         </Menu.Item>
                     </Menu>
                 </MainMenuContainer>
-                <div onClick={() => userLogout()} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
-                    Logout<LogoutOutlined style={{ fontSize:'20px',marginLeft:'5px' }}></LogoutOutlined>
+                <div onClick={() => {userLogout()}} onMouseEnter={() => (handleLogoutMouseOn())} onMouseLeave={() => {handleLogoutMouseOff()}} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
+                    <b style={{ color:logoutHover  }}>Logout</b>
+                    <LogoutOutlined onMouseEnter={() => (handleLogoutMouseOn())} onMouseLeave={() => {handleLogoutMouseOff()}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined>
                 </div>
                 </>
                 ) : (<></>)
