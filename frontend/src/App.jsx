@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div style={{ height: '100%' }}>
-      <Layout style={{ height: '100%' }}>
+      <Layout style={{ minHeight: '100%' }}>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
             {/* { (useRegex(window.location.pathname))  ? (<NavBar page='Dashboard'></NavBar>) : (<></>)} */}
