@@ -8,9 +8,8 @@ const apiRequest = async({method=undefined, url, body=undefined}) => {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-            mode: 'cors', 
         },
-        body: body ? JSON.stringify(body) : null
+        body: body ? JSON.stringify(body) : undefined
     };
     try{
         console.log('fetch requested: method:', JSON.stringify(method), 'url:', JSON.stringify(url), 'body:', JSON.stringify(body));
@@ -31,7 +30,6 @@ export default apiRequest;
 export const userLogout = () => {
     localStorage.removeItem('userToken');
     window.location.href = "/login";
-    message.success('Logged Out Successfully');
 }
 
 export const getProfile = (url='/users/profile')  => {
