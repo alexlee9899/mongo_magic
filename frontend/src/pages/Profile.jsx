@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
-import { message, Layout, Upload, Button, Input } from 'antd';
+import { EditOutlined } from "@ant-design/icons";
+import { message, Layout, Upload, Button, Input, Spin } from 'antd';
 import HeaderBar from '../component/HeaderBar'
 import uploadAvatar from '../assets/uploadAvatar.png';
 import { ProfileContext } from '../App';
 import { fileToDataUrl } from "../utils/functions";
 import { updateProfile } from "../utils/requests";
+import LoadingIcon from "../component/LoadingIcon";
+import LoginChecker from "../component/LoginChecker";
+
 
 const { Content } = Layout;
 const { Dragger } = Upload;
@@ -15,19 +19,9 @@ message.config({
 })
 
 export default function Profile() {
-    // const [searchParams] = useSearchParams();
-    // const userId = searchParams.get("id");
     const [user, setUser] = React.useState(null);
-    // const [imgReady, setImgReady] = React.useState(false);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
-
-    // const saveImage = () => {
-    //     if (imgUrl) {
-    //         setUser({ ...user, photo: imgUrl });
-    //     }
-    // }
-
 
     useEffect(() => {
         if (prof.providerProfile.profile) {
@@ -44,6 +38,7 @@ export default function Profile() {
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: 'rgb(241,241,241)',
+        height: '100vh',
     }
 
     let avatarStyle = {
@@ -57,7 +52,7 @@ export default function Profile() {
         background: '#126D62',
         color: '#fff',
         width: '15vw',
-        marginTop:'50px'
+        margin: '50px'
     }
 
     const props = {
@@ -80,6 +75,8 @@ export default function Profile() {
         },
         style: avatarStyle,
         showUploadList: false,
+        customRequest: ()=>{},
+        accept: "image/png, image/jpeg"
     }
 
     const update = (data) =>{
@@ -87,25 +84,33 @@ export default function Profile() {
             .then(res => {
                 if (res.ok) {
                     message.success('Profile updated successfully');
+                    prof.providerProfile.profile = {...data };
                 }
                 else {
                     message.error('Error updating profile');
                 }
             })
     }
+
     return (
-        <>
+        <>  
+            <LoginChecker></LoginChecker>
             {(prof.providerProfile.profile) ? (
             <Layout>
                 <HeaderBar page='Profile'>
                 </HeaderBar>
                 <Content style={contentStyle}>
                     <div>
-                    <Dragger {...props}>
+                    <Dragger {... props}>
                         <div style={{backgroundColor:'white', borderRadius:'100%', width:'300px', height:'300px'}}>
                             <img alt='avatar' style={{borderRadius:'100%', width:'300px', height:'300px'}} src={imgUrl ? imgUrl : uploadAvatar}></img>
                         </div>
                     </Dragger>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                    {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
                     </div>
                     <div style={{width:'40vw', marginTop:'100px'}}>
                     <h3> Name</h3>
@@ -120,8 +125,9 @@ export default function Profile() {
                     <Input size="large" maxLength='50' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setUser({ ...user, org: e.target.value })}/>
                     </div>
                     <Button style={uploadStyle} onClick={() => (update(user))}>Update My Profile</Button>
+                    <div style={{ height:'40px', width:'40px' }}><br></br></div>
                 </Content>
-            </Layout>) : (<></>)
+            </Layout>) : (<Layout style={{display:'flex', justifyContent:'center'}}><LoadingIcon></LoadingIcon></Layout>)
             }
         </>
     )

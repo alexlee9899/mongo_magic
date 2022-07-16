@@ -95,3 +95,7 @@ li.ant-menu-item {
   border:0;
   background: fixed;
 }
+
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+  overflow: scroll;
+}

@@ -1,4 +1,5 @@
-import {message} from 'antd';
+import { message } from 'antd';
+import { getProfile } from './requests'
 
 export function removeNavbar() {
     const navbar = document.getElementById("Dashboard_sider");
@@ -25,17 +26,28 @@ export function fileToDataUrl(file) {
 }
 
 export function checkToken() {
+    const responseContent = (
+        <>
+            <h>Please Login</h>
+            <br></br>
+            <h>Redirecting...</h>
+        </>
+    );
     if (!localStorage.getItem('userToken')) {
-        const responseContent = (
-            <>
-                <h>Please Login</h>
-                <br></br>
-                <h>Redirecting...</h>
-            </>
-        );
         message.error(responseContent, 2)
             .then(() => {
                 window.location.href = "/login";
             });
+    } 
+    else {
+        getProfile().then(res => {
+            if (!res.ok) {
+                message.error(responseContent, 2)
+                    .then(() => {
+                        window.location.href = "/login";
+                    });
+            }
+        })
     }
+
 }

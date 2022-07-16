@@ -39,6 +39,7 @@ function App() {
   React.useEffect(() => {
     getProfile().then(res => {
       if (res.ok) {
+
         res.json().then(
           data => {
             setProfile(data);
@@ -46,8 +47,14 @@ function App() {
         )
       }
       else {
-        localStorage.removeItem('userToken');
-        setProfile(null);
+        res.json().then(
+          data => {
+            if (data.msg === 'Token has expired'){
+              localStorage.removeItem('userToken');
+              setProfile(null);
+            }
+          }
+        )
       }
     })
   }, []);
