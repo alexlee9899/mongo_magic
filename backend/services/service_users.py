@@ -64,7 +64,6 @@ def user_get_profile(req):
 def user_update_profile(req):
   identity = get_jwt_identity()
   db_col = db['users']
-  user = db_col.find_one({'email': identity})
   if not req.keys():
     return make_response(json.dumps({'message': 'Missing required fields'}), 400)
   for key in req.keys():
