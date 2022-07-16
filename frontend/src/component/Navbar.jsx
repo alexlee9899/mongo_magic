@@ -1,4 +1,5 @@
 import { React, useRef, useEffect, useState } from "react";
+import { LogoutOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
 import logo from '../assets/logo.png';
@@ -17,6 +18,7 @@ import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
+import { userLogout } from '../utils/requests';
 
 const { Sider }  = Layout;
 
@@ -102,7 +104,7 @@ export default function NavBar(props) {
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
-        checkToken();
+        // checkToken();
     }, []);
     /**
      * Find and apply logo offset and text offset
@@ -145,7 +147,8 @@ export default function NavBar(props) {
                 </HeaderLogo>
                 {
                     (textOffsetLeft&& logoOffsetLeft)?
-                (<MainMenuContainer>
+                (<>
+                <MainMenuContainer>
                     <Menu id = "menu" defaultSelectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
                     <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="200"  >
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
@@ -172,7 +175,12 @@ export default function NavBar(props) {
                             Settings
                         </Menu.Item>
                     </Menu>
-                </MainMenuContainer>) : (<></>)
+                </MainMenuContainer>
+                <div onClick={() => userLogout()} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
+                    Logout<LogoutOutlined style={{ fontSize:'20px',marginLeft:'5px' }}></LogoutOutlined>
+                </div>
+                </>
+                ) : (<></>)
             }
             </Sider>
     </>
