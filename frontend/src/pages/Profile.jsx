@@ -22,6 +22,7 @@ const Profile = () => {
     const [user, setUser] = React.useState(null);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
+    const [change, setChange] = React.useState({});
 
     useEffect(() => {
         if (prof.providerProfile.profile) {
@@ -81,17 +82,21 @@ const Profile = () => {
     }
 
     const update = (data) => {
+        if(data?.email === user.email){
+            delete data.email;
+        }
         updateProfile(data)
             .then(res => {
                 if (res.ok) {
                     message.success('Profile updated successfully');
-                    prof.providerProfile.profile = { ...data };
+                    prof.providerProfile.setProfile( { ...prof.providerProfile.profile, ...data });
                 }
                 else {
                     message.error('Error updating profile');
                 }
             })
     }
+
 
     return (
         <>
@@ -115,17 +120,17 @@ const Profile = () => {
                         </div>
                         <div style={{ width: '40vw', marginTop: '100px' }}>
                             <h3> Name</h3>
-                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setUser({ ...user, fullname: e.target.value })} />
+                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px' }}>
                             <h3> Email (required)</h3>
-                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px' }}>
                             <h3> Organisation Name</h3>
-                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setUser({ ...user, org: e.target.value })} />
+                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setChange({ org: e.target.value })} />
                         </div>
-                        <Button style={uploadStyle} onClick={() => (update(user))}>Update My Profile</Button>
+                        <Button style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
                 ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)
