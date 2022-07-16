@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import HeaderBar from '../component/HeaderBar'
 
 const { Content }  = Layout;
-export default function Results() {
+const Results= () => {
     return (
         <>
         {/* <Navbar  page='Results'></Navbar> */}
@@ -17,3 +17,5 @@ export default function Results() {
     </>
     );
 }
+
+export default Results;

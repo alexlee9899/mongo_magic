@@ -9,7 +9,7 @@ import { fileToDataUrl } from "../utils/functions";
 import { updateProfile } from "../utils/requests";
 import LoadingIcon from "../component/LoadingIcon";
 import LoginChecker from "../component/LoginChecker";
-
+import { getProfile } from "../utils/requests";
 
 const { Content } = Layout;
 const { Dragger } = Upload;
@@ -18,7 +18,7 @@ message.config({
     maxCount: 1,
 })
 
-export default function Profile() {
+const Profile = () => {
     const [user, setUser] = React.useState(null);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
@@ -29,6 +29,7 @@ export default function Profile() {
         }
     }, [prof])
 
+    console.log(user);
 
     let contentStyle = {
         padding: '24px',
@@ -43,8 +44,8 @@ export default function Profile() {
 
     let avatarStyle = {
         borderRadius: '100%',
-        maxWidth:'100%', 
-        maxHeight:'100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
     }
 
     let uploadStyle = {
@@ -75,16 +76,16 @@ export default function Profile() {
         },
         style: avatarStyle,
         showUploadList: false,
-        customRequest: ()=>{},
+        customRequest: () => { },
         accept: "image/png, image/jpeg"
     }
 
-    const update = (data) =>{
+    const update = (data) => {
         updateProfile(data)
             .then(res => {
                 if (res.ok) {
                     message.success('Profile updated successfully');
-                    prof.providerProfile.profile = {...data };
+                    prof.providerProfile.profile = { ...data };
                 }
                 else {
                     message.error('Error updating profile');
@@ -93,43 +94,45 @@ export default function Profile() {
     }
 
     return (
-        <>  
+        <>
             <LoginChecker></LoginChecker>
-            {(prof.providerProfile.profile) ? (
             <Layout>
-                <HeaderBar page='Profile'>
-                </HeaderBar>
-                <Content style={contentStyle}>
-                    <div>
-                    <Dragger {... props}>
-                        <div style={{backgroundColor:'white', borderRadius:'100%', width:'300px', height:'300px'}}>
-                            <img alt='avatar' style={{borderRadius:'100%', width:'300px', height:'300px'}} src={imgUrl ? imgUrl : uploadAvatar}></img>
+                    <HeaderBar page='Profile'>
+                    </HeaderBar>
+            {(prof.providerProfile.profile) ? (
+                    <Content style={contentStyle}>
+                        <div>
+                            <Dragger {...props}>
+                                <div style={{ backgroundColor: 'white', borderRadius: '100%', width: '300px', height: '300px' }}>
+                                    <img alt='avatar' style={{ borderRadius: '100%', width: '300px', height: '300px' }} src={imgUrl ? imgUrl : uploadAvatar}></img>
+                                </div>
+                            </Dragger>
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                            {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
                         </div>
-                    </Dragger>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
-                    {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
-                    </div>
-                    <div style={{width:'40vw', marginTop:'100px'}}>
-                    <h3> Name</h3>
-                    <Input size="large" maxLength='20' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setUser({ ...user, fullname: e.target.value })} />
-                    </div>
-                    <div style={{width:'40vw', marginTop:'20px'}}>
-                    <h3> Email (required)</h3>
-                    <Input size="large" maxLength='40' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setUser({ ...user, email: e.target.value })}/>
-                    </div>
-                    <div style={{width:'40vw', marginTop:'20px'}}>
-                    <h3> Organisation Name</h3>
-                    <Input size="large" maxLength='50' style={{width:'40vw'}} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setUser({ ...user, org: e.target.value })}/>
-                    </div>
-                    <Button style={uploadStyle} onClick={() => (update(user))}>Update My Profile</Button>
-                    <div style={{ height:'40px', width:'40px' }}><br></br></div>
-                </Content>
-            </Layout>) : (<Layout style={{display:'flex', justifyContent:'center'}}><LoadingIcon></LoadingIcon></Layout>)
+                        <div style={{ width: '40vw', marginTop: '100px' }}>
+                            <h3> Name</h3>
+                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setUser({ ...user, fullname: e.target.value })} />
+                        </div>
+                        <div style={{ width: '40vw', marginTop: '20px' }}>
+                            <h3> Email (required)</h3>
+                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+                        </div>
+                        <div style={{ width: '40vw', marginTop: '20px' }}>
+                            <h3> Organisation Name</h3>
+                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setUser({ ...user, org: e.target.value })} />
+                        </div>
+                        <Button style={uploadStyle} onClick={() => (update(user))}>Update My Profile</Button>
+                        <div style={{ height: '40px', width: '40px' }}><br></br></div>
+                    </Content>
+                ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)
             }
+            </Layout>
         </>
     )
 }
 
+export default Profile;

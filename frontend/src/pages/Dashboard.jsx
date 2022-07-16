@@ -6,8 +6,7 @@ import { checkToken } from '../utils/functions';
 import HeaderBar from '../component/HeaderBar'
 const { Content } = Layout;
 
-export default function DashBoard(props) {
-    checkToken();
+const Dashboard = (props) => {
     return (
         <>
             {/* <Navbar page='Dashboard'></Navbar> */}
@@ -22,3 +21,4 @@ export default function DashBoard(props) {
     );
 
 }
+export default Dashboard;

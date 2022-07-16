@@ -54,8 +54,7 @@ const BackToHomeBtn = styled.img`
 const goHome = (e) => {
     window.location.href = "/";
 }
-
-export default function NotFound() {
+const NotFound = () => {
     useEffect(() => {
         removeNavbar();
     }, []);
@@ -70,3 +69,5 @@ export default function NotFound() {
         </div>
     );
 }
+
+export default NotFound;
