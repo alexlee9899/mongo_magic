@@ -65,4 +65,6 @@ def user_update_profile(req):
   identity = get_jwt_identity()
   db_col = db['users']
   user = db_col.find_one({'email': identity})
+  # for key in req.keys():
+  #   db_col.update_one({'email': identity}, {'$set': {key: req[key]}})
   return "success"

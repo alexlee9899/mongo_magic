@@ -17,10 +17,10 @@ def login():
 def get_profile():
   return user_get_profile(request)
 
-@users_blueprint.route('/users/update_profile', methods=['POST'])
+@users_blueprint.route('/users/update_profile', methods=['PATCH'])
 @jwt_required()
 def update_profile():
-  return user_update_profile(request)
+  return user_update_profile(request.json)
 
 @users_blueprint.route('/', methods=['GET'])
 def hello():
