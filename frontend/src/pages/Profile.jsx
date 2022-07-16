@@ -27,6 +27,7 @@ const Profile = () => {
     useEffect(() => {
         if (prof.providerProfile.profile) {
             setUser(prof.providerProfile.profile);
+            setImgUrl(prof.providerProfile.profile.photo);
         }
     }, [prof])
 
@@ -57,6 +58,7 @@ const Profile = () => {
         margin: '50px'
     }
 
+
     const props = {
         name: 'file',
         maxCount: 1,
@@ -67,6 +69,7 @@ const Profile = () => {
                         setImgUrl(response);
                         // setImgReady(false);
                         setUser({ ...user, photo: response });
+                        setChange({ ...change, photo: response });
                         info.file.status = 'done';
                     });
             }
