@@ -19,6 +19,7 @@ import styled from 'styled-components'
 import { style } from "@mui/system";
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { asyncLocalStorage } from '../utils/functions'
 
 const Newinput = styled.input`
   border:0;
@@ -155,7 +156,7 @@ const SignIn = () => {
       });
 };
   const transRegis = (event) => {
-    navigate(`/signup`);
+    navigate(`/signup`); 
   }
 
   const handleSubmit = (event) => {
@@ -169,8 +170,9 @@ const SignIn = () => {
     Api('users/login', 'POST', undefined, msg, (body) => {
       console.log(body);
       if (body.token){
-        localStorage.setItem('userToken', JSON.stringify(body.token));
-        navigate(`/users/dashboard`);
+        asyncLocalStorage.setItem('userToken', body.token).then(() =>
+        navigate(`/users/dashboard`)
+      )
       } else {
         alert(body.message);
       }
