@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -14,51 +14,35 @@ import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 import { getProfile } from './utils/requests';
 import NavBar from './component/Navbar';
+import { useReactPath } from './utils/hooks';
 
 export const ProfileContext = React.createContext();
 
 function App() {
   const [profile, setProfile] = React.useState(null);
-
-  const providerProfile = React.useMemo(() => ({ profile, setProfile }), [profile, setProfile]);
-
-
-  // const dashBoardPaths = ["/users/dashboard", "/users/results", "/users/analytics", "/users/ranking", "/users/profile", "/users/settings"];
-
-  //   function useRegex(input) {
-  //     input = input.toLowerCase();
-  //     let regex = /\/users\/[a-zA-Z]+/i;
-  //     if (input.match(regex)) {
-  //       return dashBoardPaths.includes(input.match(regex)[0]);
-  //     }
-  //     else{
-  //       return false;
-  //     }
-  // }
+  const providerProfile = React.useMemo(() => ({ profile, setProfile}), [profile, setProfile]);
 
   React.useEffect(() => {
-    getProfile().then(res => {
-      if (res.ok) {
-
-        res.json().then(
-          data => {
-            setProfile(data);
-          }
-        )
-      }
-      else {
-        res.json().then(
-          data => {
-            if (data.msg === 'Token has expired'){
-              localStorage.removeItem('userToken');
-              setProfile(null);
-            }
-          }
-        )
-      }
-    })
+    // getProfile().then(res => {
+    //   if (res.ok) {
+    //     res.json().then(
+    //       data => {
+    //         setProfile(data);
+    //       }
+    //     )
+    //   }
+    //   else {
+    //     res.json().then(
+    //       data => {
+    //         if (data.msg === 'Token has expired'){
+    //           localStorage.removeItem('userToken');
+    //           setProfile(null);
+    //         }
+    //       }
+    //     )
+    //   }
+    // })
   }, []);
-
 
   return (
     <div style={{ height: '100%' }}>
