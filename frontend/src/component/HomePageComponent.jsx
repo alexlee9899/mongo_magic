@@ -281,11 +281,11 @@ const FootLogoContainer = styled.div`
 
 const LogoText = styled.b`
     position:relative;
-    left: 10px;
+    left: 15px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 30px;
     line-height: 40px;
     letter-spacing: 0.04em;
     color: #4D7393;
