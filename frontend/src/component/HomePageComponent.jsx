@@ -5,7 +5,7 @@ import featureImg from './image/21.png';
 import sustainability from './image/sustainability 1.png';
 import check from './image/check.png';
 import sosmed from './image/sosmed.png';
-import footLogo from './image/foot logo.png';
+import footLogo from '../assets/LogoBlue.png';
 import HomeNavbar from "./HomeNavbar";
 const Property = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const ButtonContainer = styled.div`
   height: 59px;
   left: 80px;
   top: 622px;
-  background: #126D62;
+  background: #4D7393;
   border-radius: 12px;
 `
 const Button = styled.button`
@@ -43,7 +43,7 @@ const Button = styled.button`
   /* identical to box height */
   letter-spacing: 0.02em;
   color: #FFFFFF;
-  background: #126D62;
+  background: #4D7393;
 `
 const SmallText = styled.div`
   position: absolute;
@@ -233,8 +233,8 @@ const Sosmed = styled.img`
   height: 48px;
 `
 const FootLogo = styled.img`
-  width: 232px;
-  height: 56px;
+  /* width: 232px;
+  height: 56px; */
 `
 const RightSection = styled.div`
   display: flex;
@@ -272,6 +272,23 @@ const FootText = styled.text`
   line-height: 30px;
   letter-spacing: 0.02em;
   color: #94959B;
+`
+
+const FootLogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const LogoText = styled.b`
+    position:relative;
+    left: 15px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0.04em;
+    color: #4D7393;
 `
 const HomePageComponent = () => {
   return(
@@ -324,7 +341,10 @@ const HomePageComponent = () => {
       </Feature>
       <Footer>
         <LeftSection>
-          <FootLogo src={footLogo}></FootLogo>
+          <FootLogoContainer>
+            <FootLogo src={footLogo}></FootLogo>
+            <LogoText>G'Tracker</LogoText>
+          </FootLogoContainer>
           <Sosmed src={sosmed}></Sosmed>
         </LeftSection>
         <RightSection>

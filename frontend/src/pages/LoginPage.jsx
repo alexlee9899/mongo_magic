@@ -4,7 +4,7 @@ import backend_url from "../config/api";
 
 // Temperary login page for dev purpose
 // disregard any change to this when merging to master
-import logo from '../assets/logo.png';
+import logo from '../assets/LogoBlue.png';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -94,7 +94,7 @@ const Navbar = styled.div`
   font-size: 30px;
   line-height: 40px;
   letter-spacing: 0.02em;
-  color: #126D62;
+  color: #4D7393;
 
 `
 
@@ -125,7 +125,7 @@ const Span = styled.span`
 const theme = createTheme({
   palette: {
     primary:{
-      main: '#126D62',
+      main: '#4D7393',
     }
   },
 });

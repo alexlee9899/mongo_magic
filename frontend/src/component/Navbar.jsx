@@ -2,7 +2,7 @@ import { React, useRef, useEffect, useState } from "react";
 import { LogoutOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
-import logo from '../assets/logo.png';
+import logo from '../assets/LogoBlue.png';
 import dashboardLogo from '../assets/dashboardLogo.png';
 import dashboardLogoSelected from '../assets/dashboardLogoSelected.png';
 import resultsLogo from '../assets/resultsLogo.png';
@@ -16,7 +16,7 @@ import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
 import { userLogout } from '../utils/requests';
 
@@ -48,7 +48,7 @@ const LogoText = styled.a`
     font-size: 20px;
     line-height: 40px;
     letter-spacing: 0.04em;
-    color: #126D62;
+    color: #4D7393;
 `
 
 const MainMenuContainer = styled.div`
@@ -76,6 +76,7 @@ const DashboardLogo = (e) => {
         </MenuLogo>
     )
 }
+
 /**
  * decode the url parameters
  */
@@ -99,13 +100,20 @@ export default function NavBar(props) {
     const [textOffsetLeft, setTextOffsetLeft] = useState(null);
     const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
     let navigate = useNavigate();
+    const themeColor = '#4D7393';
+    const [logoutHover, setLogoutHover] = useState(undefined);
+    let location = useLocation();
 
-    
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
-        // checkToken();
     }, []);
+
+    useEffect(() => {
+        if (location.pathname.toLowerCase() === '/users/profile') {
+            setItemSelected(pageKeys['Profile']);
+        }
+    },[location]);
     /**
      * Find and apply logo offset and text offset
      */
@@ -137,6 +145,18 @@ export default function NavBar(props) {
         navigate(`/users/${pageName}`);
     }
     
+    const handleMouseOn = (e) =>{
+        switch (e.type) {
+            case 'mouseenter':
+                setLogoutHover(themeColor);
+                break;
+            case 'mouseleave':
+                setLogoutHover(undefined);
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
     <>
@@ -149,7 +169,7 @@ export default function NavBar(props) {
                     (textOffsetLeft&& logoOffsetLeft)?
                 (<>
                 <MainMenuContainer>
-                    <Menu id = "menu" defaultSelectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
+                    <Menu id = "menu" defaultSelectedKeys={itemSelected} selectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
                     <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="200"  >
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
                     </Menu.Item>
@@ -176,8 +196,10 @@ export default function NavBar(props) {
                         </Menu.Item>
                     </Menu>
                 </MainMenuContainer>
-                <div onClick={() => userLogout()} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
-                    Logout<LogoutOutlined style={{ fontSize:'20px',marginLeft:'5px' }}></LogoutOutlined>
+                <div onClick={() => {userLogout()}} onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{padding:'8px',cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'5px'}}>
+                    <b style={{ color:logoutHover, padding:'3px' }}>Logout</b>
+                    {/* <LogoutOutlined onMouseEnter={(e) => (handleLogoutMouseOn(e))} onMouseLeave={(e) => {handleLogoutMouseOff(e)}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined> */}
+                    <LogoutOutlined onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{ padding:'3px', fontSize:'20px', color:logoutHover  }}></LogoutOutlined>
                 </div>
                 </>
                 ) : (<></>)

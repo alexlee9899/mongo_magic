@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import styled from 'styled-components';
-import Image404 from "../assets/404.png";
-import backToHome from "../assets/404BackToHomeBtn.png";
+// import backToHome from "../assets/404BackToHomeBtn.png";
 import { removeNavbar } from "../utils/functions";
+import { Button } from 'antd';
+import Image404 from "../assets/404Image.png";
 
 const ImageContainer = styled.img`
     display: block;
@@ -40,17 +41,32 @@ const TextDescription = styled.p`
     color: #94959B;
 `
 
-const BackToHomeBtn = styled.img`
-    &:hover{
-        cursor: pointer;
-    }
-    display: block;
-    justify-content: center;
-    align-items: center;
-    margin: 5vh auto 10vh auto;
-    min-height: 50px;
-    min-width: 100px;
-`
+// const BackToHomeBtn = styled.img`
+//     &:hover{
+//         cursor: pointer;
+//     }
+//     display: block;
+//     justify-content: center;
+//     align-items: center;
+//     margin: 5vh auto 10vh auto;
+//     min-height: 50px;
+//     min-width: 100px;
+// `
+
+const btnTextStyle = {
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '15px',
+    lineHeight: '30px',
+    /* identical to box height */
+    
+    letterSpacing: '0.02em',
+    
+    /* Text/White */
+    
+    color: '#FFFFFF'
+}
+
 const goHome = (e) => {
     window.location.href = "/";
 }
@@ -60,12 +76,14 @@ const NotFound = () => {
     }, []);
 
     return (
-        <div style={{ background: '#F6F6F6', height: '100%', width: '100%', textAlign: 'center', justifyContent: 'center', alignContent: '' }}>
+        <div style={{ background: '#F6F6F6', height: '100vh', width: '100%', textAlign: 'center', justifyContent: 'center', alignContent: '' }}>
             <ImageContainer src={Image404} />
             <Text404>404 Not Found</Text404>
             <TextDescription>Oops! It seems like the page you are looking for is not available! </TextDescription>
             <TextDescription>Please try again with another page or go back to home.</TextDescription>
-            <BackToHomeBtn onClick={() => goHome()} className='back_home' src={backToHome} />
+            <Button type="primary" style={{ backgroundColor:'#4D7393', marginTop:'20px', borderRadius:'8px', height:'60px', width:'200px' }} onClick={() => goHome()}>
+                <b style={btnTextStyle}> Back to Homepage</b>
+            </Button>
         </div>
     );
 }

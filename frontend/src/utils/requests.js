@@ -12,7 +12,7 @@ const apiRequest = async({method=undefined, url, body=undefined}) => {
         body: body ? JSON.stringify(body) : undefined
     };
     try{
-        console.log('fetch requested: method:', JSON.stringify(method), 'url:', JSON.stringify(url), 'body:', JSON.stringify(body));
+        console.log((requestOptions));
         const response = await fetch (`${backend_url}${url}`, requestOptions);
         return response;
     } catch (error){
@@ -38,6 +38,6 @@ export const getProfile = (url='/users/profile')  => {
 }
 
 export const updateProfile = (body) => {
-    const res = apiRequest({method:'POST',url:'/users/update_profile', body:body});
+    const res = apiRequest({method:'PATCH',url:'/users/update_profile', body:body});
     return res;
 }

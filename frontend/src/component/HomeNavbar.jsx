@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, useNavigate} from 'react-router-dom';
-import logo from './image/logo.png';
+import logo from '../assets/LogoBlue.png';
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -33,7 +33,7 @@ const Logo = styled.div`
   height: 56px;
   left: 72px;
   top: 49.5px;
-  background: #126D62;
+  background: #4D7393;
   border-radius: 142px;
 `
 const LogoImg = styled.img`
@@ -52,7 +52,7 @@ const Name = styled.div`
   font-size: 30px;
   line-height: 40px;
   letter-spacing: 0.02em;
-  color: #126D62;
+  color: #4D7393;
 `
 const NavbarContainer = styled.div`
   display: flex;
@@ -97,7 +97,7 @@ const LoginBtn = styled.button`
   width: 99px;
   height: 59px;
 
-  background: #126D62;
+  background: #4D7393;
   border-radius: 12px;
   font-family: 'Poppins';
   font-style: normal;
@@ -120,7 +120,7 @@ const RegisterBtn = styled.button`
   gap: 10px;
   width: 126px;
   height: 59px;
-  border: 2px solid #126D62;
+  border: 2px solid #4D7393;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
@@ -130,7 +130,7 @@ const RegisterBtn = styled.button`
 
   letter-spacing: 0.02em;
 
-  color: #126D62;
+  color: #4D7393;
 `
 const HomeNavbar = () => {
   const navigate = useNavigate();

@@ -10,6 +10,7 @@ import { updateProfile } from "../utils/requests";
 import LoadingIcon from "../component/LoadingIcon";
 import LoginChecker from "../component/LoginChecker";
 import { getProfile } from "../utils/requests";
+import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 const { Dragger } = Upload;
@@ -18,18 +19,19 @@ message.config({
     maxCount: 1,
 })
 
-const Profile = () => {
+function Profile() {
     const [user, setUser] = React.useState(null);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
+    const [change, setChange] = React.useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (prof.providerProfile.profile) {
             setUser(prof.providerProfile.profile);
+            setImgUrl(prof.providerProfile.profile.photo);
         }
-    }, [prof])
-
-    console.log(user);
+    }, [prof]);
 
     let contentStyle = {
         padding: '24px',
@@ -40,21 +42,22 @@ const Profile = () => {
         alignItems: 'center',
         backgroundColor: 'rgb(241,241,241)',
         height: '100vh',
-    }
+    };
 
     let avatarStyle = {
         borderRadius: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
-    }
+    };
 
     let uploadStyle = {
         borderRadius: '4px',
-        background: '#126D62',
+        background: '#4d7393',
         color: '#fff',
         width: '15vw',
         margin: '50px'
-    }
+    };
+
 
     const props = {
         name: 'file',
@@ -66,6 +69,7 @@ const Profile = () => {
                         setImgUrl(response);
                         // setImgReady(false);
                         setUser({ ...user, photo: response });
+                        setChange({ ...change, photo: response });
                         info.file.status = 'done';
                     });
             }
@@ -78,28 +82,37 @@ const Profile = () => {
         showUploadList: false,
         customRequest: () => { },
         accept: "image/png, image/jpeg"
-    }
+    };
 
     const update = (data) => {
-        updateProfile(data)
+        if (data?.email === user.email) {
+            delete data.email;
+        }
+        updateProfile()
             .then(res => {
                 if (res.ok) {
-                    message.success('Profile updated successfully');
-                    prof.providerProfile.profile = { ...data };
+                    if (data?.email) {
+                        message.success('Email Updated, Please Login Again');
+                        navigate('/login');
+                    } else {
+                        message.success('Profile updated successfully');
+                    }
+                    prof.providerProfile.setProfile({ ...prof.providerProfile.profile, ...data });
                 }
                 else {
                     message.error('Error updating profile');
                 }
-            })
-    }
+            });
+    };
+
 
     return (
         <>
-            <LoginChecker></LoginChecker>
+            {/* <LoginChecker></LoginChecker> */}
             <Layout>
-                    <HeaderBar page='Profile'>
-                    </HeaderBar>
-            {(prof.providerProfile.profile) ? (
+                <HeaderBar page='Profile'>
+                </HeaderBar>
+                {(prof.providerProfile.profile) ? (
                     <Content style={contentStyle}>
                         <div>
                             <Dragger {...props}>
@@ -115,24 +128,23 @@ const Profile = () => {
                         </div>
                         <div style={{ width: '40vw', marginTop: '100px' }}>
                             <h3> Name</h3>
-                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setUser({ ...user, fullname: e.target.value })} />
+                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px' }}>
                             <h3> Email (required)</h3>
-                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px' }}>
                             <h3> Organisation Name</h3>
-                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setUser({ ...user, org: e.target.value })} />
+                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setChange({ org: e.target.value })} />
                         </div>
-                        <Button style={uploadStyle} onClick={() => (update(user))}>Update My Profile</Button>
+                        <Button style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
-                ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)
-            }
+                ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)}
             </Layout>
         </>
-    )
+    );
 }
 
 export default Profile;

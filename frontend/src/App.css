@@ -49,7 +49,7 @@
   transition: all 0.2s;
   flex: 0 0 18% !important;
   max-width: 400px !important;
-  min-width: 280px !important;
+  min-width: 300px !important;
   width: 18% !important;
 }
 
@@ -62,9 +62,18 @@ li.ant-menu-item.ant-menu-item-only-child{
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
-  background-color:#00695E;
-  border-radius: 20px;
+  background-color:#4D7393;
+  border-radius: 50px;
 }
+
+.ant-menu-item .ant-menu-item-active{
+  background-color: #4D7393;
+}
+
+/* Change menu item color on mouse press */
+/* .ant-menu-item:active, .ant-menu-submenu-title:active {
+  /* background-color: rgb(166, 203, 184); */
+/* } */
 
 .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
   border-right: 0;
