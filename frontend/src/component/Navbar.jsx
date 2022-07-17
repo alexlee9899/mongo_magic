@@ -196,10 +196,10 @@ export default function NavBar(props) {
                         </Menu.Item>
                     </Menu>
                 </MainMenuContainer>
-                <div onClick={() => {userLogout()}} onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
-                    <b style={{ color:logoutHover  }}>Logout</b>
+                <div onClick={() => {userLogout()}} onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{padding:'8px',cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'5px'}}>
+                    <b style={{ color:logoutHover, padding:'3px' }}>Logout</b>
                     {/* <LogoutOutlined onMouseEnter={(e) => (handleLogoutMouseOn(e))} onMouseLeave={(e) => {handleLogoutMouseOff(e)}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined> */}
-                    <LogoutOutlined onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined>
+                    <LogoutOutlined onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{ padding:'3px', fontSize:'20px', color:logoutHover  }}></LogoutOutlined>
                 </div>
                 </>
                 ) : (<></>)
