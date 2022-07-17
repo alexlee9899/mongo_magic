@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { checkToken } from '../utils/functions';
 
-export default function LoginChecker() {
-
+const LoginChecker = () => {
     useEffect(() => {
         checkToken();
     }, []);
@@ -11,3 +10,4 @@ export default function LoginChecker() {
         <></>
     )
 }
+export default LoginChecker;

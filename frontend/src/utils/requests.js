@@ -38,6 +38,7 @@ export const getProfile = (url='/users/profile')  => {
 }
 
 export const updateProfile = (body) => {
+    console.log(body);
     const res = apiRequest({method:'PATCH',url:'/users/update_profile', body:body});
     return res;
 }
