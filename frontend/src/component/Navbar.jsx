@@ -1,8 +1,8 @@
 import { React, useRef, useEffect, useState } from "react";
-    import { LogoutOutlined } from '@ant-design/icons';
+import { LogoutOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
-import logo from '../assets/logo.png';
+import logo from '../assets/LogoBlue.png';
 import dashboardLogo from '../assets/dashboardLogo.png';
 import dashboardLogoSelected from '../assets/dashboardLogoSelected.png';
 import resultsLogo from '../assets/resultsLogo.png';
@@ -48,7 +48,7 @@ const LogoText = styled.a`
     font-size: 20px;
     line-height: 40px;
     letter-spacing: 0.04em;
-    color: #126D62;
+    color: #4D7393;
 `
 
 const MainMenuContainer = styled.div`
@@ -100,7 +100,7 @@ export default function NavBar(props) {
     const [textOffsetLeft, setTextOffsetLeft] = useState(null);
     const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
     let navigate = useNavigate();
-    const themeColor = '#126D62';
+    const themeColor = '#4D7393';
     const [logoutHover, setLogoutHover] = useState(undefined);
     let location = useLocation();
 

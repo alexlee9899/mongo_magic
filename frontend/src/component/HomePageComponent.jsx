@@ -29,7 +29,7 @@ const ButtonContainer = styled.div`
   height: 59px;
   left: 80px;
   top: 622px;
-  background: #126D62;
+  background: #4D7393;
   border-radius: 12px;
 `
 const Button = styled.button`
@@ -43,7 +43,7 @@ const Button = styled.button`
   /* identical to box height */
   letter-spacing: 0.02em;
   color: #FFFFFF;
-  background: #126D62;
+  background: #4D7393;
 `
 const SmallText = styled.div`
   position: absolute;

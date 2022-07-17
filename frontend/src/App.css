@@ -62,17 +62,18 @@ li.ant-menu-item.ant-menu-item-only-child{
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
-  background-color:#00695E;
+  background-color:#4D7393;
   border-radius: 50px;
 }
 
 .ant-menu-item .ant-menu-item-active{
-  background-color: #00695E;
+  background-color: #4D7393;
 }
 
-.ant-menu-item:active, .ant-menu-submenu-title:active {
-  background-color: rgb(166, 203, 184);
-}
+/* Change menu item color on mouse press */
+/* .ant-menu-item:active, .ant-menu-submenu-title:active {
+  /* background-color: rgb(166, 203, 184); */
+/* } */
 
 .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
   border-right: 0;

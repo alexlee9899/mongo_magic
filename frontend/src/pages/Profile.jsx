@@ -52,7 +52,7 @@ function Profile() {
 
     let uploadStyle = {
         borderRadius: '4px',
-        background: '#126D62',
+        background: '#4d7393',
         color: '#fff',
         width: '15vw',
         margin: '50px'
