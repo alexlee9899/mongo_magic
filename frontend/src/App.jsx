@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -12,9 +12,7 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
-import { getProfile } from './utils/requests';
 import NavBar from './component/Navbar';
-import { useReactPath } from './utils/hooks';
 
 export const ProfileContext = React.createContext();
 

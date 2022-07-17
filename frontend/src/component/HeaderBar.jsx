@@ -6,13 +6,16 @@ import dashBoardLines from '../assets/dashboardLines.png';
 import { ProfileContext } from '../App';
 import { checkToken } from '../utils/functions';
 import { getProfile, userLogout } from '../utils/requests';
+import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
+
 
 const { Header } = Layout;
 
 const UserContainer = styled.div`
     display: flex;
+    cursor: pointer;
 `
 const MenuLogo = styled.img`
     width: 28px;
@@ -39,6 +42,7 @@ const UserNameCompany = styled.div`
 export default function HeaderBar(props) {
     const [profile, setProfile] = useState(undefined);
     const prof = useContext(ProfileContext);
+    const navigate = useNavigate();
     useEffect(() => {
         if (prof.providerProfile.profile && (!objectEqual(prof.providerProfile.profile, profile))) {
             setProfile(prof.providerProfile.profile);
@@ -53,6 +57,12 @@ export default function HeaderBar(props) {
                         }
                     )
                 } else {
+                    console.log(res);
+                    res.json().then(
+                        data => {
+                            console.log(data);
+                        }
+                    )
                     const responseContent = (
                         <>
                             <h>Please Login</h>
@@ -99,6 +109,10 @@ export default function HeaderBar(props) {
         return false;
     }
 
+    const mouseOnUser = (e) =>{
+        navigate('/users/profile')
+    }
+
     return (
         (profile === undefined ? <></> :
             <Header style={{ backgroundColor: '#FBFBFB', display: 'flex', justifyContent: 'space-between' }}>
@@ -107,7 +121,7 @@ export default function HeaderBar(props) {
                     </MenuLogo>
                     <DashBoardText>{props.page}</DashBoardText>
                 </div>
-                <UserContainer>
+                <UserContainer onClick={(e) => mouseOnUser(e)}>
                     <Image
                         style={{ marginRight: '30px' }}
                         width={30}

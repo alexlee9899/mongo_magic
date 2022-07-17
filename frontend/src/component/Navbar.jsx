@@ -16,7 +16,7 @@ import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
 import { userLogout } from '../utils/requests';
 
@@ -76,6 +76,7 @@ const DashboardLogo = (e) => {
         </MenuLogo>
     )
 }
+
 /**
  * decode the url parameters
  */
@@ -101,13 +102,18 @@ export default function NavBar(props) {
     let navigate = useNavigate();
     const themeColor = '#126D62';
     const [logoutHover, setLogoutHover] = useState(undefined);
+    let location = useLocation();
 
-    
     useEffect(() => {
         window.addEventListener("resize", getPosition);
         getPosition();
-        // checkToken();
     }, []);
+
+    useEffect(() => {
+        if (location.pathname.toLowerCase() === '/users/profile') {
+            setItemSelected(pageKeys['Profile']);
+        }
+    },[location]);
     /**
      * Find and apply logo offset and text offset
      */
@@ -139,13 +145,17 @@ export default function NavBar(props) {
         navigate(`/users/${pageName}`);
     }
     
-
-    const handleLogoutMouseOn = () => {
-        setLogoutHover(themeColor);
-    }
-
-    const handleLogoutMouseOff = () =>{
-        setLogoutHover(undefined);
+    const handleMouseOn = (e) =>{
+        switch (e.type) {
+            case 'mouseenter':
+                setLogoutHover(themeColor);
+                break;
+            case 'mouseleave':
+                setLogoutHover(undefined);
+                break;
+            default:
+                break;
+        }
     }
 
     return (
@@ -159,7 +169,7 @@ export default function NavBar(props) {
                     (textOffsetLeft&& logoOffsetLeft)?
                 (<>
                 <MainMenuContainer>
-                    <Menu id = "menu" defaultSelectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
+                    <Menu id = "menu" defaultSelectedKeys={itemSelected} selectedKeys={itemSelected} onSelect={(e) => itemSelect(e)} style={{left:'-40px', width:'100%', position:'relative', display: 'block', marginBottom: '20px', padding: '5px 25px'}}>
                     <Menu.Item style={{ marginLeft:`${logoOffsetLeft}px`, fontWeight: 'bolder', pointerEvents: 'none'}} key="200"  >
                             <b style={{ fontWeight: '700', fontSize:'16px'}}>Main Menu</b>
                     </Menu.Item>
@@ -186,9 +196,10 @@ export default function NavBar(props) {
                         </Menu.Item>
                     </Menu>
                 </MainMenuContainer>
-                <div onClick={() => {userLogout()}} onMouseEnter={() => (handleLogoutMouseOn())} onMouseLeave={() => {handleLogoutMouseOff()}} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
+                <div onClick={() => {userLogout()}} onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{cursor:'pointer', display:'flex', justifyContent:'right', position:'absolute', top:'700px', right:'20px'}}>
                     <b style={{ color:logoutHover  }}>Logout</b>
-                    <LogoutOutlined onMouseEnter={() => (handleLogoutMouseOn())} onMouseLeave={() => {handleLogoutMouseOff()}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined>
+                    {/* <LogoutOutlined onMouseEnter={(e) => (handleLogoutMouseOn(e))} onMouseLeave={(e) => {handleLogoutMouseOff(e)}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined> */}
+                    <LogoutOutlined onMouseEnter={(e) => (handleMouseOn(e))} onMouseLeave={(e) => {handleMouseOn(e)}} style={{ fontSize:'20px',marginLeft:'5px', color:logoutHover  }}></LogoutOutlined>
                 </div>
                 </>
                 ) : (<></>)
