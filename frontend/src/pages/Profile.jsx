@@ -19,7 +19,7 @@ message.config({
     maxCount: 1,
 })
 
-const Profile = () => {
+function Profile() {
     const [user, setUser] = React.useState(null);
     const [imgUrl, setImgUrl] = React.useState(null);
     const prof = useContext(ProfileContext);
@@ -31,9 +31,7 @@ const Profile = () => {
             setUser(prof.providerProfile.profile);
             setImgUrl(prof.providerProfile.profile.photo);
         }
-    }, [prof])
-
-    console.log(user);
+    }, [prof]);
 
     let contentStyle = {
         padding: '24px',
@@ -44,13 +42,13 @@ const Profile = () => {
         alignItems: 'center',
         backgroundColor: 'rgb(241,241,241)',
         height: '100vh',
-    }
+    };
 
     let avatarStyle = {
         borderRadius: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
-    }
+    };
 
     let uploadStyle = {
         borderRadius: '4px',
@@ -58,7 +56,7 @@ const Profile = () => {
         color: '#fff',
         width: '15vw',
         margin: '50px'
-    }
+    };
 
 
     const props = {
@@ -84,37 +82,37 @@ const Profile = () => {
         showUploadList: false,
         customRequest: () => { },
         accept: "image/png, image/jpeg"
-    }
+    };
 
     const update = (data) => {
-        if(data?.email === user.email){
+        if (data?.email === user.email) {
             delete data.email;
         }
-        updateProfile(data)
+        updateProfile()
             .then(res => {
                 if (res.ok) {
                     if (data?.email) {
                         message.success('Email Updated, Please Login Again');
                         navigate('/login');
-                    } else{
+                    } else {
                         message.success('Profile updated successfully');
                     }
-                    prof.providerProfile.setProfile( { ...prof.providerProfile.profile, ...data });
+                    prof.providerProfile.setProfile({ ...prof.providerProfile.profile, ...data });
                 }
                 else {
                     message.error('Error updating profile');
                 }
-            })
-    }
+            });
+    };
 
 
     return (
         <>
             {/* <LoginChecker></LoginChecker> */}
             <Layout>
-                    <HeaderBar page='Profile'>
-                    </HeaderBar>
-            {(prof.providerProfile.profile) ? (
+                <HeaderBar page='Profile'>
+                </HeaderBar>
+                {(prof.providerProfile.profile) ? (
                     <Content style={contentStyle}>
                         <div>
                             <Dragger {...props}>
@@ -143,11 +141,10 @@ const Profile = () => {
                         <Button style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
-                ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)
-            }
+                ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)}
             </Layout>
         </>
-    )
+    );
 }
 
 export default Profile;
