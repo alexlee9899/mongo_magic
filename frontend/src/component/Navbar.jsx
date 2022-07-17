@@ -93,7 +93,7 @@ function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-export default function NavBar(props) {
+const NavBar = (props) =>{
     const imgRef = useRef();
     const textRef = useRef();
     const [logoOffsetLeft, setLogoOffsetLeft] = useState(null);
@@ -209,3 +209,4 @@ export default function NavBar(props) {
   );
 
 }
+export default NavBar;

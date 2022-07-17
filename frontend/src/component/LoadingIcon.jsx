@@ -4,8 +4,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 const loadingIcon = <LoadingOutlined style={{ fontSize: 60, color:'#4D7393' }} spin />;
 
-export default function LoadingIcon() {
+const LoadingIcon = () => {
   return (
     <Spin size="large" indicator={ loadingIcon } />
   )
 }
+export default LoadingIcon;

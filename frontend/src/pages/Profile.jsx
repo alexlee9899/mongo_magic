@@ -88,7 +88,7 @@ function Profile() {
         if (data?.email === user.email) {
             delete data.email;
         }
-        updateProfile()
+        updateProfile(data)
             .then(res => {
                 if (res.ok) {
                     if (data?.email) {

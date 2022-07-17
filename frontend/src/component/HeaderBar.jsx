@@ -39,7 +39,7 @@ const DashBoardText = styled.b`
 const UserNameCompany = styled.div`
 
 `
-export default function HeaderBar(props) {
+const HeaderBar = (props) => {
     const [profile, setProfile] = useState(undefined);
     const prof = useContext(ProfileContext);
     const navigate = useNavigate();
@@ -140,3 +140,5 @@ export default function HeaderBar(props) {
         )
     )
 }
+
+export default HeaderBar;
