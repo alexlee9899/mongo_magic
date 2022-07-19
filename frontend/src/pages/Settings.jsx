@@ -1,12 +1,18 @@
 import React from "react";
+import SettingsContent from '../component/SettingsContent';
+import NavBar from '../component/Navbar';
+import HeaderBar from '../component/HeaderBar';
 import { Layout } from 'antd';
-import HeaderBar from '../component/HeaderBar'
 
 const Settings = () => {
     return (
         <>
-        {/* <Navbar  page='Settings'></Navbar> */}
-    </>
+            <NavBar page='Settings' />
+            <Layout>
+                <HeaderBar page='Settings'/>
+                <SettingsContent />
+            </Layout>
+        </>
     );
 }
 
