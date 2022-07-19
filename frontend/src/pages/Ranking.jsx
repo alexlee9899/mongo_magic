@@ -1,19 +1,16 @@
 import React from "react";
-import RankingContent from '../component/RankingContent';
-import NavBar from '../component/Navbar';
-import HeaderBar from '../component/HeaderBar';
 import { Layout } from 'antd';
+import HeaderBar from '../component/HeaderBar';
 
-const Results = () => {
+const { Content}  = Layout;
+
+const Ranking= () => {
     return (
         <>
-            <NavBar page='Ranking' />
-            <Layout>
-                <HeaderBar page='Ranking'/>
-                <RankingContent />
-            </Layout>
-        </>
+        {/* <Navbar page='Ranking'></Navbar> */}
+            <Content>
+            </Content>
+    </>
     );
 }
-
-export default Results;
+export default Ranking;
