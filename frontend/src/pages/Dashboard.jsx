@@ -6,21 +6,23 @@ import TextEffect from '../component/TextEffect';
 import { useContext } from 'react';
 import { ProfileContext } from "../App";
 import HeaderBar from '../component/HeaderBar'
+import LoadingIcon from "../component/LoadingIcon";
 
 const { Content } = Layout;
 
 const Dashboard = (props) => {
     const profile = useContext(ProfileContext);
+    // console.log((profile?.providerProfile?.profile?.email == undefined));
 
     return (
-        <>
-            {/* <Navbar page='Dashboard'></Navbar> */}
+        <>  
             <Layout>
                 <HeaderBar page='Dashboard'>
                 </HeaderBar>
                 <Content style={{ minWidth:'500px',display:'flex', alignItems:'center', justifyContent:'center' }}>
-                    <h1></h1>
-                    <TextEffect textColor='#4D7393' />
+                    {(profile?.providerProfile?.profile?.email == undefined) ? (<LoadingIcon></LoadingIcon>) :
+                    (<><h1></h1>
+                    <TextEffect textColor='#4D7393' /></>)}
                 </Content>
             </Layout>
         </>
