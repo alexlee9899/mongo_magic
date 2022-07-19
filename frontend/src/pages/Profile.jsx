@@ -110,9 +110,6 @@ function Profile() {
     return (
         <>
             {/* <LoginChecker></LoginChecker> */}
-            <Layout>
-                <HeaderBar page='Profile'>
-                </HeaderBar>
                 {(prof.providerProfile.profile) ? (
                     <Content style={contentStyle}>
                         <div>
@@ -127,7 +124,7 @@ function Profile() {
                             </br>
                             {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
                         </div>
-                        <div style={{ width: '40vw', marginTop: '100px', textAlign:'center', maxWidth:'600px' }}>
+                        <div style={{ width: '40vw', marginTop: '80px', textAlign:'center', maxWidth:'600px' }}>
                             <h3 style= {{ textAlign:'left' }}> Name</h3>
                             <Input size="large" maxLength='20' style={{ maxWidth:'600px', marginLeft:'auto', marginRight:'auto' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
                         </div>
@@ -143,7 +140,6 @@ function Profile() {
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
                 ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)}
-            </Layout>
         </> 
     );
 }

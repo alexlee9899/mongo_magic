@@ -13,6 +13,7 @@ import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 import NavBar from './component/Navbar';
+import HeaderBar from './component/HeaderBar';
 
 export const ProfileContext = React.createContext();
 
@@ -53,12 +54,12 @@ function App() {
               <Route path='/home' element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/users/dashboard" element={<><NavBar page='Dashboard' /><Dashboard /></>} />
-              <Route path="/users/results" element={<><NavBar page='Results' /><Results /></>} />
-              <Route path="/users/analytics" element={<><NavBar page='Analytics' /><Analytics /></>} />
-              <Route path="/users/ranking" element={<><NavBar page='Ranking' /><Ranking /></>} />
-              <Route path="/users/profile" element={<><NavBar page='Profile' /><Profile /></>} />
-              <Route path="/users/settings" element={<><NavBar page='Settings' /><Settings /></>} />
+              <Route path="/users/dashboard" element={<><NavBar page='Dashboard' /><Layout><HeaderBar page='Dashboard'></HeaderBar><Dashboard /></Layout></>} />
+              <Route path="/users/results"  element={<><NavBar page='Results' /><Layout><HeaderBar page='Results'></HeaderBar><Results /></Layout></>} />
+              <Route path="/users/analytics" element={<><NavBar page='Analytics' /><Layout><HeaderBar page='Analytics'></HeaderBar><Analytics /></Layout></>} />
+              <Route path="/users/ranking" element={<><NavBar page='Ranking' /><Layout><HeaderBar page='Ranking'></HeaderBar><Ranking /></Layout></>} />
+              <Route path="/users/profile" element={<><NavBar page='Profile' /><Layout><HeaderBar page='Profile'></HeaderBar><Profile /></Layout></>} />
+              <Route path="/users/settings" element={<><NavBar page='Settings' /><Layout><HeaderBar page='Settings'></HeaderBar><Settings /></Layout></>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ProfileContext.Provider>

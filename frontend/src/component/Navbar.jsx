@@ -19,6 +19,7 @@ import '../App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
 import { userLogout } from '../utils/requests';
+import themeColor from "../config/theme";
 
 const { Sider }  = Layout;
 
@@ -100,7 +101,6 @@ const NavBar = (props) =>{
     const [textOffsetLeft, setTextOffsetLeft] = useState(null);
     const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
     let navigate = useNavigate();
-    const themeColor = '#4D7393';
     const [logoutHover, setLogoutHover] = useState(undefined);
     let location = useLocation();
 
