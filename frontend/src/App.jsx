@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AdminSignupPage from './pages/adminSignupPage'
+import AdminSignIn from './pages/adminLoginPage';
 import Dashboard from './pages/Dashboard';
 import Results from './pages/Results';
 import Analytics from './pages/Analytics';
