@@ -18,8 +18,9 @@ const Dashboard = (props) => {
         <>  
                 <Content style={{ minWidth:'500px',display:'flex', alignItems:'center', justifyContent:'center' }}>
                     {(profile?.providerProfile?.profile?.email == undefined) ? (<LoadingIcon></LoadingIcon>) :
-                    (<><h1></h1>
-                    <TextEffect textColor='#4D7393' /></>)}
+                    (<>
+                    <TextEffect textColor='#4D7393' /></>
+                    )}
                 </Content>
         </>
     );

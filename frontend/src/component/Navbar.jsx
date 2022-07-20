@@ -16,7 +16,7 @@ import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
 import { userLogout } from '../utils/requests';
 import themeColor from "../config/theme";
@@ -159,7 +159,8 @@ const NavBar = (props) =>{
     }
 
     return (
-    <>
+    <>      
+            
             <Sider id="Dashboard_sider">
                 <HeaderLogo id="Header_container" onClick={() => (navigate('/'))}>
                     <TopLogo src={logo} alt="logo" ref={imgRef}/>

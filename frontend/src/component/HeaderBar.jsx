@@ -130,7 +130,7 @@ const HeaderBar = (props) => {
 
     return (
         (profile === undefined ? <></> :
-            <Header style={{ width:'100%', backgroundColor: '#FBFBFB', display: 'flex', justifyContent: 'space-between', lineHeight:'40px', textAlign:'center'}}>
+            <Header style={{ backgroundColor: '#FBFBFB', display: 'flex', justifyContent: 'space-between', lineHeight:'40px', textAlign:'center'}}>
                 <LeftContainer>
                     {/* <MenuLogo src={dashBoardLines} style={{ marginRight: '100px' }}>
                     </MenuLogo> */}
