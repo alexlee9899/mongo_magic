@@ -87,7 +87,7 @@ const HeaderBar = (props) => {
                     );
                     message.error(responseContent, 2)
                         .then(() => {
-                            // window.location.href = "/login";
+                            window.location.href = "/login";
                         });
 
                 }
@@ -103,7 +103,7 @@ const HeaderBar = (props) => {
             );
             message.error(responseContent, 2)
                 .then(() => {
-                    // window.location.href = "/login";
+                    window.location.href = "/login";
                 });
         }
         // checkToken();

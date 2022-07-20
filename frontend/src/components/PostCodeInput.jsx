@@ -14,14 +14,24 @@ const PostCodeInput = () => {
         setValue(e);
         if (isAustralianPostCode(e)){
             australianPostCode(e).then(res => {
-                console.log(res);
+                if (res.ok){
+                    res.json().then(
+                        data => {
+                            if (data?.postalCodes[0]?.adminName1){
+                                setLocation([data.postalCodes[0].adminName2, data.postalCodes[0].adminName1]);
+                            } else {
+                                setLocation(undefined);
+                                setIsValid(false);
+                            }
+                        }
+                    )
+                }
             }
             )
         }   else {
             setLocation(null);
         }
     }
-    console.log(location);
 
     const inputStatus = () => {
         if (!isValid && value.toString().length === 4) {
@@ -29,14 +39,16 @@ const PostCodeInput = () => {
         }
         return '';
     }
- 
+    
+    // React.useEffect(() => {
+
 
     return (
-        <>
-            PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'10px' }}></Input>
+        <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }}>
+            PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'-100px', marginTop:'10px' }}></Input>
             { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
-            { location && <div>{location[0]}, {location[1]}</div>}
-        </>
+            <div>{ (location) && <div>{location[0]}, {location[1]}</div>}</div>
+        </div>
     )
 }
 

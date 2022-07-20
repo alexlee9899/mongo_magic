@@ -16,6 +16,7 @@ import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
+import HeaderBar from './components/HeaderBar';
 
 export const ProfileContext = React.createContext();
 

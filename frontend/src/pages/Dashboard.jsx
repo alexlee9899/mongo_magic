@@ -6,6 +6,9 @@ import TextEffect from '../components/TextEffect';
 import { useContext } from 'react';
 import { ProfileContext } from "../App";
 import HeaderBar from '../components/HeaderBar';
+import LoadingIcon from '../components/LoadingIcon';
+import themeColor from '../config/theme';
+
 const { Content } = Layout;
 
 const Dashboard = (props) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Input } from 'antd';
-import HeaderBar from '../component/HeaderBar'
-import PostCodeInput from "../component/PostCodeInput";
+import HeaderBar from '../components/HeaderBar'
+import PostCodeInput from "../components/PostCodeInput";
 
 const { Content }  = Layout;
 
