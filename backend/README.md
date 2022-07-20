@@ -9,7 +9,22 @@ API接口：
 `[POST] /users/register`   
 `[POST] /users/login`   
 `[POST] /users/logout`   
-`[POST] /users/update_profile`   
+`[POST] /users/update_profile`    
+
+`[POST] /question/addin`    
+
+
+```{
+   "title":"initial detail",
+    "content":"Which public transport available?",
+    "question_type": "1",
+    "mutiable": "true",
+    "option":["Bus", "Train", "Light Rail", "Ferry", "Metro"],
+    "score_method":{}
+}```    
+
+
+`[GET] /question/list`   拿到所有问题的list  
 
 
 前端的我已经设置了全局的url变量，所以直接引用就行。

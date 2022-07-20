@@ -110,9 +110,9 @@ const NavBar = (props) =>{
     }, []);
 
     useEffect(() => {
-        if (location.pathname.toLowerCase() === '/users/profile') {
-            setItemSelected(pageKeys['Profile']);
-        }
+        let pageName = location.pathname.split('/')[2];
+        pageName = pageName.slice(0, 1).toUpperCase() + pageName.slice(1);
+        setItemSelected(pageKeys[pageName]);
     },[location]);
     /**
      * Find and apply logo offset and text offset

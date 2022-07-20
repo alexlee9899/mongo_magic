@@ -13,6 +13,7 @@ def user_register(req):
   email = req['email']
   org = req['org']
   create_time = datetime.now()
+  user_type = req['user_type']
   db_col = db['users']
   
   if db_col.find_one({'email': email}):
@@ -28,7 +29,8 @@ def user_register(req):
     "email": email,
     "org": org,
     "photo": "",
-    "create_time": create_time
+    "create_time": create_time,
+    "user_type": user_type
   }
   
   db_col.insert_one(new_user)
@@ -49,7 +51,10 @@ def user_login(req):
   if not user or user['password'] != password_md5: 
     return make_response(json.dumps({'message': 'Invalid email or password'}), 400)
   token = create_access_token(identity=email)
-  response = make_response({"token": token})
+  response = make_response({
+    "token": token,
+    "user_type": user['user_type']
+    })
   response.headers['Content-Type'] = 'application/json'
   response.headers['Authorization'] = 'Bearer ' + token
   return response, 200

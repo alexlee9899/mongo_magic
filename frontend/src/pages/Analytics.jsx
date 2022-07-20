@@ -1,15 +1,18 @@
 import React from "react";
-import { Layout } from 'antd';
+import { Layout, Input } from 'antd';
 import HeaderBar from '../component/HeaderBar'
+import PostCodeInput from "../component/PostCodeInput";
 
 const { Content }  = Layout;
 
-export default function Ranking() {
+const Ranking = () => {
     return (
         <>
         {/* <Navbar page='Analytics'></Navbar> */}
-            <Content>
+            <Content style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <PostCodeInput></PostCodeInput>
             </Content>
     </>
-    );
+    )
 }
+export default Ranking;

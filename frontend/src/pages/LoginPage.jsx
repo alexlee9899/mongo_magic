@@ -158,6 +158,9 @@ const SignIn = () => {
   const transRegis = (event) => {
     navigate(`/signup`); 
   }
+  const transLogin = (event) => {
+    navigate(`/adminlogin`); 
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -165,6 +168,7 @@ const SignIn = () => {
     const msg = {
       email: data.get('email'),
       password: data.get('password'),
+      user_type: "1",
     }
     console.log(msg);
     Api('users/login', 'POST', undefined, msg, (body) => {
@@ -185,9 +189,10 @@ const SignIn = () => {
     <Flexbox>
       
       <Head>
-        Login
+        User Login
       </Head>
       <Head2>Don’t have an account? <Bluetag onClick={transRegis}>Register</Bluetag></Head2>
+      <Head2><Bluetag onClick={transLogin}>Switch to Admin Login</Bluetag></Head2>
       <Newform onSubmit={handleSubmit}>
         <Labelbox>
           <Label htmlFor="email">Email</Label>

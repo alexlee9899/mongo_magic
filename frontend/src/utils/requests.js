@@ -42,3 +42,19 @@ export const updateProfile = (body) => {
     const res = apiRequest({method:'PATCH',url:'/users/update_profile', body:body});
     return res;
 }
+
+export const australianPostCode = async(postCode) => {
+    const request = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        mode:'no-cors',
+    };
+    try {
+        const response = await fetch(`http://api.geonames.org/postalCodeSearch?postalcode=${postCode}&username=jinl9667&country=AU`, request);
+        return response;
+    }catch(error){
+        return error;
+    }
+}

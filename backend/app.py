@@ -13,6 +13,8 @@ jwt = JWTManager(app)
 CORS(app)
 
 from controller.users import users_blueprint
+from controller.questions import questions_blueprint
+app.register_blueprint(questions_blueprint)
 app.register_blueprint(users_blueprint)
 
 if __name__ == '__main__':
