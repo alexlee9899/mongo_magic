@@ -17,8 +17,15 @@ const PostCodeInput = () => {
                 if (res.ok){
                     res.json().then(
                         data => {
+                            let city = ''
                             if (data?.postalCodes[0]?.adminName1){
-                                setLocation([data.postalCodes[0].adminName2, data.postalCodes[0].adminName1]);
+                                if (data.postalCodes[0].adminName2){
+                                    city = data.postalCodes[0].adminName2.slice(0,1).toUpperCase() + data.postalCodes[0].adminName2.slice(1).toLowerCase();
+                                }
+                                setLocation({
+                                    city: city,
+                                    state: data.postalCodes[0].adminName1
+                                })
                             } else {
                                 setLocation(undefined);
                                 setIsValid(false);
@@ -47,7 +54,7 @@ const PostCodeInput = () => {
         <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }}>
             PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'-100px', marginTop:'10px' }}></Input>
             { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
-            <div>{ (location) && <div>{location[0]}, {location[1]}</div>}</div>
+            <div>{ (location) && <div>{location.city}, {location.state}</div>}</div>
         </div>
     )
 }
