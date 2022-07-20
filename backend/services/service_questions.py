@@ -36,6 +36,6 @@ def question_list(req):
     questions = list(db_col.find())
     for question in questions:
       question['_id'] = str(question['_id'])
-    return make_response(json.dumps(questions), 200)
+    return make_response(json.dumps({'question_list': questions}), 200)
   except Exception:
     return make_response(json.dumps({'message': 'Server Error'}), 404)
