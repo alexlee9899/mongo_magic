@@ -2,13 +2,10 @@ import { React } from "react";
 import { Layout } from 'antd';
 import '../App.css';
 import { checkToken } from '../utils/functions';
-import TextEffect from '../component/TextEffect';
+import TextEffect from '../components/TextEffect';
 import { useContext } from 'react';
 import { ProfileContext } from "../App";
-import HeaderBar from '../component/HeaderBar'
-import LoadingIcon from "../component/LoadingIcon";
-import themeColor from '../config/theme';
-
+import HeaderBar from '../components/HeaderBar';
 const { Content } = Layout;
 
 const Dashboard = (props) => {

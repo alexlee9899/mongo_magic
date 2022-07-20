@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Layout } from 'antd';
-import HeaderBar from '../component/HeaderBar'
 import themeColor from "../config/theme";
 
 const { Content } = Layout;
