@@ -1,4 +1,9 @@
 import React from "react";
+import backend_url from "../config/api";
+
+
+// Temperary login page for dev purpose
+// disregard any change to this when merging to master
 import logo from '../assets/LogoBlue.png';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,7 +27,7 @@ const Newinput = styled.input`
   border-radius: 12px;
   width: 408px;
   height: 62px;
-  margin: 10px;
+  margin:20px;
   text-indent: 15px;
 `
 
@@ -36,16 +41,16 @@ const Newform = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items:center;
-  padding:20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-
+  padding:30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 `
 
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
   // height:100vh;
+
   justify-content: center;
   align-items:center;
 `
@@ -69,7 +74,6 @@ const Head = styled.h1`
   font-weight: 700;
   font-size: 40px;
   line-height: 150%;
-  margin-bottom: 0.1rem;
 `
 
 const Head2 = styled.h2`
@@ -127,7 +131,7 @@ const theme = createTheme({
 });
 
 
-const SignupPage = () => {
+const AdminSignIn = () => {
   const navigate = useNavigate();
   const Api = (path, method, authToken, body, callback) => {
     const init = {
@@ -139,7 +143,7 @@ const SignupPage = () => {
       body: method === 'GET' ? undefined : JSON.stringify(body),
     };
 
-    fetch(`http://mongomagicv1-env-1.eba-p8jpdc25.ap-southeast-2.elasticbeanstalk.com/${path}`, init)
+    fetch(`${backend_url}/${path}`, init)
       .then(response => response.json())
       .then(body => {
         if (body.error) {
@@ -151,12 +155,11 @@ const SignupPage = () => {
         }
       });
 };
-  const transLogin = (event) => {
-    navigate(`/login`);
-  }
-
   const transRegis = (event) => {
-    navigate(`/adminsignup`);
+    navigate(`/signup`); 
+  }
+  const transLogin = (event) => {
+    navigate(`/login`); 
   }
 
   const handleSubmit = (event) => {
@@ -164,87 +167,56 @@ const SignupPage = () => {
     const data = new FormData(event.currentTarget);
     const msg = {
       email: data.get('email'),
-      fullname: data.get('name'),
-      org: data.get('org'),
       password: data.get('password'),
-      confirm: data.get('confirm'),
-      user_type: "1",
+      user_type: "0",
     }
     console.log(msg);
-    if (data.get('password') === data.get('check')){
-        switch(data.get('confirm')){
-        case null: 
-          alert('You need to confirm the terms')
-          break;
-        default:
-          Api('users/register', 'POST', undefined, msg, (body) => {
-                console.log(body);
-                if (body.token){
-                  // localStorage.setItem('userToken', body.token);
-                  // navigate(`/users/dashboard`);
-                  asyncLocalStorage.setItem('userToken', body.token).then(() =>
-                    navigate(`/users/dashboard`)
-                  )
-                } else {
-                  alert(body.message);
-                }
-                
-        })
+    Api('users/login', 'POST', undefined, msg, (body) => {
+      console.log(body);
+      if (body.token){
+        asyncLocalStorage.setItem('userToken', body.token).then(() =>
+        navigate(`/users/dashboard`)
+      )
+      } else {
+        alert(body.message);
       }
-    } else {
-      alert('Please check your password')
-    }
-    
-    
-    
-      
+    })
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag>Home</Atag><Atag>Rankings</Atag><Atag>Help</Atag><Atag>About</Atag></Span> </Navbar>
     <Flexbox>
-    <Head>
-        User Register
+      
+      <Head>
+        Admin Login
       </Head>
-      <Head2>Already have an account?  <Bluetag onClick={transLogin}>Login</Bluetag></Head2>
-      <Head2><Bluetag onClick={transRegis}>Switch to Admin Register</Bluetag></Head2>
+      <Head2>Don’t have an account? <Bluetag onClick={transRegis}>Register</Bluetag></Head2>
+      <Head2><Bluetag onClick={transLogin}>Switch to User Login</Bluetag></Head2>
       <Newform onSubmit={handleSubmit}>
-      <Labelbox>
-          <Label htmlFor="name">Full Name</Label>
-          <Newinput type="text" placeholder="Full Name" id="name" name="name" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="org">Organization</Label>
-          <Newinput type="text" placeholder="Organization" id="org" name="org" required></Newinput>
-        </Labelbox>
         <Labelbox>
           <Label htmlFor="email">Email</Label>
           <Newinput type="email" placeholder="Email" id="email" name="email" required></Newinput>
         </Labelbox>
         <Labelbox>
           <Label htmlFor="password">Password</Label>
-          <Newinput type="password" placeholder="password" id="password" name="password" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="check">Password Confirmation</Label>
-          <Newinput type="password" placeholder="password" id="check" name="check" required></Newinput>
+          <Newinput type="password" placeholder="Password" id="password" name="password" required></Newinput>
         </Labelbox>
         <Labelbox>
         <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label={
                 <Typography sx={{ fontSize: 16 ,fontWeight:'bold'}}>
-                  I agree to the Terms & Conditions
+                  Remember me
                 </Typography>
-              } sx={{marginBottom: '10px'} } required id="confirm" name="confirm"
+              } sx={{marginBottom: '10px'}}
             />
         </Labelbox>
-        <Button color='primary' variant="contained" type="submit" sx={{width:'408px', height:'62px', borderRadius: '12px', fontSize: '15px', fontWeight:'bold', textTransform: 'none',}}>Register</Button>
+        <Button color='primary' variant="contained" type="submit" sx={{width:'408px', height:'62px', borderRadius: '12px', fontSize: '15px', fontWeight:'bold', textTransform: 'none',}}>Login</Button>
       </Newform>
     </Flexbox>
     </ThemeProvider>
   );
 }
 
-export default SignupPage;
+export default AdminSignIn;
