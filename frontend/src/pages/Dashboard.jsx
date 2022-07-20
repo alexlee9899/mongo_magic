@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { ProfileContext } from "../App";
 import HeaderBar from '../component/HeaderBar'
 import LoadingIcon from "../component/LoadingIcon";
+import themeColor from '../config/theme';
 
 const { Content } = Layout;
 
@@ -19,7 +20,7 @@ const Dashboard = (props) => {
                 <Content style={{ minWidth:'500px',display:'flex', alignItems:'center', justifyContent:'center' }}>
                     {(profile?.providerProfile?.profile?.email == undefined) ? (<LoadingIcon></LoadingIcon>) :
                     (<>
-                    <TextEffect textColor='#4D7393' /></>
+                    <TextEffect textColor={themeColor} /></>
                     )}
                 </Content>
         </>
