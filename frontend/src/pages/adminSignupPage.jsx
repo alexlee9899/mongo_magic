@@ -21,7 +21,7 @@ const Newinput = styled.input`
   background: #F6F6F6;
   border-radius: 12px;
   width: 408px;
-  height: 62px;
+  height: 48px;
   margin: 10px;
   text-indent: 15px;
 `
@@ -37,8 +37,8 @@ const Newform = styled.form`
   justify-content: center;
   align-items:center;
   padding:20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  // margin-top: 15px;
+  // margin-bottom: 30px;
 
 `
 
@@ -77,6 +77,7 @@ const Head2 = styled.h2`
   font-size: 20px;
   color: #94959B;
   line-height: 150%;
+  margin-bottom: 0.3rem;
 `
 
 const Logoimg = styled.img`
@@ -127,7 +128,7 @@ const theme = createTheme({
 });
 
 
-const SignupPage = () => {
+const AdminSignupPage = () => {
   const navigate = useNavigate();
   const Api = (path, method, authToken, body, callback) => {
     const init = {
@@ -151,12 +152,11 @@ const SignupPage = () => {
         }
       });
 };
-  const transLogin = (event) => {
+  const translogin = (event) => {
     navigate(`/login`);
   }
-
   const transRegis = (event) => {
-    navigate(`/adminsignup`);
+    navigate(`/signup`); 
   }
 
   const handleSubmit = (event) => {
@@ -168,10 +168,10 @@ const SignupPage = () => {
       org: data.get('org'),
       password: data.get('password'),
       confirm: data.get('confirm'),
-      user_type: "1",
+      user_type: "0",
     }
     console.log(msg);
-    if (data.get('password') === data.get('check')){
+    if (data.get('password') === data.get('check') && data.get('code') === 'wdfvz'){
         switch(data.get('confirm')){
         case null: 
           alert('You need to confirm the terms')
@@ -191,8 +191,11 @@ const SignupPage = () => {
                 
         })
       }
-    } else {
+    } else if (data.get('password') !== data.get('check')){
       alert('Please check your password')
+    } else if (data.get('code') !== 'wdfvz') {
+      alert('Wrong invitation code. Please check your code')
+
     }
     
     
@@ -205,10 +208,10 @@ const SignupPage = () => {
       <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag>Home</Atag><Atag>Rankings</Atag><Atag>Help</Atag><Atag>About</Atag></Span> </Navbar>
     <Flexbox>
     <Head>
-        User Register
+        Admin Register
       </Head>
-      <Head2>Already have an account?  <Bluetag onClick={transLogin}>Login</Bluetag></Head2>
-      <Head2><Bluetag onClick={transRegis}>Switch to Admin Register</Bluetag></Head2>
+      <Head2>Already have an account?  <Bluetag onClick={translogin}>Login</Bluetag></Head2>
+      <Head2><Bluetag onClick={transRegis}>Switch to User Register</Bluetag></Head2>
       <Newform onSubmit={handleSubmit}>
       <Labelbox>
           <Label htmlFor="name">Full Name</Label>
@@ -224,11 +227,15 @@ const SignupPage = () => {
         </Labelbox>
         <Labelbox>
           <Label htmlFor="password">Password</Label>
-          <Newinput type="password" placeholder="password" id="password" name="password" required></Newinput>
+          <Newinput type="password" placeholder="Password" id="password" name="password" required></Newinput>
         </Labelbox>
         <Labelbox>
           <Label htmlFor="check">Password Confirmation</Label>
-          <Newinput type="password" placeholder="password" id="check" name="check" required></Newinput>
+          <Newinput type="password" placeholder="Password" id="check" name="check" required></Newinput>
+        </Labelbox>
+        <Labelbox>
+          <Label htmlFor="check">Invitation Code</Label>
+          <Newinput type="text" placeholder="Invitation Code" id="code" name="code" required></Newinput>
         </Labelbox>
         <Labelbox>
         <FormControlLabel
@@ -247,4 +254,4 @@ const SignupPage = () => {
   );
 }
 
-export default SignupPage;
+export default AdminSignupPage;

@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AdminSignupPage from './pages/adminSignupPage'
+import AdminSignIn from './pages/adminLoginPage';
 import Dashboard from './pages/Dashboard';
 import Results from './pages/Results';
 import Analytics from './pages/Analytics';
@@ -53,6 +55,8 @@ function App() {
               <Route path='/home' element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/adminlogin" element={<AdminSignIn />} />
+              <Route path="/adminsignup" element={<AdminSignupPage />} />
               <Route path="/users/dashboard" element={<><NavBar page='Dashboard' /><Dashboard /></>} />
               <Route path="/users/results" element={<><NavBar page='Results' /><Results /></>} />
               <Route path="/users/analytics" element={<><NavBar page='Analytics' /><Analytics /></>} />
