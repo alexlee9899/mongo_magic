@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { message, Layout, Upload, Button, Input, Spin } from 'antd';
-import HeaderBar from '../component/HeaderBar'
+import HeaderBar from '../components/HeaderBar'
 import uploadAvatar from '../assets/uploadAvatar.png';
 import { ProfileContext } from '../App';
 import { fileToDataUrl } from "../utils/functions";
 import { updateProfile } from "../utils/requests";
-import LoadingIcon from "../component/LoadingIcon";
-import LoginChecker from "../component/LoginChecker";
+import LoadingIcon from "../components/LoadingIcon";
+import LoginChecker from "../components/LoginChecker";
 import { getProfile } from "../utils/requests";
 import { useNavigate } from "react-router-dom";
 

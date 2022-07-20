@@ -14,7 +14,8 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
-import NavBar from './component/Navbar';
+import NavBar from './components/Navbar';
+import ImageOne from './components/ImageOne';
 
 export const ProfileContext = React.createContext();
 
