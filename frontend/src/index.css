@@ -22,6 +22,7 @@ code {
 .image .content {
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -36,4 +37,19 @@ code {
   font-weight: bold;
   max-width: 1200px;
   text-align: center;
+  margin: 0 auto;
+}
+
+.logo-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.test-container {
+  margin: auto;
 }

@@ -19,6 +19,7 @@ import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
 import HeaderBar from './components/HeaderBar';
 import AssessmentPage from './pages/AssessmentPage';
+import TestPage from './pages/TestPage';
 
 export const ProfileContext = React.createContext();
 
@@ -63,6 +64,7 @@ function App() {
               <Route path="/adminlogin" element={<AdminSignIn />} />
               <Route path="/adminsignup" element={<AdminSignupPage />} />
               <Route path="/assessment" element={<AssessmentPage/>}/>
+              <Route path="/test" element={<TestPage />} />
               <Route path='/users/' element={<><NavBar page='Dashboard'></NavBar><Outlet/></>}>
                 <Route path="dashboard" element={<Layout><HeaderBar page='Dashboard'></HeaderBar><Dashboard /></Layout>} />
                 <Route path="results"  element={<><Layout><HeaderBar page='Results'></HeaderBar><Results /></Layout></>} />
