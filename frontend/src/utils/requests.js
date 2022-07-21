@@ -52,8 +52,8 @@ export const australianPostCode = async(postCode) => {
         method: 'GET',
     };
     try {
-        console.log(`http://api.geonames.org/postalCodeSearch?postalcode=${postCode}&username=jinl9667&country=AU`);
-        const response = await fetch(`http://api.geonames.org/postalCodeSearchJSON?postalcode=${postCode}&username=jinl9667&country=AU`, request);
+        // console.log(`https://secure.geonames.org/postalCodeSearch?postalcode=${postCode}&username=jinl9667&country=AU`);
+        const response = await fetch(`https://secure.geonames.org/postalCodeSearchJSON?postalcode=${postCode}&username=jinl9667&country=AU`, request);
         return response;
     }catch(error){
         return error;
