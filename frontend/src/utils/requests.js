@@ -9,7 +9,7 @@ const apiRequest = async({method=undefined, url, body=undefined}) => {
             'Accept': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: body ? JSON.stringify(body) : undefined
+        body: body ? JSON.stringify(body) : undefined,
     };
     try{
         console.log((requestOptions));
@@ -38,18 +38,18 @@ export const getProfile = (url='/users/profile')  => {
 }
 
 export const updateProfile = (body) => {
-    console.log(body);
     const res = apiRequest({method:'PATCH',url:'/users/update_profile', body:body});
+    return res;
+}
+
+export const getQuestionList = (url='/question/list') => {
+    const res = apiRequest({url: url});
     return res;
 }
 
 export const australianPostCode = async(postCode) => {
     const request = {
         method: 'GET',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        // mode:'no-cors',
     };
     try {
         console.log(`http://api.geonames.org/postalCodeSearch?postalcode=${postCode}&username=jinl9667&country=AU`);
