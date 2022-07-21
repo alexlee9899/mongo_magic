@@ -1,7 +1,6 @@
 import { React, useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
 import { Layout, Image, Space, message } from 'antd';
-import dashBoardLines from '../assets/dashboardLines.png';
 // import { getProfile } from '../utils/requests';
 import { ProfileContext } from '../App';
 import { checkToken } from '../utils/functions';

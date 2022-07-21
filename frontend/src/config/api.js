@@ -1,4 +1,4 @@
 
-const backend_url = "http://mongomagicv1-env-1.eba-p8jpdc25.ap-southeast-2.elasticbeanstalk.com"
+const backend_url = "https://d1c543cslxqz58.cloudfront.net"
 
 export default backend_url;
