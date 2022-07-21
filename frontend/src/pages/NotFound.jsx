@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from 'styled-components';
 // import backToHome from "../assets/404BackToHomeBtn.png";
-import { removeNavbar } from "../utils/functions";
+// import { removeNavbar } from "../utils/functions";
 import { Button } from 'antd';
 import Image404 from "../assets/404Image.png";
 
@@ -71,9 +71,9 @@ const goHome = (e) => {
     window.location.href = "/";
 }
 const NotFound = () => {
-    useEffect(() => {
-        removeNavbar();
-    }, []);
+    // useEffect(() => {
+    //     removeNavbar();
+    // }, []);
 
     return (
         <div style={{ background: '#F6F6F6', height: '100vh', width: '100%', textAlign: 'center', justifyContent: 'center', alignContent: '' }}>

@@ -6,10 +6,6 @@ const Settings = () => {
     return (
         <>
         {/* <Navbar  page='Settings'></Navbar> */}
-        <Layout>
-            <HeaderBar page='Settings'>
-            </HeaderBar>
-        </Layout>
     </>
     );
 }

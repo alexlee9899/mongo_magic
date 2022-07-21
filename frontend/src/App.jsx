@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -16,6 +16,7 @@ import NotFound from './pages/NotFound';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
+import HeaderBar from './components/HeaderBar';
 
 export const ProfileContext = React.createContext();
 
@@ -48,6 +49,7 @@ function App() {
   return (
     <div style={{ height: '100%' }}>
       <Layout style={{ minHeight: '100%' }}>
+        <>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
             {/* { (useRegex(window.location.pathname))  ? (<NavBar page='Dashboard'></NavBar>) : (<></>)} */}
@@ -56,18 +58,19 @@ function App() {
               <Route path='/home' element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/adminlogin" element={<AdminSignIn />} />
-              <Route path="/adminsignup" element={<AdminSignupPage />} />
-              <Route path="/users/dashboard" element={<><NavBar page='Dashboard' /><Dashboard /></>} />
-              <Route path="/users/results" element={<><NavBar page='Results' /><Results /></>} />
-              <Route path="/users/analytics" element={<><NavBar page='Analytics' /><Analytics /></>} />
-              <Route path="/users/ranking" element={<><NavBar page='Ranking' /><Ranking /></>} />
-              <Route path="/users/profile" element={<><NavBar page='Profile' /><Profile /></>} />
-              <Route path="/users/settings" element={<><NavBar page='Settings' /><Settings /></>} />
+              <Route path='/users/' element={<><NavBar page='Dashboard'></NavBar><Outlet/></>}>
+                <Route path="dashboard" element={<Layout><HeaderBar page='Dashboard'></HeaderBar><Dashboard /></Layout>} />
+                <Route path="results"  element={<><Layout><HeaderBar page='Results'></HeaderBar><Results /></Layout></>} />
+                <Route path="analytics" element={<><Layout><HeaderBar page='Analytics'></HeaderBar><Analytics /></Layout></>} />
+                <Route path="ranking" element={<><Layout><HeaderBar page='Ranking'></HeaderBar><Ranking /></Layout></>} />
+                <Route path="profile" element={<><Layout><HeaderBar page='Profile'></HeaderBar><Profile /></Layout></>} />
+                <Route path="settings" element={<><Layout><HeaderBar page='Settings'></HeaderBar><Settings /></Layout></>} />
+              </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ProfileContext.Provider>
         </Router>
+        </>
       </Layout>
     </div>
   );

@@ -54,8 +54,9 @@ function Profile() {
         borderRadius: '4px',
         background: '#4d7393',
         color: '#fff',
-        width: '15vw',
-        margin: '50px'
+        width: 'min(15vw, 200px)',
+        minWidth: '150px',
+        margin: '50px',
     };
 
 
@@ -109,9 +110,6 @@ function Profile() {
     return (
         <>
             {/* <LoginChecker></LoginChecker> */}
-            <Layout>
-                <HeaderBar page='Profile'>
-                </HeaderBar>
                 {(prof.providerProfile.profile) ? (
                     <Content style={contentStyle}>
                         <div>
@@ -126,24 +124,23 @@ function Profile() {
                             </br>
                             {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
                         </div>
-                        <div style={{ width: '40vw', marginTop: '100px' }}>
-                            <h3> Name</h3>
-                            <Input size="large" maxLength='20' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
+                        <div style={{ width: '40vw', marginTop: '80px', textAlign:'center', maxWidth:'600px' }}>
+                            <h3 style= {{ textAlign:'left' }}> Name</h3>
+                            <Input size="large" maxLength='20' style={{ maxWidth:'600px', marginLeft:'auto', marginRight:'auto' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
                         </div>
-                        <div style={{ width: '40vw', marginTop: '20px' }}>
-                            <h3> Email (required)</h3>
-                            <Input size="large" maxLength='40' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
+                        <div style={{ width: '40vw', marginTop: '20px', textAlign:'center', maxWidth:'600px' }}>
+                            <h3 style= {{ textAlign:'left' }}> Email (required)</h3>
+                            <Input size="large" maxLength='40' style={{ width: '100%' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
                         </div>
-                        <div style={{ width: '40vw', marginTop: '20px' }}>
-                            <h3> Organisation Name</h3>
-                            <Input size="large" maxLength='50' style={{ width: '40vw' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setChange({ org: e.target.value })} />
+                        <div style={{ width: '40vw', marginTop: '20px', textAlign:'center', maxWidth:'600px' }}>
+                            <h3 style= {{ textAlign:'left' }}> Organisation Name</h3>
+                            <Input size="large" maxLength='50' style={{ width: '100%' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setChange({ org: e.target.value })} />
                         </div>
                         <Button style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
                 ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)}
-            </Layout>
-        </>
+        </> 
     );
 }
 

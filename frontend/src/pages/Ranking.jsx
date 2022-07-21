@@ -8,12 +8,8 @@ const Ranking= () => {
     return (
         <>
         {/* <Navbar page='Ranking'></Navbar> */}
-        <Layout>
-            <HeaderBar page='Ranking'>
-            </HeaderBar>
             <Content>
             </Content>
-        </Layout>
     </>
     );
 }

@@ -16,9 +16,10 @@ import profileLogoSelected from '../assets/profileLogoSelected.png';
 import settingsLogo from '../assets/settingsLogo.png';
 import settingsLogoSelected from '../assets/settingsLogoSelected.png';
 import '../App.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { checkToken } from '../utils/functions';
 import { userLogout } from '../utils/requests';
+import themeColor from "../config/theme";
 
 const { Sider }  = Layout;
 
@@ -100,7 +101,6 @@ const NavBar = (props) =>{
     const [textOffsetLeft, setTextOffsetLeft] = useState(null);
     const [itemSelected, setItemSelected] = useState(pageKeys[props.page]);
     let navigate = useNavigate();
-    const themeColor = '#4D7393';
     const [logoutHover, setLogoutHover] = useState(undefined);
     let location = useLocation();
 
@@ -110,9 +110,9 @@ const NavBar = (props) =>{
     }, []);
 
     useEffect(() => {
-        if (location.pathname.toLowerCase() === '/users/profile') {
-            setItemSelected(pageKeys['Profile']);
-        }
+        let pageName = location.pathname.split('/')[2];
+        pageName = pageName.slice(0, 1).toUpperCase() + pageName.slice(1);
+        setItemSelected(pageKeys[pageName]);
     },[location]);
     /**
      * Find and apply logo offset and text offset
@@ -159,7 +159,8 @@ const NavBar = (props) =>{
     }
 
     return (
-    <>
+    <>      
+            
             <Sider id="Dashboard_sider">
                 <HeaderLogo id="Header_container" onClick={() => (navigate('/'))}>
                     <TopLogo src={logo} alt="logo" ref={imgRef}/>

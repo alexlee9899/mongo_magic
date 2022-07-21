@@ -61,3 +61,8 @@ export const asyncLocalStorage = {
         return localStorage.getItem(key);
     }
 };
+
+export const isAustralianPostCode = (postcode) => {
+    const myRegEx = new RegExp('^(0[289][0-9]{2})|([123456789][0-9]{3})$');
+    return myRegEx.test(postcode);
+}
