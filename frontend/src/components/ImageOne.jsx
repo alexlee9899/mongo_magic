@@ -61,7 +61,7 @@ const ImageOne = () => {
   }
 
   const handleClick = () => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('userToken')) {
       navigate('/test');
     }
     else {
@@ -74,7 +74,7 @@ const ImageOne = () => {
   }
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('userToken');
     navigate('/');
   }
 
@@ -91,7 +91,7 @@ const ImageOne = () => {
         <Atag>Help</Atag>
         <Atag>About</Atag>
         {
-          localStorage.getItem('token') ?
+          localStorage.getItem('userToken') ?
             <div style={{lineHeight:'0'}}>
               <Atag onClick={turnToDashboard}>Dashboard</Atag>
               <Atag onClick={logout}>Logout</Atag>
