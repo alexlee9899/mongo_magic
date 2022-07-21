@@ -12,6 +12,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=100)
 jwt = JWTManager(app)
 CORS(app)
 
+
 from controller.users import users_blueprint
 from controller.questions import questions_blueprint
 app.register_blueprint(questions_blueprint)
