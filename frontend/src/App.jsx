@@ -13,6 +13,7 @@ import Ranking from './pages/Ranking';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
+// import Newquiz from './pages/Newquiz';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
@@ -58,6 +59,8 @@ function App() {
               <Route path='/home' element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/adminlogin" element={<AdminSignIn />} />
+              <Route path="/adminsignup" element={<AdminSignupPage />} />
               <Route path='/users/' element={<><NavBar page='Dashboard'></NavBar><Outlet/></>}>
                 <Route path="dashboard" element={<Layout><HeaderBar page='Dashboard'></HeaderBar><Dashboard /></Layout>} />
                 <Route path="results"  element={<><Layout><HeaderBar page='Results'></HeaderBar><Results /></Layout></>} />
@@ -67,6 +70,7 @@ function App() {
                 <Route path="settings" element={<><Layout><HeaderBar page='Settings'></HeaderBar><Settings /></Layout></>} />
               </Route>
               <Route path="*" element={<NotFound />} />
+              {/* <Route path="/newquiz" element={<Newquiz />} /> */}
             </Routes>
           </ProfileContext.Provider>
         </Router>
