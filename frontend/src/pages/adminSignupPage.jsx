@@ -140,7 +140,7 @@ const AdminSignupPage = () => {
       body: method === 'GET' ? undefined : JSON.stringify(body),
     };
 
-    fetch(`http://mongomagicv1-env-1.eba-p8jpdc25.ap-southeast-2.elasticbeanstalk.com/${path}`, init)
+    fetch(`https://d1c543cslxqz58.cloudfront.net/${path}`, init)
       .then(response => response.json())
       .then(body => {
         if (body.error) {

@@ -1,6 +1,6 @@
 后端全部上云了：
 
-URL：http://mongomagicv1-env-1.eba-p8jpdc25.ap-southeast-2.elasticbeanstalk.com
+URL：https://d1c543cslxqz58.cloudfront.net/
 
 API接口：
 
