@@ -14,31 +14,14 @@ const PostCodeInput = () => {
         setValue(e);
         if (isAustralianPostCode(e)){
             australianPostCode(e).then(res => {
-                if (res.ok){
-                    res.json().then(
-                        data => {
-                            let city = ''
-                            if (data?.postalCodes[0]?.adminName1){
-                                if (data.postalCodes[0].adminName2){
-                                    city = data.postalCodes[0].adminName2.slice(0,1).toUpperCase() + data.postalCodes[0].adminName2.slice(1).toLowerCase();
-                                }
-                                setLocation({
-                                    city: city,
-                                    state: data.postalCodes[0].adminName1
-                                })
-                            } else {
-                                setLocation(undefined);
-                                setIsValid(false);
-                            }
-                        }
-                    )
-                }
+                console.log(res);
             }
             )
         }   else {
             setLocation(null);
         }
     }
+    console.log(location);
 
     const inputStatus = () => {
         if (!isValid && value.toString().length === 4) {
@@ -46,16 +29,14 @@ const PostCodeInput = () => {
         }
         return '';
     }
-    
-    // React.useEffect(() => {
-
+ 
 
     return (
-        <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }}>
-            PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'-100px', marginTop:'10px' }}></Input>
+        <>
+            PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'10px' }}></Input>
             { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
-            <div>{ (location) && <div>{location.city}, {location.state}</div>}</div>
-        </div>
+            { location && <div>{location[0]}, {location[1]}</div>}
+        </>
     )
 }
 
