@@ -46,6 +46,8 @@ const Span = styled.span`
   right: 10%;
   top: 1rem;
   margin-left: 1rem;
+  display: flex;
+  flex-direction: row;
 `
 const ImageOne = () => {
   const navigate = useNavigate();
@@ -67,6 +69,15 @@ const ImageOne = () => {
     }
   }
 
+  const turnToDashboard = () => {
+    navigate('/dashboard');
+  }
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  }
+
 
   return <Parallax className='image' blur={0} bgImage={require('./image/banner1.jpg')} strength={800} bgImageStyle={{minHeight:"100vh"}}>
   <Navbar>
@@ -79,8 +90,18 @@ const ImageOne = () => {
         <Atag>Ranking</Atag>
         <Atag>Help</Atag>
         <Atag>About</Atag>
-        <Atag onClick={turnToLogin}>Login</Atag>
-        <Atag onClick={turnToRegister}>Sign up</Atag>
+        {
+          localStorage.getItem('token') ?
+            <div style={{lineHeight:'0'}}>
+              <Atag onClick={turnToDashboard}>Dashboard</Atag>
+              <Atag onClick={logout}>Logout</Atag>
+            </div>
+          :
+            <div style={{lineHeight:'0'}}>
+              <Atag onClick={turnToLogin}>Login</Atag>
+              <Atag onClick={turnToRegister}>Sign up</Atag>
+            </div>
+        }
       </Span> 
     </Navbar>
      <div className='content'>
