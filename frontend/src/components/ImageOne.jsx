@@ -29,7 +29,7 @@ const Navbar = styled.div`
   max-width: 1200px;
   margin: auto;
   justify-content: space-between;
-  padding-top: 1.5rem;
+  padding-top: 1.2rem;
 `
 
 const Atag = styled.a`
@@ -39,7 +39,7 @@ const Atag = styled.a`
   /* identical to box height */
   text-align: center;
   color: #ffffff;
-  margin: 0 2rem 0;
+  margin: 1rem;
 `
 
 const Span = styled.span`
@@ -79,7 +79,7 @@ const ImageOne = () => {
   }
 
 
-  return <Parallax className='image' blur={0} bgImage={require('./image/banner1.jpg')} strength={800} bgImageStyle={{minHeight:"100vh"}}>
+  return <Parallax className='image' blur={0} bgImage={require('../assets/banner1.jpg')} strength={800} bgImageStyle={{minHeight:"100vh"}}>
   <Navbar>
       <div className='logo-title'>
         <Logoimg src={logo} alt="logo" />
@@ -92,12 +92,12 @@ const ImageOne = () => {
         <Atag>About</Atag>
         {
           localStorage.getItem('userToken') ?
-            <div style={{lineHeight:'0'}}>
+            <div style={{margin:'1rem', lineHeight:'0'}}>
               <Atag onClick={turnToDashboard}>Dashboard</Atag>
               <Atag onClick={logout}>Logout</Atag>
             </div>
           :
-            <div style={{lineHeight:'0'}}>
+            <div style={{margin:'1rem', lineHeight:'0'}}>
               <Atag onClick={turnToLogin}>Login</Atag>
               <Atag onClick={turnToRegister}>Sign up</Atag>
             </div>
