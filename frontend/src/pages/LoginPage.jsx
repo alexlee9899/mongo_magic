@@ -1,5 +1,5 @@
-import React from "react";
-import backend_url from "../config/api";
+import React from 'react';
+import backend_url from '../config/api';
 
 
 // Temperary login page for dev purpose
@@ -112,7 +112,7 @@ const Bluetag = styled.a`
   font-size: 20px;
   line-height: 22px;
   text-align: center;
-  color: ##3865F3;
+  color: #3865F3;
 `
 
 const Span = styled.span`
