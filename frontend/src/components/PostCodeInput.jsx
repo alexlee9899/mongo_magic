@@ -15,6 +15,26 @@ const PostCodeInput = () => {
         if (isAustralianPostCode(e)){
             australianPostCode(e).then(res => {
                 console.log(res);
+                if (res.ok){
+                    res.json().then(
+                        data => {
+                            let city = ''
+                            if (data?.postalCodes[0]?.adminName1){
+                                if (data.postalCodes[0].adminName2){
+                                    city = data.postalCodes[0].adminName2.slice(0,1).toUpperCase() + data.postalCodes[0].adminName2.slice(1).toLowerCase();
+                                }
+                                setLocation({
+                                    city: city,
+                                    state: data.postalCodes[0].adminName1
+                                })
+                            } else {
+                                setLocation(undefined);
+                                setIsValid(false);
+                                console.log('Invalid Post Code');
+                            }
+                        }
+                    )
+                }
             }
             )
         }   else {
@@ -32,12 +52,16 @@ const PostCodeInput = () => {
  
 
     return (
-        <>
-            PostCode (Australian, 4 digits):  <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginLeft:'10px' }}></Input>
-            { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
-            { location && <div>{location[0]}, {location[1]}</div>}
-        </>
+        <div style={{ display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', textAlign:'center' }}>
+            <div style={{ width:'220px' }}>PostCode (Australian, 4 digits): </div> 
+            <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginRight:'10px' }}></Input>
+                <div style={{ display:'block', width:'350px ', textAlign:'left' }}>
+                    { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
+                    { (location) && <div>{location.city}, {location.state}</div>}
+                    { (location === undefined) && <div>Location not found, Check your PostCode again</div>}
+                </div>
+        </div>
     )
 }
 
-export default PostCodeInput
+export default PostCodeInput;
