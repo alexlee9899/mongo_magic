@@ -1,10 +1,11 @@
 import React from 'react';
 import { Input, Spin } from 'antd';
-import { isAustralianPostCode } from '../utils/functions';
+import { isAustralianPostCode } from '../../utils/functions';
 import { LoadingOutlined } from '@ant-design/icons';
-import { australianPostCode } from '../utils/requests';
+import { australianPostCode } from '../../utils/requests';
+import './QuestionStyle.css'
 
-const PostCodeInput = () => {
+const PostCodeInput = (props) => {
     const [isValid, setIsValid] = React.useState(false);
     const [value, setValue] = React.useState(0);
     const [location, setLocation] = React.useState(null);
@@ -14,23 +15,19 @@ const PostCodeInput = () => {
         setValue(e);
         if (isAustralianPostCode(e)){
             australianPostCode(e).then(res => {
-                console.log(res);
                 if (res.ok){
                     res.json().then(
                         data => {
                             let city = ''
                             if (data?.postalCodes[0]?.adminName1){
-                                if (data.postalCodes[0].adminName2){
-                                    city = data.postalCodes[0].adminName2.slice(0,1).toUpperCase() + data.postalCodes[0].adminName2.slice(1).toLowerCase();
-                                }
                                 setLocation({
-                                    city: city,
                                     state: data.postalCodes[0].adminName1
                                 })
+                                props.setAnswer({...props.answer, [props.qId]: e});
                             } else {
-                                setLocation(undefined);
+                                setLocation(void 0);
                                 setIsValid(false);
-                                console.log('Invalid Post Code');
+                                console.log('Invalid Post Code');                            
                             }
                         }
                     )
@@ -52,14 +49,15 @@ const PostCodeInput = () => {
  
 
     return (
-        <div style={{ display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', textAlign:'center' }}>
-            <div style={{ width:'220px' }}>PostCode (Australian, 4 digits): </div> 
-            <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', marginRight:'10px' }}></Input>
-                <div style={{ display:'block', width:'350px ', textAlign:'left' }}>
+        <div className='questionContainer'>
+            <div style={{ width:'100%', height:'20px', order:'0' }}>PostCode (Australian, 4 digits):
+            <div style={{ width:'100% ', order:'1', flexDirection:'row', marginTop:'10px' }}>
+            <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', height:'25px', marginRight:'10px'}}></Input>
                     { (!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>}
-                    { (location) && <div>{location.city}, {location.state}</div>}
-                    { (location === undefined) && <div>Location not found, Check your PostCode again</div>}
+                    { (location) && `${location.state}`}
+                    { (location === void 0) && <>Location not found, Check your PostCode </>}
                 </div>
+            </div> 
         </div>
     )
 }

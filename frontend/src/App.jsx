@@ -18,7 +18,7 @@ import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
 import HeaderBar from './components/HeaderBar';
-import AssessmentPage from './pages/AssessmentPage';
+import AssessmentPage from './pages/AssessmentPage/AssessmentPage';
 import TestPage from './pages/TestPage';
 
 export const ProfileContext = React.createContext();
@@ -51,7 +51,7 @@ function App() {
 
   return (
     <div style={{ height: '100%' }}>
-      <Layout style={{ minHeight: '100%' }}>
+      <Layout style={{ minHeight: '100%', width:'100%', overflow:'auto' }}>
         <>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
