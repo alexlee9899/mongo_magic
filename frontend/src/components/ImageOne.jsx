@@ -70,7 +70,7 @@ const ImageOne = () => {
   }
 
   const turnToDashboard = () => {
-    navigate('/dashboard');
+    navigate('/users/dashboard');
   }
 
   const logout = () => {
