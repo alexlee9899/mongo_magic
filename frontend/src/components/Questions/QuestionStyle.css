@@ -1,5 +1,5 @@
 div.questionContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 100px;
 }

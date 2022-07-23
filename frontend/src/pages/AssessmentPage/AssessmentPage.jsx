@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import themeColor from '../../config/theme';
 import { getQuestionList } from '../../utils/requests'
 import AssessmentStepBar from '../../components/AssessmentStepBar/AssessmentStepBar';
-import QuestionForm from '../../components/QusetionForm/QuestionForm';
+import QuestionForm from '../../components/QuestionForm/QuestionForm';
 import './AssessmentPage.css';
 
 const PageContainer = styled.div`

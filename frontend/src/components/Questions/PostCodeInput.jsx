@@ -3,12 +3,14 @@ import { Input, Spin } from 'antd';
 import { isAustralianPostCode } from '../../utils/functions';
 import { LoadingOutlined } from '@ant-design/icons';
 import { australianPostCode } from '../../utils/requests';
+import { QuestionContext } from '../QuestionForm/QuestionForm';
 import './QuestionStyle.css'
 
 const PostCodeInput = (props) => {
     const [isValid, setIsValid] = React.useState(false);
     const [value, setValue] = React.useState(0);
     const [location, setLocation] = React.useState(null);
+    const ans = React.useContext(QuestionContext);
 
     const inputOnchange = (e) => {
         setIsValid(isAustralianPostCode(e));
@@ -23,11 +25,10 @@ const PostCodeInput = (props) => {
                                 setLocation({
                                     state: data.postalCodes[0].adminName1
                                 })
-                                props.setAnswer({...props.answer, [props.qId]: e});
+                                ans.setAnswer({...ans.answer, [props.qId]: e});
                             } else {
                                 setLocation(void 0);
-                                setIsValid(false);
-                                console.log('Invalid Post Code');                            
+                                setIsValid(false);                        
                             }
                         }
                     )
@@ -38,7 +39,6 @@ const PostCodeInput = (props) => {
             setLocation(null);
         }
     }
-    console.log(location);
 
     const inputStatus = () => {
         if (!isValid && value.toString().length === 4) {
@@ -49,7 +49,7 @@ const PostCodeInput = (props) => {
  
 
     return (
-        <div className='questionContainer'>
+        <div>
             <div style={{ width:'100%', height:'20px', order:'0' }}>PostCode (Australian, 4 digits):
             <div style={{ width:'100% ', order:'1', flexDirection:'row', marginTop:'10px' }}>
             <Input maxLength={4} status = {inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', height:'25px', marginRight:'10px'}}></Input>
