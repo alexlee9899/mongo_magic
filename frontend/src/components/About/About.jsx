@@ -7,6 +7,7 @@ import yjj from '../../assets/yjj.jpg';
 import kw from '../../assets/kw.jpg';
 import jjl from '../../assets/jll.jpg'
 import wyf from '../../assets/wyf.jpg';
+import lige from '../../assets/lige.jpg';
 
 const About = () => {
   const navigate = useNavigate();
@@ -97,7 +98,7 @@ const About = () => {
         <img className='memberPhoto' src={wyf}/>
       </div>
       <div className='memberLeft'>
-        <img className='memberPhoto' src={photo}/>
+        <img className='memberPhoto' src={lige}/>
         <div className='memberInfo'>
           <p className='memberName'>Yanlin Li</p>
           <p className='memberDesc'>Backend developer</p>
