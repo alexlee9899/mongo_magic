@@ -58,7 +58,7 @@ const Help = () => {
         </span>
       </div>
       <h1 className='title'>How we work</h1>
-      <div className='content'>
+      <div className='contents'>
         <ol>
           <li>
             <p>
@@ -77,7 +77,7 @@ const Help = () => {
           </li>
         </ol>
       </div>
-      <div className='content'>
+      <div className='contents'>
         <p>It may seem like we are just simply adding points up to give our score, but what made us special is that even for the same question and the same answer you may score differently. Take electricity as an example, in Queensland over 80 percent of the electricity is produced by burning fossil fuels, however, in Tasmania, 98 percent of the electricity is from renewable sources thanks to their utilization of hydro. Therefore, you may score higher with the same electricity usage because based on your location, the source of your electricity is quote-unquote cleaner and vice versa. </p>
       </div>
     </div>
