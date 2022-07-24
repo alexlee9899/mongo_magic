@@ -112,7 +112,7 @@ const Bluetag = styled.a`
   font-size: 20px;
   line-height: 22px;
   text-align: center;
-  color: #3865F3;
+  color: ##3865F3;
 `
 
 const Span = styled.span`
@@ -183,9 +183,21 @@ const SignIn = () => {
     })
   };
 
+  const turnToHome = () => {
+    navigate('/')
+  }
+
+  const turnToHelp = () => {
+    navigate('/help')
+  }
+
+  const turnToAbout = () => {
+    navigate('/about')
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag>Home</Atag><Atag>Rankings</Atag><Atag>Help</Atag><Atag>About</Atag></Span> </Navbar>
+      <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag onClick={turnToHome}>Home</Atag><Atag>Rankings</Atag><Atag onClick={turnToHelp}>Help</Atag><Atag onClick={turnToAbout}>About</Atag></Span> </Navbar>
     <Flexbox>
       
       <Head>

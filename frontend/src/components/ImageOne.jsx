@@ -78,6 +78,14 @@ const ImageOne = () => {
     navigate('/');
   }
 
+  const turnToAbout = () => {
+    navigate('/about')
+  }
+
+  const turnToHelp = () => {
+    navigate('/help')
+  }
+
 
   return <Parallax className='image' blur={0} bgImage={require('../assets/banner1.jpg')} strength={800} bgImageStyle={{minHeight:"100vh"}}>
   <Navbar>
@@ -88,8 +96,8 @@ const ImageOne = () => {
       <Span>
         <Atag>Home</Atag>
         <Atag>Ranking</Atag>
-        <Atag>Help</Atag>
-        <Atag>About</Atag>
+        <Atag onClick={turnToHelp}>Help</Atag>
+        <Atag onClick={turnToAbout}>About</Atag>
         {
           localStorage.getItem('userToken') ?
             <div style={{margin:'1rem', lineHeight:'0'}}>

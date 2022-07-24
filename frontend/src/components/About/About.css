@@ -1,0 +1,132 @@
+
+div.aboutContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img.LogoImage {
+    width: 56px;
+    height:56px;
+}
+
+div.Navbar {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 1.2rem;
+}
+
+a.Atag {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    text-align: center;
+    color: #183B56;
+    margin: 1rem;
+}
+
+span.Link {
+    right: 10%;
+    top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+div.title {
+    color: #4D7393;
+}
+
+h1.title {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 58px;
+    letter-spacing: 0em;
+    line-height: 1.1em;
+    text-transform: none;
+    color: #457495;
+    margin: 50px;
+}
+
+p.description {
+    width: 816px;
+    height: 64px;
+    display: block;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    letter-spacing: 0em;
+    line-height: 1.8em;
+    text-transform: none;
+    color: #878787;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+div.memberLeft {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: flex-start;
+    margin: 10px;
+}
+
+div.memberRight {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+img.memberPhoto {
+    max-width: 350px;
+    max-height: 350px;
+    width: 35%;
+    height: 35%;
+
+}
+
+div.memberInfo {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+p.memberName {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 34px;
+    letter-spacing: 0em;
+    text-transform: none;
+    line-height: 1.2em;
+    color: #89c5d1;
+    text-align: left !important;
+}
+
+p.memberDesc {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 17.25px;
+    letter-spacing: 0em;
+    text-transform: none;
+    line-height: 1.9em;
+    color: #878787;
+    text-align: left;
+}
