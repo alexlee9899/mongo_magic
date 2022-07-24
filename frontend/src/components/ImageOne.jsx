@@ -62,7 +62,7 @@ const ImageOne = () => {
 
   const handleClick = () => {
     if (localStorage.getItem('userToken')) {
-      navigate('/test');
+      navigate('/assessment');
     }
     else {
       turnToLogin();
