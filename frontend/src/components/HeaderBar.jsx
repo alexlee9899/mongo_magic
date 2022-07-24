@@ -71,12 +71,12 @@ const HeaderBar = (props) => {
                         }
                     )
                 } else {
-                    console.log(res);
-                    res.json().then(
-                        data => {
-                            console.log(data);
-                        }
-                    )
+                    // console.log(res);
+                    // res.json().then(
+                    //     data => {
+                    //         console.log(data);
+                    //     }
+                    // )
                     const responseContent = (
                         <>
                             <h>Please Login</h>
