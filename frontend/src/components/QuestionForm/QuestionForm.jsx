@@ -12,19 +12,16 @@ const QuestionForm = (props) => {
     const [questionList, setQuestionList] = useState(void 0);
     const [questionRender, setQuestionRender] = useState([]);
     const [answer, setAnswer] = useState({});
+    const [questionUnfinished, setQuestionUnfinished] = useState([]);
     let questionRenders = [];
 
-    const providerAnswer = React.useMemo(() => ({ answer, setAnswer }), [answer, setAnswer]);
+    const providerAnswer = React.useMemo(() => ({ answer, setAnswer, questionUnfinished, setQuestionUnfinished }), [answer, setAnswer, setQuestionUnfinished]);
 
     useEffect(() => {
         getQuestionList().then(res => {
             if (res.ok) {
                 res.json().then(
                     data => {
-                        // setQuestionList(data);
-                        // QuestionListRender(data.question_list);
-                        console.log(data);
-                        // setQuestionList(sortQuestions(data.question_list));
                         QuestionListRender(data.question_list);
                     }
                 )
@@ -33,8 +30,8 @@ const QuestionForm = (props) => {
         )
     }, [setQuestionList]);
 
-    questionList?.then(res => 
-        console.log(res));  
+    console.log(questionUnfinished);
+
     const sortQuestions = (data) => {
         const qList = [];
         for (const key in data) {
@@ -54,7 +51,7 @@ const QuestionForm = (props) => {
                 }
             }
         } 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             resolve(qList);
         });
     }

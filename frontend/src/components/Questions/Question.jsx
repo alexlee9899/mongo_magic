@@ -10,32 +10,28 @@ const Question = (props) => {
     const mutiable = props.question.mutiable;
     const qContent = props.question.content;
     const qDepend = props.question.depend;
-    // console.log(qType, qContent, qDependent);
     const ans = React.useContext(QuestionContext);
+    const [questionIsShown, setQuestionIsShown] = React.useState(false);
 
-    // console.log(qDepend.q_id in ans.answer && ans.answer[qDepend.q_id] === qDepend.q_option);
-    // console.log(JSON.stringify(qDepend) === '{}');
 
     React.useEffect(() => {
-        // if ( !(JSON.stringify(qDepend) === '{}' && qDepend.q_id in ans.answer && ans.answer[qDepend.q_id] === qDepend.q_option )){
-        //     delete ans.answer[props.question._id];
-        // }
-        // if (JSON.stringify(qDepend) !=== '{}' && !qDepend.q_id in ans.answer &&
-        if (JSON.stringify(ans.answer[props.question._id]) === '{}') {
-            delete ans.answer[props.question._id];
-        };
+        // if question is dependent, and prerequisite question is not answered, hide question
         if (JSON.stringify(qDepend) !== '{}' && (ans.answer[qDepend.q_id] !== qDepend.q_option)) {
             delete ans.answer[props.question._id];
-        };
-        if (props.question._id === '62dbbf7fe82cdd10987ecd1e'){
-            // console.log(qDepend.q_id);
-            // console.log(ans.answer);
-            // console.log(JSON.stringify(qDepend) !== '{}' );
-            // console.log(!qDepend.q_id in ans.answer);
-            // console.log(ans.answer[qDepend.q_id] !== qDepend.q_option);
-            console.log(ans.answer[props.question._id]);
+            ans.setQuestionUnfinished(prev => prev.filter(item => item !== props.question._id));
+            setQuestionIsShown(false);
+        }else{
+            setQuestionIsShown(true);
+            if (ans.answer[props.question._id] === undefined || ans.answer[props.question._id]?.length === 0) {
+                if (ans.questionUnfinished.indexOf(props.question._id) === -1 || ans.answer[props.question._id]?.length === 0) {
+                    ans.setQuestionUnfinished(prev => [...prev, props.question._id]);
+                }
+            }  else {
+                ans.setQuestionUnfinished(prev => prev.filter(item => item !== props.question._id));
+            }
         }
     }, [ans]);
+
 
     const unitContext = (props) => {
         switch (props.question.unit) {
@@ -53,7 +49,7 @@ const Question = (props) => {
             </div>
         )
     }
-    
+
     const renderSwitch = () => {
         switch (qType) {
             case '0':
@@ -98,6 +94,10 @@ const Question = (props) => {
         }
     }
 
+    const questionIsFinished = () => {
+
+    }
+
     const onMultiChange = (e) => {
         ans.setAnswer({ ...ans.answer, [props.question._id]: e });
     }
@@ -113,7 +113,7 @@ const Question = (props) => {
     const multiOption = () => {
         return (
             props.question.option.map((option) =>
-                <Col span={8}>
+                <Col key={option} span={8}>
                     <Checkbox value={option} key={option}>{option}</Checkbox>
                 </Col>
             )
@@ -132,8 +132,11 @@ const Question = (props) => {
                     )
                     :
                     (
-                        (JSON.stringify(qDepend) === '{}' || qDepend.q_id in ans.answer && ans.answer[qDepend.q_id] === qDepend.q_option) && [renderSwitch()]
+                        (JSON.stringify(qDepend) === '{}' || ans.answer[qDepend?.q_id] === qDepend?.q_option) && [renderSwitch()]
                     )
+            }
+            {
+
             }
         </>
     )
