@@ -48,14 +48,12 @@ const Question = (props) => {
 
     const FinishSign = () => {
         return (
-            <div style={{ width: '20px', height: '20px' }}>
+            <div style={{ width: '20px', height: '20px', marginTop:'5px' }}>
                 {(ans?.answer[props.question._id]?.length > 0) ? (<CheckOutlined key={props.q_id} style={{ color: 'green', display: 'flex' }}></CheckOutlined>) : (<></>)}
             </div>
         )
     }
-
-    console.log((ans?.answer[props.question._id]?.length > 0));
-
+    
     const renderSwitch = () => {
         switch (qType) {
             case '0':
