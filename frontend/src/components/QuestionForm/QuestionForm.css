@@ -1,0 +1,14 @@
+
+.ant-divider-plain.ant-divider-with-text {
+    font-weight: 400;
+    font-size: 16px;
+    color: #4D7393;
+}
+
+div.questionFormContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}

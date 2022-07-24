@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -18,14 +18,14 @@ import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import ImageOne from './components/ImageOne';
 import HeaderBar from './components/HeaderBar';
-import AssessmentPage from './pages/AssessmentPage';
+import AssessmentPage from './pages/AssessmentPage/AssessmentPage';
 import TestPage from './pages/TestPage';
 
 export const ProfileContext = React.createContext();
 
 function App() {
   const [profile, setProfile] = React.useState(null);
-  const providerProfile = React.useMemo(() => ({ profile, setProfile}), [profile, setProfile]);
+  const providerProfile = React.useMemo(() => ({ profile, setProfile }), [profile, setProfile]);
 
   React.useEffect(() => {
     // getProfile().then(res => {
@@ -51,7 +51,7 @@ function App() {
 
   return (
     <div style={{ height: '100%' }}>
-      <Layout style={{ minHeight: '100%' }}>
+      <Layout style={{ minHeight: '100%', width:'100%', overflow:'auto' }}>
         <>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
