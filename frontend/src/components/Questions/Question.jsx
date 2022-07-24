@@ -1,15 +1,18 @@
 import './QuestionStyle.css';
 import React from 'react';
 import PostCodeInput from './PostCodeInput';
-import { Input, Radio, Checkbox, Col, Row } from 'antd';
+import { Input, Radio, Checkbox, Col, Row, Slider } from 'antd';
 import { QuestionContext } from '../QuestionForm/QuestionForm';
 import { CheckOutlined } from '@ant-design/icons';
+import { SliderMark } from '@mui/material';
 
 const Question = (props) => {
     const qType = props.question.question_type;
     const mutiable = props.question.mutiable;
     const qContent = props.question.content;
     const qDepend = props.question.depend;
+    const qUnit = props.question.unit;
+    console.log(qUnit);
     const ans = React.useContext(QuestionContext);
     const [questionIsShown, setQuestionIsShown] = React.useState(false);
 
@@ -20,13 +23,13 @@ const Question = (props) => {
             delete ans.answer[props.question._id];
             ans.setQuestionUnfinished(prev => prev.filter(item => item !== props.question._id));
             setQuestionIsShown(false);
-        }else{
+        } else {
             setQuestionIsShown(true);
             if (ans.answer[props.question._id] === undefined || ans.answer[props.question._id]?.length === 0) {
                 if (ans.questionUnfinished.indexOf(props.question._id) === -1 || ans.answer[props.question._id]?.length === 0) {
                     ans.setQuestionUnfinished(prev => [...prev, props.question._id]);
                 }
-            }  else {
+            } else {
                 ans.setQuestionUnfinished(prev => prev.filter(item => item !== props.question._id));
             }
         }
@@ -34,7 +37,7 @@ const Question = (props) => {
 
 
     const unitContext = (props) => {
-        switch (props.question.unit) {
+        switch (qUnit) {
             case 'm2':
                 return (<>m<sup>2</sup></>);
             default:
@@ -44,7 +47,7 @@ const Question = (props) => {
 
     const FinishSign = () => {
         return (
-            <div style={{ width: '20px', height: '20px', marginTop:'5px' }}>
+            <div style={{ width: '20px', height: '20px', marginTop: '5px' }}>
                 {(ans?.answer[props.question._id]?.length > 0) ? (<CheckOutlined key={props.q_id} style={{ color: 'green', display: 'flex' }}></CheckOutlined>) : (<></>)}
             </div>
         )
@@ -53,12 +56,13 @@ const Question = (props) => {
     const renderSwitch = () => {
         switch (qType) {
             case '0':
+                // yes or no
                 return (
                     <div key={props.question._id} className='questionContainer' style={{ marginBottom: '66px' }}>
                         {FinishSign()}
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {qContent}
-                            <Radio.Group onChange={(e) => ans.setAnswer({ ...ans.answer, [props.question._id]: e.target.value })} value={ans.answer[props.question._id]}>
+                            <Radio.Group style={{ marginTop: '10px' }} onChange={(e) => ans.setAnswer({ ...ans.answer, [props.question._id]: e.target.value })} value={ans.answer[props.question._id]}>
                                 <Radio value={'true'} style={{ marginRight: '10px' }}>Yes</Radio>
                                 <Radio value={'false'} style={{ marginRight: '10px' }}>No</Radio>
                             </Radio.Group>
@@ -66,36 +70,115 @@ const Question = (props) => {
                     </div>
                 );
             case '1':
-                return (
-                    <div key={props.question._id} className='questionContainer'>
-                        {FinishSign()}
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            {qContent}
-                            <Checkbox.Group style={{ width: '100% ' }} onChange={onMultiChange}>
-                                <Row>
-                                    {multiOption()}
-                                </Row>
-                            </Checkbox.Group>
-                        </div>
-                    </div>
-                );
-            case '2':
-                return (
-                    <div key={props.question._id} className='questionContainer'>
-                        {FinishSign()}
-                        <div style={{ width: '100%', height: '20px', order: '0' }}>{qContent}
-                            <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                                <Input value={ans.answer[props.question._id]} onChange={onInputChange} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
-                                {unitContext(props)}
+                switch (mutiable) {
+                    // multi choice
+                    case 'true':
+                        return (
+                            <div key={props.question._id} className='questionContainer'>
+                                {FinishSign()}
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {qContent}
+                                    <Checkbox.Group style={{ width: '100% ' }} onChange={onMultiChange}>
+                                        <Row>
+                                            {multiOption()}
+                                        </Row>
+                                    </Checkbox.Group>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                )
+                        );
+                    default:
+                        // single choice
+                        return (
+                            <div key={props.question._id} className='questionContainer' style={{ marginBottom: '66px' }}>
+                                {FinishSign()}
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {qContent}
+                                    <Radio.Group style={{ marginTop: '10px' }} onChange={(e) => ans.setAnswer({ ...ans.answer, [props.question._id]: e.target.value })} value={ans.answer[props.question._id]}>
+                                        {singleOption()}
+                                    </Radio.Group>
+                                </div>
+                            </div>
+                        );
+                }
+            // regular input
+            case '2':
+                switch (qUnit) {
+                    default:
+                        return (
+                            <div key={props.question._id} className='questionContainer'>
+                                {FinishSign()}
+                                <div style={{ width: '100%', height: '20px', order: '0' }}>{qContent}
+                                    <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
+                                        <Input value={ans.answer[props.question._id]} onChange={onInputChange} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
+                                        {unitContext(props)}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    case '%':
+                        return (
+                            <div key={props.question._id} className='questionContainer'>
+                                {FinishSign()}
+                                <div style={{display:'inline-flex', flexDirection:'column', height: '20px', order: '0' }}>{qContent}
+                                        <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
+                                                <Slider marks={percentSliderMarks} defaultValue={20} onAfterChange={onSliderAfterChange}></Slider>
+                                        </div>
+                                </div>
+                            </div>
+                        )
+                    case 'people':
+                        return (
+                            <div key={props.question._id} className='questionContainer'>
+                                {FinishSign()}
+                                <div style={{ width: '100%', height: '20px', order: '0' }}>{qContent}
+                                    <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
+                                        <Input value={ans.answer[props.question._id]} onChange={onInputChange} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
+                                        {unitContext(props)}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                }
         }
     }
 
-    const questionIsFinished = () => {
-
+    const percentSliderMarks = {
+        0: {
+            style: {
+                color: '#FF0000',
+            },
+            label: <strong>0%</strong>,
+        },
+        20: {
+            style: {
+                color: '#FF3300',
+            },
+            label: '20%'
+        },
+        40: {
+            style: {
+                color: '#ff6600 ',
+            },
+            label: '40%'
+        },
+        60: {
+            style: {
+                color: '#66ff00',
+            },
+            label: '60%'
+        },
+        80: {
+            style: {
+                color: '#33ff00',
+            },
+            label: '80%'
+        },
+        100: {
+            style: {
+                color: 'green',
+            },
+            label: <strong>100%</strong>,
+        }
     }
 
     const onMultiChange = (e) => {
@@ -103,11 +186,27 @@ const Question = (props) => {
     }
 
     const onInputChange = (e) => {
-        if (!isNaN(e.target.value)) {
-            ans.setAnswer({ ...ans.answer, [props.question._id]: e.target.value });
-        } else {
-            ans.setAnswer({ ...ans.answer, [props.question._id]: '' });
+        switch (qUnit) {
+            default:
+                if (!isNaN(e.target.value)) {
+                    ans.setAnswer({ ...ans.answer, [props.question._id]: e.target.value });
+                } else {
+                    ans.setAnswer({ ...ans.answer, [props.question._id]: '' });
+                }
+                break;
+            case 'people':
+                if (!isNaN(e.target.value)) {
+                    if (e.target.value !== '') {
+                        ans.setAnswer({ ...ans.answer, [props.question._id]: parseInt(e.target.value) });
+                    } else {
+                        ans.setAnswer({ ...ans.answer, [props.question._id]: '' });
+                    }
+                }
         }
+    }
+
+    const onSliderAfterChange = (e) => {
+        ans.setAnswer(prev => ({ ...prev, [props.question._id]: e}));
     }
 
     const multiOption = () => {
@@ -116,6 +215,14 @@ const Question = (props) => {
                 <Col key={option} span={8}>
                     <Checkbox value={option} key={option}>{option}</Checkbox>
                 </Col>
+            )
+        )
+    }
+
+    const singleOption = () => {
+        return (
+            props.question.option.map((option) =>
+                <Radio key={option} value={option}>{option}</Radio>
             )
         )
     }

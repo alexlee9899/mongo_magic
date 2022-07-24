@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionForm.css';
-import { Divider } from 'antd';
+import { Divider, Collapse, Button } from 'antd';
 import { getQuestionList } from '../../utils/requests';
 import Question from '../Questions/Question';
 
 export const QuestionContext = React.createContext();
+
+const { Panel } = Collapse;
 
 const QuestionForm = (props) => {
     const [postCode, setPostCode] = useState(void 0);
@@ -66,9 +68,12 @@ const QuestionForm = (props) => {
     console.log(answer);
 
     return (
+        <>
         <div className='questionFormContainer'>
+            <Divider plain>Office {props.number}</Divider>
+            <Collapse defaultActiveKey={props.number} accordion={true} bordered={true} ghost={true}>
+            <Panel key={props.number}>
             <QuestionContext.Provider value={providerAnswer}>
-                <Divider plain>Office {props.number}</Divider>
                 {
                     (postCode) ? (<></>) :
                         <div>
@@ -76,7 +81,10 @@ const QuestionForm = (props) => {
                         </div>
                 }
             </QuestionContext.Provider>
+            </Panel>
+            </Collapse>
         </div>
+        </>
     )
 }
 
