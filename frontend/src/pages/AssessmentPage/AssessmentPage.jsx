@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'antd';
 import styled from 'styled-components';
 import themeColor from '../../config/theme';
 import { getQuestionList } from '../../utils/requests'
 import AssessmentStepBar from '../../components/AssessmentStepBar/AssessmentStepBar';
 import QuestionForm from '../../components/QuestionForm/QuestionForm';
 import './AssessmentPage.css';
+
 
 const PageContainer = styled.div`
     display: flex;
@@ -62,20 +64,29 @@ const HeaderText = styled.h3`
 const AssessmentPage = () => {
     const [questionList, setQuestionList] = useState(undefined);
     const [officeNumber, setOfficeNumber] = useState(1);
+    const [officeList, setOfficeList] = useState([]);
+    const [assessmentAnswer, setAssessmentAnswer] = useState({});
+
+    console.log(assessmentAnswer);
 
     useEffect(() =>{
         getQuestionList().then(res => {
             if (res.ok) {
                 res.json().then(
                     data => {
-                        setQuestionList(data);
+                        setQuestionList(data.question_list);
+                        setOfficeList([<QuestionForm key={`office1`} number={1} assessmentSetter={setAssessmentAnswer} qList={data.question_list}></QuestionForm>])
                     }
                 )
             }
         })
     }, []);
 
-
+    const officeAdder = () => {
+        const curNumber = officeList.length;
+        setOfficeList(prev=>([...prev, <QuestionForm key={`office${curNumber+1}`} assessmentSetter={setAssessmentAnswer} qList={questionList} number={curNumber+1}> </QuestionForm>]));
+    }
+    // console.log(Object.keys(assessmentAnswer)?.length , officeList.length);
     return (
         <PageContainer>
             <NavContainer>
@@ -90,9 +101,14 @@ const AssessmentPage = () => {
             <StepContainer style={{ marginTop:'20px', width:'50%' }}>
                 <AssessmentStepBar />
             </StepContainer>
-            <QuestionContainer>
-                <QuestionForm number={officeNumber}></QuestionForm>
-            </QuestionContainer>
+            {   (questionList?. length > 0) ? 
+                (<QuestionContainer>
+                    {/* <QuestionForm number={officeNumber}></QuestionForm> */}
+                    {officeList}
+                </QuestionContainer>) : <></>
+            }
+            <Button onClick={officeAdder}>Add Another Office</Button>
+            {   (Object.keys(assessmentAnswer)?.length === officeList?.length) ? <>All Answered, Submit Now</> : <>Please Finish All Questions</>}
         </PageContainer>
     )
 }

@@ -3,3 +3,16 @@ div.questionContainer {
     flex-direction: row;
     margin-bottom: 100px;
 }
+.ant-radio-inner::after {
+    background-color: #4D7393;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #4D7393;
+    border-color: #4D7393;
+}
+/* .ant-slider-track{
+    background-color: #4D7393;
+}
+.ant-slider-dot-active{
+    border-color: #4D7393;
+} */

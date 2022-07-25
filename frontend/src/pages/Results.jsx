@@ -26,7 +26,7 @@ const Results = () => {
                         {results ?
                             (   <span style={{ fontSize:'20px' }}>
                                         No Result,
-                                    <a style= {{ color:`${themeColor}` }}> Get Tested Now >></a>
+                                    <a href='/assessment' style= {{ color:`${themeColor}` }}> Get Tested Now >></a>
                                 </span>
                             )
                             :
