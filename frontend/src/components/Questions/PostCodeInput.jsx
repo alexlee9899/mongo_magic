@@ -5,7 +5,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { australianPostCode } from '../../utils/requests';
 import { QuestionContext } from '../QuestionForm/QuestionForm';
 import { australianPostCodeWithRetry } from '../../utils/requests';
-import './QuestionStyle.css'
+import './QuestionStyle.css';
 
 const PostCodeInput = (props) => {
     const [isValid, setIsValid] = React.useState(false);
@@ -48,16 +48,15 @@ const PostCodeInput = (props) => {
 
 
     return (
-        <div>
-            <div style={{ width: '100%', height: '20px', order: '0' }}>PostCode (Australian, 4 digits):
-                <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                    <Input maxLength={4} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
-                    {(!location) && isValid && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
+            <div style={{ width: '100%', order: '0', display:'flex', flexDirection: 'column'}}>
+                <div style={{display:'flex'}}>PostCode (Australian, 4 digits):</div>
+                <div style={{ display: 'inline-flex', flexDirection: 'row', marginTop:'10px' }}>
+                    <Input maxLength={4} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ display:'inline-flex', width: '100px', height: '25px', marginRight: '10px'}}></Input>
+                    <div>{(!location) && isValid && <Spin style={{ display:'flex' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
                     {(location) && `${location.state}`}
-                    {(location === void 0) && <>Location not found, Check your PostCode </>}
+                    {(location === void 0) && <>Location not found, Check your PostCode </>}</div>
                 </div>
             </div>
-        </div>
     )
 }
 

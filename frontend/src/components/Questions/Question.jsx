@@ -1,4 +1,3 @@
-import './QuestionStyle.css';
 import React from 'react';
 import PostCodeInput from './PostCodeInput';
 import { Input, Radio, Checkbox, Col, Row, Slider } from 'antd';
@@ -57,7 +56,7 @@ const Question = (props) => {
             case '0':
                 // yes or no
                 return (
-                    <div key={props.question._id} className='questionContainer' style={{ marginBottom: '66px' }}>
+                    <div key={props.question._id} className='questionContainer'>
                         {FinishSign()}
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {qContent}
@@ -88,7 +87,7 @@ const Question = (props) => {
                     default:
                         // single choice
                         return (
-                            <div key={props.question._id} className='questionContainer' style={{ marginBottom: '66px' }}>
+                            <div key={props.question._id} className='questionContainer' style={{}}>
                                 {FinishSign()}
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     {qContent}
@@ -106,7 +105,8 @@ const Question = (props) => {
                         return (
                             <div key={props.question._id} className='questionContainer'>
                                 {FinishSign()}
-                                <div style={{ width: '100%', height: '20px', order: '0' }}>{qContent}
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {qContent}
                                     <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
                                         <Input value={ans.answer[props.question._id]} onChange={onInputChange} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
                                         {unitContext(props)}
@@ -116,11 +116,12 @@ const Question = (props) => {
                         )
                     case '%':
                         return (
-                            <div key={props.question._id} className='questionContainer'>
+                            <div key={props.question._id} className='questionContainer' >
                                 {FinishSign()}
-                                <div style={{display:'inline-flex', flexDirection:'column', height: '20px', order: '0' }}>{qContent}
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {qContent}
                                         <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                                                <Slider marks={percentSliderMarks} onAfterChange={onSliderAfterChange}></Slider>
+                                                <Slider style={{marginLeft:'8px'}}marks={percentSliderMarks} onAfterChange={onSliderAfterChange}></Slider>
                                         </div>
                                 </div>
                             </div>
@@ -129,7 +130,7 @@ const Question = (props) => {
                         return (
                             <div key={props.question._id} className='questionContainer'>
                                 {FinishSign()}
-                                <div style={{ width: '100%', height: '20px', order: '0' }}>{qContent}
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>{qContent}
                                     <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
                                         <Input value={ans.answer[props.question._id]} onChange={onInputChange} style={{ width: '100px', height: '25px', marginRight: '10px' }}></Input>
                                         {unitContext(props)}

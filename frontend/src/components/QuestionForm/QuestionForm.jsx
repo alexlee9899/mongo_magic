@@ -83,7 +83,7 @@ const QuestionForm = (props) => {
                         </div>
                 }
             </QuestionContext.Provider>
-            <div className='finishContainer'>
+            <div className='finishContainer' style={{marginLeft:'20px'}}>
                 {
                 (questionUnfinished.length === 0 && questionRender.length > 0 ) ? 
                 isLastForm
