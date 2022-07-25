@@ -1,5 +1,5 @@
-import React from "react";
-import backend_url from "../config/api";
+import React from 'react';
+import backend_url from '../config/api';
 
 
 // Temperary login page for dev purpose
@@ -183,9 +183,21 @@ const SignIn = () => {
     })
   };
 
+  const turnToHome = () => {
+    navigate('/')
+  }
+
+  const turnToHelp = () => {
+    navigate('/help')
+  }
+
+  const turnToAbout = () => {
+    navigate('/about')
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag>Home</Atag><Atag>Rankings</Atag><Atag>Help</Atag><Atag>About</Atag></Span> </Navbar>
+      <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag onClick={turnToHome}>Home</Atag><Atag>Rankings</Atag><Atag onClick={turnToHelp}>Help</Atag><Atag onClick={turnToAbout}>About</Atag></Span> </Navbar>
     <Flexbox>
       
       <Head>
