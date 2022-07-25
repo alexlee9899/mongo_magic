@@ -25,7 +25,7 @@ const PostCodeInput = (props) => {
                                 setLocation({
                                     state: data.postalCodes[0].adminName1
                                 })
-                                ans.setAnswer({ ...ans.answer, [props.qId]: e });
+                                ans.setAnswer(prev => ({ ...prev, [props.qId]: e }));
                             } else {
                                 setLocation(void 0);
                                 setIsValid(false);

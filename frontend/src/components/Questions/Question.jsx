@@ -12,7 +12,6 @@ const Question = (props) => {
     const qContent = props.question.content;
     const qDepend = props.question.depend;
     const qUnit = props.question.unit;
-    console.log(qUnit);
     const ans = React.useContext(QuestionContext);
     const [questionIsShown, setQuestionIsShown] = React.useState(false);
 
@@ -121,7 +120,7 @@ const Question = (props) => {
                                 {FinishSign()}
                                 <div style={{display:'inline-flex', flexDirection:'column', height: '20px', order: '0' }}>{qContent}
                                         <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                                                <Slider marks={percentSliderMarks} defaultValue={20} onAfterChange={onSliderAfterChange}></Slider>
+                                                <Slider marks={percentSliderMarks} onAfterChange={onSliderAfterChange}></Slider>
                                         </div>
                                 </div>
                             </div>
@@ -197,7 +196,7 @@ const Question = (props) => {
             case 'people':
                 if (!isNaN(e.target.value)) {
                     if (e.target.value !== '') {
-                        ans.setAnswer({ ...ans.answer, [props.question._id]: parseInt(e.target.value) });
+                        ans.setAnswer({ ...ans.answer, [props.question._id]: `${parseInt(e.target.value)}` });
                     } else {
                         ans.setAnswer({ ...ans.answer, [props.question._id]: '' });
                     }
@@ -206,7 +205,7 @@ const Question = (props) => {
     }
 
     const onSliderAfterChange = (e) => {
-        ans.setAnswer(prev => ({ ...prev, [props.question._id]: e}));
+        ans.setAnswer(prev => ({ ...prev, [props.question._id]: `${e}`}));
     }
 
     const multiOption = () => {
