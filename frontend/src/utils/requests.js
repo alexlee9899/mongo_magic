@@ -1,5 +1,4 @@
 import backend_url from "../config/api";
-import { message } from 'antd';
 
 const apiRequest = async ({ method = undefined, url, body = undefined }) => {
     const requestOptions = {
