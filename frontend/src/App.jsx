@@ -52,7 +52,7 @@ function App() {
 
   return (
     <div style={{ height: '100%' }}>
-      <Layout style={{ minHeight: '100%', width:'100%', overflow:'auto' }}>
+      <Layout style={{ minHeight: '100vh', width:'100%', overflow:'auto' }}>
         <>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
