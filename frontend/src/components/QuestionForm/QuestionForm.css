@@ -19,7 +19,7 @@ div.finishContainer{
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
     color: #4D7393;
     font-size: 16px;
 }

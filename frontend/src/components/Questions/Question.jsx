@@ -121,7 +121,10 @@ const Question = (props) => {
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     {qContent}
                                         <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                                                <Slider style={{marginLeft:'8px'}}marks={percentSliderMarks} onAfterChange={onSliderAfterChange}></Slider>
+                                                <Slider style={{marginLeft:'8px'}} value={ans.answer[props.question._id]} marks={percentSliderMarks} onChange={onSliderAfterChange}></Slider>
+                                                <div style={{ textAlign:'center', height:'20px' }}> 
+                                                {(ans.answer[props.question._id]) ? (<>{ans.answer[props.question._id]}%</>) : (<>0%</>)}
+                                                </div>
                                         </div>
                                 </div>
                             </div>

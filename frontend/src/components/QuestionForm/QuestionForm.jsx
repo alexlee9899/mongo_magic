@@ -3,7 +3,10 @@ import './QuestionForm.css';
 import { Divider, Collapse, Button } from 'antd';
 import { getQuestionList } from '../../utils/requests';
 import Question from '../Questions/Question';
+import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { usePreviousProps } from '@mui/utils';
+import { MinusSquareOutlined } from '@ant-design/icons';
+
 
 export const QuestionContext = React.createContext();
 
@@ -16,13 +19,15 @@ const QuestionForm = (props) => {
     const [answer, setAnswer] = useState({});
     const [questionUnfinished, setQuestionUnfinished] = useState([]);
     const [isLastForm, setIsLastForm] = useState(true);
-    const officeNumber = props.nubmer;
+    const [collapse, setCollapse] = useState(void 0);
+    const officeNumber = props.number;
 
     const providerAnswer = React.useMemo(() => ({ answer, setAnswer, questionUnfinished, setQuestionUnfinished }), [answer, setAnswer, setQuestionUnfinished]);
 
     useEffect(() => {
         QuestionListRender({...props.qList});
-    }, [props]);
+        setCollapse(props.collapseNumber);
+    }, [props.officeList]);
 
     useEffect(() => {
         if (questionUnfinished.length === 0 && questionRender.length > 0){
@@ -36,6 +41,7 @@ const QuestionForm = (props) => {
             });
         }
     }, [questionUnfinished]);
+
 
     const sortQuestions = (data) => {
         const qList = [];
@@ -61,6 +67,13 @@ const QuestionForm = (props) => {
         });
     }
 
+    const collapseChange = () => {
+        if (collapse !== props.number) {
+            setCollapse(props.number);
+        }   else  {
+            setCollapse(void 0);
+        }
+    }
 
     const QuestionListRender = async(data) => {
         const sortedData = await sortQuestions(data);
@@ -73,25 +86,34 @@ const QuestionForm = (props) => {
         <>
         <div className='questionFormContainer'>
             <Divider plain>Office {props.number}</Divider>
-            <Collapse defaultActiveKey={props.number} accordion={true} bordered={true} ghost={true}>
+            <Collapse onChange={collapseChange} activeKey={collapse} accordion={true} bordered={true} ghost={true}>
             <Panel key={props.number}>
             <QuestionContext.Provider value={providerAnswer}>
                 {
                     (postCode) ? (<></>) :
                         <div>
-                            {questionRender}
+                            { questionRender}
                         </div>
                 }
             </QuestionContext.Provider>
             <div className='finishContainer' style={{marginLeft:'20px'}}>
                 {
                 (questionUnfinished.length === 0 && questionRender.length > 0 ) ? 
-                isLastForm
+                <></>
                 :
                 (
                 <>Please Finish Questions Above</>
                 )
                 }
+                {/* {
+                    officeNumber > 1 && (officeNumber ===  props.officeList?.length + 1) 
+                    && 
+                    <div onClick={RemoveThisForm} style={{ cursor:'pointer'}}>
+                        <MinusSquareOutlined style={{ marginTop:'20px' }}></MinusSquareOutlined>
+                        Remove this Office
+                    </div>
+                } */}
+                {/* <div onClick={ ()=>console.log(officeNumber, props.officeList?.length)}>dafasdfasdfafasdfds</div> */}
             </div>
             </Panel>
             </Collapse>
