@@ -1,6 +1,4 @@
 import React from "react";
-import { Layout } from 'antd';
-import HeaderBar from '../components/HeaderBar'
 import { getQuestionList } from '../utils/requests';
 
 const Settings = () => {

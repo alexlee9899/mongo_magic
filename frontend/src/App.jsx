@@ -16,7 +16,6 @@ import NotFound from './pages/NotFound';
 // import Newquiz from './pages/Newquiz';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
-import ImageOne from './components/ImageOne';
 import HeaderBar from './components/HeaderBar';
 import AssessmentPage from './pages/AssessmentPage/AssessmentPage';
 import TestPage from './pages/TestPage';

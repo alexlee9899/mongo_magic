@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styled from 'styled-components';
 // import backToHome from "../assets/404BackToHomeBtn.png";
 // import { removeNavbar } from "../utils/functions";
