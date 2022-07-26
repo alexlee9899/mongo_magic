@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionForm.css';
-import { Divider, Collapse, Button } from 'antd';
+import { Divider, Collapse, Button, Typography } from 'antd';
 import { getQuestionList } from '../../utils/requests';
 import Question from '../Questions/Question';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import { usePreviousProps } from '@mui/utils';
 import { MinusSquareOutlined } from '@ant-design/icons';
+import useItems from 'antd/lib/menu/hooks/useItems';
 
 
 export const QuestionContext = React.createContext();
 
 const { Panel } = Collapse;
+const { Text } = Typography;
 
 const QuestionForm = (props) => {
     const [postCode, setPostCode] = useState(void 0);
@@ -22,48 +24,93 @@ const QuestionForm = (props) => {
     const [collapse, setCollapse] = useState(void 0);
     const officeNumber = props.number;
 
+    const [remove, setRemove] = useState(false);
+
     const providerAnswer = React.useMemo(() => ({ answer, setAnswer, questionUnfinished, setQuestionUnfinished }), [answer, setAnswer, setQuestionUnfinished]);
 
     useEffect(() => {
-        QuestionListRender({...props.qList});
+        QuestionListRender([...props.qList]);
         setCollapse(props.collapseNumber);
     }, [props.officeList]);
 
     useEffect(() => {
-        if (questionUnfinished.length === 0 && questionRender.length > 0){
-            props.assessmentSetter(prev => ({...prev, [props.number]: answer}));
+        const type = props.type === 'office' ? 'office' : 'data';
+        if (questionUnfinished.length === 0 && questionRender.length > 0 ){
+            props.assessmentSetter(prev => ({...prev, [`${type}${props.number}`]: answer}));
         };
         if (questionUnfinished.length > 0 && questionRender.length > 0){
             props.assessmentSetter(prev => {
                 const copy = {...prev};
-                delete copy[props.number];
+                delete copy[`${type}${props.number}`];
                 return copy;
             });
         }
     }, [questionUnfinished]);
 
+    useEffect(() => {
+        const type = props.type === 'office' ? 'office' : 'data';
+        if (props.assessment[`${type}${props.number}`]){
+            setAnswer(props.assessment[`${type}${props.number}`]);
+        }
+    },[props.assessment])
+
+    console.log(answer);
+
+    useEffect(() => {
+        switch (props.type){
+            case 'office':
+                if (props.officeList?.length === props.number){
+                    setIsLastForm(true);
+                }   else {
+                    setIsLastForm(false);
+                }   break;
+            case 'data':
+                if (props.dataCenterList?.length === props.number){
+                    setIsLastForm(true);
+                }
+                else {
+                    setIsLastForm(false);
+                }
+                break;
+        }
+    }, [props.officeList, props.dataCenterList]);
+
+    const removeLast = () => {
+        props.setRemover(true);
+    }
+
 
     const sortQuestions = (data) => {
         const qList = [];
-        for (const key in data) {
-            if (JSON.stringify(data[key].depend) === '{}') {    
-                qList.push(data[key]);
-                delete (data[key]);
+        const officeQuestions = data;
+        // extract questions with no dependency
+        for (const key in officeQuestions) {
+            if (JSON.stringify(officeQuestions[key].depend) === '{}') {    
+                qList.push(officeQuestions[key]);
+                delete (officeQuestions[key]);
             }
         }
-        while (Object.keys(data).length > 0) {
-            upperloop: for (const key in data) {
+        // add questions to list based on dependencies
+        while (Object.keys(officeQuestions).length > 0) {
+            upperloop: for (const key in officeQuestions) {
                 for (const keyArray in qList) {
-                    if (qList[keyArray]._id === data[key]?.depend.q_id) {
-                        qList.splice(parseInt(keyArray)+1, 0, data[key]);
-                        delete (data[key]);
+                    if (qList[keyArray]._id === officeQuestions[key]?.depend.q_id) {
+                        qList.splice(parseInt(keyArray)+1, 0, officeQuestions[key]);
+                        delete (officeQuestions[key]);
                         break upperloop;
                     }
                 }
             }
         } 
-        return new Promise((resolve) => {
-            resolve(qList);
+        return new Promise((resolve) => { 
+            switch (props.type){
+                case 'office':
+                    resolve(qList.filter( q=> q.title === '1'));
+                    break;
+                case 'dataCenter':
+                    resolve(qList.filter( q=> q.title === '2'));
+                    break;
+            }
         });
     }
 
@@ -82,29 +129,42 @@ const QuestionForm = (props) => {
         ))
     }
 
+
     return (
         <>
         <div className='questionFormContainer'>
-            <Divider plain>Office {props.number}</Divider>
+            <Divider plain>
+                {
+                    props.type === 'office' ?
+                    <>Office </> : <>Data Center </>
+                }
+            {props.number}</Divider>
             <Collapse onChange={collapseChange} activeKey={collapse} accordion={true} bordered={true} ghost={true}>
             <Panel key={props.number}>
             <QuestionContext.Provider value={providerAnswer}>
                 {
                     (postCode) ? (<></>) :
                         <div>
-                            { questionRender}
+                            { questionRender }
                         </div>
                 }
             </QuestionContext.Provider>
-            <div className='finishContainer' style={{marginLeft:'20px'}}>
+            <div className='finishContainer' style={{marginLeft:'20px', flexDirection:'row', width:'100%', justifyContent:'space-between'}}>
                 {
                 (questionUnfinished.length === 0 && questionRender.length > 0 ) ? 
-                <></>
+                <div style={{display:'flex', order:'0', flexDirection:'row', visibility:'hidden'}}>
+                    {/* Please Finish Questions Above */}
+                    </div>
                 :
                 (
-                <>Please Finish Questions Above</>
+                <div style={{display:'flex', order:'0', flexDirection:'row'}}>
+                    {/* Please Finish Questions Above */}
+                    </div>
                 )
                 }
+                <div style={{ display:'flex', order:'1', flexDirection:'row', paddingRight:'10px', cursor:'pointer', zIndex:'300', justifySelf:'end'}}>
+                    <Text className='removeButton' id='removeButton' onClick={isLastForm ? removeLast : ()=>{}} disabled={(!isLastForm) || (props.number === 1)} type='danger' underline>Remove</Text>
+                </div>
                 {/* {
                     officeNumber > 1 && (officeNumber ===  props.officeList?.length + 1) 
                     && 

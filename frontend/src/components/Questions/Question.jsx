@@ -237,7 +237,7 @@ const Question = (props) => {
                     (
                         <div className='questionContainer'>
                             {FinishSign()}
-                            <PostCodeInput style={{ order: '0' }} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
+                            <PostCodeInput style={{ order: '0' }} value={ans.answer[props.question._id]} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
                         </div>
                     )
                     :
