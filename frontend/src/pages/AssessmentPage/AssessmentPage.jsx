@@ -46,7 +46,7 @@ const HeaderContainer = styled.div`
 
 const QuestionContainer = styled.div`
     width: 50%;
-    min-height: 100vh;
+    min-height: 80vh;
     /* overflow-y: auto; */
     display: flex;
     flex-direction: column;
