@@ -15,6 +15,8 @@ def question_add(req):
     score_method = req['score_method']
     mutiable = req['mutiable']
     question_type = req['question_type']
+    depend = req['depend']
+    unit = req['unit']
     db_col = db['questions']
     new_question = {
       "title": title,
@@ -23,10 +25,11 @@ def question_add(req):
       "question_type": question_type,
       "score_method": score_method,
       "mutiable": mutiable,
+      "depend": depend,
+      "unit": unit,
     }
-    id = db_col.insert_one(new_question)
-    print(db_col.find_one({'_id': id.inserted_id}))
-    return make_response(json.dumps({'message': 'Question added'}), 200)
+    id = db_col.insert_one(new_question).inserted_id
+    return make_response(json.dumps({'q_id': str(id)}), 200)
   except Exception:
     return make_response(json.dumps({'message': 'Input Error'}), 400)
   
