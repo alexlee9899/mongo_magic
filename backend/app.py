@@ -15,8 +15,10 @@ CORS(app)
 
 from controller.users import users_blueprint
 from controller.questions import questions_blueprint
+from controller.support import user_support_blueprint
 app.register_blueprint(questions_blueprint)
 app.register_blueprint(users_blueprint)
+app.register_blueprint(user_support_blueprint)
 
 if __name__ == '__main__':
     app.run(debug=True)
