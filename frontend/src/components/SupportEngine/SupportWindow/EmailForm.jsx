@@ -15,6 +15,7 @@ const EmailForm = props => {
     const [email, setEmail] = useState('')
     const [content, setContent] = useState('')
     const [loading, setLoading] = useState(false)
+    const [sent, setSent] = useState(false)
     return (
         <div 
             style={{
@@ -84,6 +85,8 @@ const EmailForm = props => {
                     <Button onClick={() => sendMail(email, content)} style={{ marginTop:'15px', borderColor:'#4D7393', borderRadius:'12px'}}>
                         Send
                     </Button>
+                    <br></br>
+                    <small> Check your Spam and Trash Container</small>
                 </form>
                 
                 
