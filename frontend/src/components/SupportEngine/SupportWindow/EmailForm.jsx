@@ -9,7 +9,6 @@ import Avatar from '../Avatar'
 import sendMail from "../../../utils/sendMail"
 
 import { Button, message } from 'antd'
-import { style } from "@mui/system"
 
 const EmailForm = props => {    
     const [email, setEmail] = useState('')
@@ -22,7 +21,7 @@ const EmailForm = props => {
                 ...styles.emailFormWindow,
                 ...{ 
                     height: props.visible ? '100%' : '0px',
-                    opacity: props.visible ? '1' : '0'
+                    opacity: props.visible ? '1' : '0',
                 }
             }}
         >
@@ -82,7 +81,9 @@ const EmailForm = props => {
                         style={{...styles.emailInput, marginTop:'30px', height:'100px'}}
                     />
                     <br/>
-                    <Button onClick={() => sendMail(email, content)} style={{ marginTop:'15px', borderColor:'#4D7393', borderRadius:'12px'}}>
+                    <Button onClick={() => {sendMail(email, content).then(res => {
+                        console.log(res);
+                    })}} style={{ marginTop:'15px', borderColor:'#4D7393', borderRadius:'12px'}}>
                         Send
                     </Button>
                     <br></br>

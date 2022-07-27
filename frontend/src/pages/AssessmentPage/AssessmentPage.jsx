@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Row, Col, Checkbox } from 'antd';
 import styled from 'styled-components';
 import themeColor from '../../config/theme';
 import { getQuestionList } from '../../utils/requests'
@@ -120,8 +120,8 @@ const AssessmentPage = () => {
 
     }, [assessmentAnswer]);
 
-    useEffect(() =>{
-        if (remover){
+    useEffect(() => {
+        if (remover) {
             setRemover(false)
             removeLastUnit();
         }
@@ -189,6 +189,7 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
+    console.log(pageStep, officeFinished, dataCenterFinished);
     return (
         <PageContainer>
             {(questionList?.length > 0) ? (
@@ -202,7 +203,7 @@ const AssessmentPage = () => {
                         <h3 className='headerContent'>G'Tracker will not store or share your data with anyone without your permission.</h3>
                     </HeaderContainer>
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
-                        <AssessmentStepBar step={pageStep} setStep={setPageStep} />
+                        <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacenterFinished={dataCenterFinished} />
                     </StepContainer>
                     {(questionList?.length > 0) ?
                         (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
@@ -214,43 +215,61 @@ const AssessmentPage = () => {
                                     (pageStep === 1) ?
                                         <>
                                             {dataCenterList.map((dataCenter) =>
-                                                <QuestionForm type={'dataCenter'} setRemover={setRemover} key={`Data Center${dataCenter}`} collapseNumber={dataCenterCollapseNumber} officeList={dataCenterList} number={parseInt(dataCenter)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer}qList={questionList} ></QuestionForm>
+                                                <QuestionForm type={'dataCenter'} setRemover={setRemover} key={`Data Center${dataCenter}`} collapseNumber={dataCenterCollapseNumber} officeList={dataCenterList} number={parseInt(dataCenter)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionList} ></QuestionForm>
                                             )}
                                         </> :
                                         (pageStep === 2) ?
-                                            <>page3</> : <>page4</>
+                                            <div style={{display:'flex', flexDirection:'column', alignItems:'flex-start'}}>
+                                                <Row>
+                                                    <Col span={8}>
+                                                        <Checkbox value="A">dafkljadklsjfklasjfklasdjklfjasdkljflkdaafsd</Checkbox>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col span={8}>
+                                                        <Checkbox value="A">zxcvmljzvjlsdajkfl;kjkav</Checkbox>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col span={8}>
+                                                        <Checkbox value="A">fasdfasdlgjalksjfaksljaksd</Checkbox>
+                                                    </Col>
+                                                </Row>
+                                                </div> : <>page4</>
                             }
 
-                        </QuestionContainer>) : <></>
+                                            </QuestionContainer>) : <></>
                     }
-                    <div style={{ marginBottom: '50px', display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}>
-                        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            { <div onClick={goPrevPage} style={{ visibility:`${pageStep > 0 ? '' : 'hidden'}`, cursor:'pointer', display: 'flex', textAlign: 'center', alignItems: 'center', order: '0', fontSize: '16px' }}>
-                                <CaretLeftFilled style={{ fontSize: '20px' }}></CaretLeftFilled> Prev
-                            </div>}
-                            <div style={{ display: 'flex', order: '1', width: '80%', justifyContent:'center' }}>
-                                {<Button  style ={{marginRight:'10px'}} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : <>Add Another Data Center</>}</Button>}
-                                {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : dataCenterList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
+                            <div style={{ marginBottom: '50px', display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}>
+                                <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    {<div onClick={goPrevPage} style={{ visibility: `${pageStep > 0 ? '' : 'hidden'}`, cursor: 'pointer', display: 'flex', textAlign: 'center', alignItems: 'center', order: '0', fontSize: '16px' }}>
+                                        <CaretLeftFilled style={{ fontSize: '20px' }}></CaretLeftFilled> Prev
+                                    </div>}
+                                    <div style={{ display: 'flex', order: '1', width: '80%', justifyContent: 'center' }}>
+                                        {<Button style={{ marginRight: '10px' }} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : <>Add Another Data Center</>}</Button>}
+                                        {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : dataCenterList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
+                                    </div>
+                                    <div onClick={pageStep === 0 ? officeFinished ? goNextPage : null : pageStep === 1 ? dataCenterFinished ? goNextPage : null : null} style={{
+                                        opacity: `${pageStep === 0 ? officeFinished ? '1' : '0.2' : dataCenterFinished ? '1' : '0.2'}`,
+                                        order: '2', fontSize: '16px', cursor: `${pageStep === 0 ? officeFinished ? 'pointer' : 'not-allowed' : pageStep === 1 ? dataCenterFinished ? 'pointer' : 'not-allowed' : ''}`, zIndex: '500'
+                                    }}>
+                                        Next<CaretRightOutlined></CaretRightOutlined>
+                                    </div>
+                                </div>
+                                {
+                                    pageStep === 0 ? (
+                                        <Divider plain>{officeFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                    ) : (
+                                        pageStep === 1 ? (
+                                            <Divider plain>{dataCenterFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                        ) : (
+                                            <></>
+                                        )
+                                    )
+                                }
                             </div>
-                            <div onClick={goNextPage} style={{ opacity:`${pageStep === 0 ? officeFinished ? '1' : '0.2' : dataCenterFinished? '1' : '0.2'}`, 
-                            order: '2', fontSize: '16px', cursor:`${pageStep === 0 ? officeFinished ? 'pointer' : 'notAllowed': pageStep === 1 ? dataCenterFinished ? 'pointer' : 'notAllowed':'' }` ,zIndex:'500'}}>
-                                Next<CaretRightOutlined></CaretRightOutlined>
-                            </div>
-                        </div>
-                        {
-                            pageStep === 0 ? (
-                                <Divider plain>{officeFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
-                            ) : (
-                                pageStep === 1 ? (
-                                    <Divider plain>{dataCenterFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
-                                ) : (
-                                    <></>
-                                )
-                            )
-                        }
-                    </div>
-                </>) : <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}><LoadingIcon /></div>}
-        </PageContainer>
-    )
+                        </>) : <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}><LoadingIcon /></div>}
+                </PageContainer>
+            )
 }
-export default AssessmentPage;
+            export default AssessmentPage;

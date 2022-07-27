@@ -54,18 +54,16 @@ const QuestionForm = (props) => {
         }
     },[props.assessment])
 
-    console.log(answer);
-
     useEffect(() => {
         switch (props.type){
             case 'office':
-                if (props.officeList?.length === props.number){
+                if (props.officeList?.length === props.number && props.number > 1){
                     setIsLastForm(true);
                 }   else {
                     setIsLastForm(false);
                 }   break;
             case 'data':
-                if (props.dataCenterList?.length === props.number){
+                if (props.dataCenterList?.length === props.number && props.number > 1){
                     setIsLastForm(true);
                 }
                 else {
@@ -128,6 +126,8 @@ const QuestionForm = (props) => {
             <Question key={question._id} question={question} setAnswer={setAnswer} answer={answer}></Question>
         ))
     }
+
+    console.log(isLastForm, props.number);
 
 
     return (

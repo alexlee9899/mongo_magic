@@ -11,14 +11,16 @@ const PostCodeInput = (props) => {
     const [isValid, setIsValid] = React.useState(false);
     const [value, setValue] = React.useState('');
     const [location, setLocation] = React.useState(null);
+    const [connectionError, setConnectionError] = React.useState(false);
     const ans = React.useContext(QuestionContext);
+    const inputRef = React.useRef();
 
     const inputOnchange = (e) => {
         setIsValid(isAustralianPostCode(e));
         setValue(e);
         if (isAustralianPostCode(e)) {
-            australianPostCodeWithRetry(e).then(res => {
-                if (res.ok) {
+            australianPostCode(e).then(res => {
+                if (res?.ok) {
                     res.json().then(
                         data => {
                             if (data?.postalCodes[0]?.adminName1) {
@@ -32,6 +34,12 @@ const PostCodeInput = (props) => {
                             }
                         }
                     )
+                } else {
+                    setIsValid(false);
+                    setConnectionError(true);
+                    setTimeout(() => {
+                        setConnectionError(false);
+                    },2000);
                 }
             });
         } else {
@@ -46,15 +54,15 @@ const PostCodeInput = (props) => {
         return '';
     }
 
-
     return (
             <div style={{ width: '100%', order: '0', display:'flex', flexDirection: 'column'}}>
                 <div style={{display:'flex'}}>PostCode (Australian, 4 digits):</div>
                 <div style={{ display: 'inline-flex', flexDirection: 'row', marginTop:'10px' }}>
-                    <Input maxLength={4} value={props.value?.length > 0 ? props.value : value} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ display:'inline-flex', width: '100px', height: '25px', marginRight: '10px'}}></Input>
-                    <div>{(!location) && isValid && <Spin style={{ display:'flex' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
+                    <Input ref={inputRef} id='postCodeInput' maxLength={4} defaultValue={props.value?.length > 0 ? props.value : null} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ display:'inline-flex', width: '100px', height: '25px', marginRight: '10px'}}></Input>
+                    <div>{(!location) && isValid && (!connectionError) && <Spin style={{ display:'flex' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
                     {(location) && `${location.state}`}
-                    {(location === void 0) && <>Location not found, Check your PostCode </>}</div>
+                    {(location === void 0) && <>Location not found, Check your PostCode </>}
+                    {(connectionError) && <> Connection Error, try again </>}</div>
                 </div>
             </div>
     )
