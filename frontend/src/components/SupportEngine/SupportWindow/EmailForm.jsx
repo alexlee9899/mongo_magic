@@ -2,33 +2,19 @@ import React, { useState } from "react"
 
 import { styles } from "../styles"
 
-import axios from 'axios'
-
 import { LoadingOutlined } from '@ant-design/icons'
 
 import Avatar from '../Avatar'
 
+import sendMail from "../../../utils/sendMail"
+
+import { Button, message } from 'antd'
+import { style } from "@mui/system"
+
 const EmailForm = props => {    
     const [email, setEmail] = useState('')
+    const [content, setContent] = useState('')
     const [loading, setLoading] = useState(false)
-
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     setLoading(true)
-
-    //     console.log('Sending Email', email)
-
-    //     getOrCreateUser(
-    //         user => {
-    //             props.setUser && props.setUser(user)
-    //             getOrCreateChat(chat => {
-    //                 setLoading(false)
-    //                 props.setChat && props.setChat(chat)
-    //             })
-    //         }
-    //     )
-    // }
-
     return (
         <div 
             style={{
@@ -86,19 +72,20 @@ const EmailForm = props => {
                 >
                     <input 
                         placeholder='Your Email'
-                        // onChange={e => setEmail(e.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                         style={styles.emailInput}
                     />
                     <input 
                         placeholder='Description'
-                        // onChange={e => setEmail(e.target.value)}
+                        onChange={e => setContent(e.target.value)}
                         style={{...styles.emailInput, marginTop:'30px', height:'100px'}}
                     />
+                    <br/>
+                    <Button onClick={() => sendMail(email, content)} style={{ marginTop:'15px', borderColor:'#4D7393', borderRadius:'12px'}}>
+                        Send
+                    </Button>
                 </form>
                 
-                {/* <div style={styles.bottomText}>
-                    Enter your email <br /> to get started.
-                </div> */}
                 
             </div>
         </div>
