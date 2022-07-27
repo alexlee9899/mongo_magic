@@ -10,7 +10,7 @@ function sendMail(toEmail, Body) {
         From: `mongomagic9323@gmail.com`,
         Subject:`Do Not Reply`,
         Body:`Dear user, Your Message '${Body}'  and we will get back to you as soon as possible. Thank you for your patience. 
-        <br>Regards,  G'Tracker Support Team`
+        <br>Regards, <br>G'Tracker Support Team`
     }).then(
         message => console.log(message),
     )
