@@ -43,6 +43,7 @@ def user_register(req):
 def user_login(req):
   email = req['email']
   password = req['password']
+  type_in = req['user_type']
   db_col = db['users']
   if not email or not password:
     return make_response(json.dumps({'message': 'Missing required fields'}), 400)
@@ -50,6 +51,8 @@ def user_login(req):
   user = db_col.find_one({'email': email})
   if not user or user['password'] != password_md5: 
     return make_response(json.dumps({'message': 'Invalid email or password'}), 400)
+  if user['user_type'] != type_in:
+    return make_response(json.dumps({'message': 'Invalid user type'}), 400)
   token = create_access_token(identity=email)
   response = make_response({
     "token": token,
