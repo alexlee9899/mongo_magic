@@ -41,23 +41,29 @@ def user_register(req):
   return response, 200
 
 def user_login(req):
-  email = req['email']
-  password = req['password']
-  db_col = db['users']
-  if not email or not password:
-    return make_response(json.dumps({'message': 'Missing required fields'}), 400)
-  password_md5 = hashlib.md5(password.encode('utf-8')).hexdigest()
-  user = db_col.find_one({'email': email})
-  if not user or user['password'] != password_md5: 
-    return make_response(json.dumps({'message': 'Invalid email or password'}), 400)
-  token = create_access_token(identity=email)
-  response = make_response({
-    "token": token,
-    "user_type": user['user_type']
-    })
-  response.headers['Content-Type'] = 'application/json'
-  response.headers['Authorization'] = 'Bearer ' + token
-  return response, 200
+  try:
+    email = req['email']
+    password = req['password']
+    type_in = req['user_type']
+    db_col = db['users']
+    if not email or not password:
+      return make_response(json.dumps({'message': 'Missing required fields'}), 400)
+    password_md5 = hashlib.md5(password.encode('utf-8')).hexdigest()
+    user = db_col.find_one({'email': email})
+    if not user or user['password'] != password_md5: 
+      return make_response(json.dumps({'message': 'Invalid email or password'}), 400)
+    if user['user_type'] != type_in:
+      return make_response(json.dumps({'message': 'Invalid user type'}), 400)
+    token = create_access_token(identity=email)
+    response = make_response({
+      "token": token,
+      "user_type": user['user_type']
+      })
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Authorization'] = 'Bearer ' + token
+    return response, 200
+  except:
+    return make_response(json.dumps({'message': 'Internal Error'}), 500)
 
 def user_get_profile(req):
   identity = get_jwt_identity()
