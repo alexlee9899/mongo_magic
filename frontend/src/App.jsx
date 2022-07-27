@@ -21,6 +21,7 @@ import AssessmentPage from './pages/AssessmentPage/AssessmentPage';
 import TestPage from './pages/TestPage';
 import AboutPage from "./pages/AboutPage";
 import HelpPage from "./pages/HelpPage";
+import SupportEngine from  './components/SupportEngine';
 
 export const ProfileContext = React.createContext();
 
@@ -52,7 +53,7 @@ function App() {
 
   return (
     <div style={{ height: '100%' }}>
-      <Layout style={{ minHeight: '100%', width:'100%', overflow:'auto' }}>
+      <Layout style={{ minHeight: '100vh', width:'100%', overflow:'auto' }}>
         <>
         <Router>
           <ProfileContext.Provider value={{ providerProfile }}>
@@ -82,6 +83,7 @@ function App() {
           </ProfileContext.Provider>
         </Router>
         </>
+        <SupportEngine style={{ position:'fixed', bottom:'0', right:'0' }}></SupportEngine>
       </Layout>
     </div>
   );

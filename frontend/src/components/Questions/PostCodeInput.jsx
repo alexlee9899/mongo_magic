@@ -9,7 +9,7 @@ import './QuestionStyle.css';
 
 const PostCodeInput = (props) => {
     const [isValid, setIsValid] = React.useState(false);
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState('');
     const [location, setLocation] = React.useState(null);
     const ans = React.useContext(QuestionContext);
 
@@ -51,7 +51,7 @@ const PostCodeInput = (props) => {
             <div style={{ width: '100%', order: '0', display:'flex', flexDirection: 'column'}}>
                 <div style={{display:'flex'}}>PostCode (Australian, 4 digits):</div>
                 <div style={{ display: 'inline-flex', flexDirection: 'row', marginTop:'10px' }}>
-                    <Input maxLength={4} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ display:'inline-flex', width: '100px', height: '25px', marginRight: '10px'}}></Input>
+                    <Input maxLength={4} value={props.value?.length > 0 ? props.value : value} status={inputStatus()} onChange={(e) => inputOnchange(e.target.value)} style={{ display:'inline-flex', width: '100px', height: '25px', marginRight: '10px'}}></Input>
                     <div>{(!location) && isValid && <Spin style={{ display:'flex' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
                     {(location) && `${location.state}`}
                     {(location === void 0) && <>Location not found, Check your PostCode </>}</div>

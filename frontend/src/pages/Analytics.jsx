@@ -4,6 +4,7 @@ import { Layout, Input } from 'antd';
 const { Content }  = Layout;
 
 const Ranking = () => {
+
     return (
         <>
         {/* <Navbar page='Analytics'></Navbar> */}

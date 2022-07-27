@@ -5,11 +5,16 @@ import '../../pages/AssessmentPage/AssessmentPage.css';
 
 const { Step } = Steps;
 
-
 const AssessmentStepBar = (props) => {
+
+    const onStepChange = (e) => {
+        props.setStep(e);
+    }
+
     return (
-        <Steps current={0} size='small'>
-            <Step title="INFORMATION"  />
+        <Steps current={props.step} onChange={onStepChange} size='small'>
+            <Step title="Office"  />
+            <Step title="Additional Info"/>
             <Step title="Privacy & More"  />
             <Step title="Report" />
         </Steps>
