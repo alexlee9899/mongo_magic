@@ -229,7 +229,6 @@ const Question = (props) => {
             )
         )
     }
-
     return (
         <>
             {
