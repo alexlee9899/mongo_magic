@@ -1,17 +1,16 @@
 from flask import Flask
-from flask_restx import Resource, Api, fields, reqparse
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from datetime import timedelta
+from flasgger import Swagger
 
 app = Flask(__name__)
-
+Swagger(app)
 app.config["JWT_ALGORITHM"] = "HS256"
 app.config["JWT_SECRET_KEY"] = "deloitte"
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=100)
 jwt = JWTManager(app)
 CORS(app)
-
 
 from controller.users import users_blueprint
 from controller.questions import questions_blueprint

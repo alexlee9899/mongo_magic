@@ -1,6 +1,7 @@
 from flask import request, Blueprint
 from flask_jwt_extended import jwt_required
-
+from flasgger import Swagger
+from flasgger.utils import swag_from
 from services.support import support_question_add, support_question_list, support_question_solve
 
 user_support_blueprint = Blueprint('support', __name__)
@@ -19,3 +20,4 @@ def get_question_list():
 @jwt_required()
 def solve_question_():
     return support_question_solve(request.json)
+  
