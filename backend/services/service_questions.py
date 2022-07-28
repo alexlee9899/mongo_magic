@@ -42,3 +42,6 @@ def question_list(req):
     return make_response(json.dumps({'question_list': questions}), 200)
   except Exception:
     return make_response(json.dumps({'message': 'Server Error'}), 404)
+  
+def question_answer(req):
+  return make_response(json.dumps({'message': 'Not Implemented'}), 404)
