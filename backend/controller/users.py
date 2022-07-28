@@ -1,6 +1,8 @@
 from flask import request, Blueprint
 from flask_jwt_extended import jwt_required
 from services.service_users import user_register, user_login, user_get_profile, user_update_profile
+from flasgger import Swagger
+from flasgger.utils import swag_from
 
 users_blueprint = Blueprint('users', __name__)
 
