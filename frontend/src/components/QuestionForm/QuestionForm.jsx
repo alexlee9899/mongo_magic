@@ -62,8 +62,8 @@ const QuestionForm = (props) => {
                 }   else {
                     setIsLastForm(false);
                 }   break;
-            case 'dataCenter':
-                if (props.dataCenterList?.length === props.number && props.number > 1){
+            case 'datacentre':
+                if (props.datacentreList?.length === props.number && props.number > 1){
                     setIsLastForm(true);
                 }
                 else {
@@ -71,7 +71,8 @@ const QuestionForm = (props) => {
                 }
                 break;
         }
-    }, [props.officeList, props.dataCenterList]);
+    }, [props.officeList, props.datacentreList]);
+    console.log(props)
 
     const removeLast = () => {
         props.setRemover(true);
@@ -105,7 +106,7 @@ const QuestionForm = (props) => {
                 case 'office':
                     resolve(qList.filter( q=> q.title === '1'));
                     break;
-                case 'dataCenter':
+                case 'datacentre':
                     resolve(qList.filter( q=> q.title === '2'));
                     break;
             }
@@ -136,7 +137,7 @@ const QuestionForm = (props) => {
             <Divider plain>
                 {
                     props.type === 'office' ?
-                    <>Office </> : <>Data Center </>
+                    <>Office </> : <>Data Centre </>
                 }
             {props.number}</Divider>
             <Collapse onChange={collapseChange} activeKey={collapse} accordion={true} bordered={true} ghost={true}>
