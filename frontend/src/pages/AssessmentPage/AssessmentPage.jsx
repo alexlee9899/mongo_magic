@@ -79,12 +79,12 @@ const AssessmentPage = () => {
     const [collapseNumber, setCollapseNumber] = useState(1);
 
     const [pageStep, setPageStep] = useState(0);
-    const [dataCenterNumber, setDataCenterNumber] = useState(1);
-    const [dataCenterCollapseNumber, setDataCenterCollapseNumber] = useState(1);
-    const [dataCenterList, setDataCenterList] = useState([]);
+    const [datacentreNumber, setdatacentreNumber] = useState(1);
+    const [datacentreCollapseNumber, setdatacentreCollapseNumber] = useState(1);
+    const [datacentreList, setdatacentreList] = useState([]);
 
     const [officeFinished, setOfficeFinished] = useState(false);
-    const [dataCenterFinished, setDataCenterFinished] = useState(false);
+    const [datacentreFinished, setdatacentreFinished] = useState(false);
 
     const [remover, setRemover] = useState(false);
 
@@ -95,8 +95,9 @@ const AssessmentPage = () => {
                 res.json().then(
                     data => {
                         setQuestionList(data.question_list);
+                        console.log(data.question_list);
                         setOfficeList(['1']);
-                        setDataCenterList(['1']);
+                        setdatacentreList(['1']);
                         console.log(data.question_list);
                     }
                 )
@@ -106,16 +107,17 @@ const AssessmentPage = () => {
 
 
 
+
     useEffect(() => {
         if (assessmentAnswer[`office${officeNumber}`]) {
             setOfficeFinished(true);
         } else {
             setOfficeFinished(false);
         }
-        if (assessmentAnswer[`data${dataCenterNumber}`]) {
-            setDataCenterFinished(true);
+        if (assessmentAnswer[`data${datacentreNumber}`]) {
+            setdatacentreFinished(true);
         } else {
-            setDataCenterFinished(false);
+            setdatacentreFinished(false);
         }
 
     }, [assessmentAnswer]);
@@ -136,9 +138,9 @@ const AssessmentPage = () => {
                 setOfficeNumber(officeNumber + 1);
                 break;
             case 1:
-                setDataCenterList(prev => ([...prev, `${dataCenterNumber + 1}`]));
-                setDataCenterCollapseNumber(dataCenterCollapseNumber + 1);
-                setDataCenterNumber(dataCenterNumber + 1);
+                setdatacentreList(prev => ([...prev, `${datacentreNumber + 1}`]));
+                setdatacentreCollapseNumber(datacentreCollapseNumber + 1);
+                setdatacentreNumber(datacentreNumber + 1);
                 break;
         }
     }
@@ -159,14 +161,14 @@ const AssessmentPage = () => {
                 }
                 break;
             case 1:
-                setDataCenterNumber(dataCenterNumber - 1);
-                setDataCenterCollapseNumber(dataCenterCollapseNumber - 1);
-                if (dataCenterList.length > 1) {
-                    setDataCenterList(prev => prev.slice(0, dataCenterList.length - 1));
-                    setDataCenterNumber(dataCenterNumber - 1);
+                setdatacentreNumber(datacentreNumber - 1);
+                setdatacentreCollapseNumber(datacentreCollapseNumber - 1);
+                if (datacentreList.length > 1) {
+                    setdatacentreList(prev => prev.slice(0, datacentreList.length - 1));
+                    setdatacentreNumber(datacentreNumber - 1);
                     setAssessmentAnswer(prev => {
                         const newAnswer = { ...prev };
-                        delete newAnswer[`dataCenter${dataCenterList.length}`];
+                        delete newAnswer[`dataCentre${datacentreList.length}`];
                         return newAnswer;
                     })
                 }
@@ -189,7 +191,7 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
-    console.log(pageStep, officeFinished, dataCenterFinished);
+    console.log(pageStep, officeFinished, datacentreFinished);
     return (
         <PageContainer>
             {(questionList?.length > 0) ? (
@@ -203,7 +205,7 @@ const AssessmentPage = () => {
                         <h3 className='headerContent'>G'Tracker will not store or share your data with anyone without your permission.</h3>
                     </HeaderContainer>
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
-                        <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacenterFinished={dataCenterFinished} />
+                        <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
                     </StepContainer>
                     {(questionList?.length > 0) ?
                         (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
@@ -214,8 +216,8 @@ const AssessmentPage = () => {
                                     )}</> :
                                     (pageStep === 1) ?
                                         <>
-                                            {dataCenterList.map((dataCenter) =>
-                                                <QuestionForm type={'dataCenter'} setRemover={setRemover} key={`Data Center${dataCenter}`} collapseNumber={dataCenterCollapseNumber} officeList={dataCenterList} number={parseInt(dataCenter)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionList} ></QuestionForm>
+                                            {datacentreList.map((datacentre) =>
+                                                <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionList} ></QuestionForm>
                                             )}
                                         </> :
                                         (pageStep === 2) ?
@@ -246,12 +248,12 @@ const AssessmentPage = () => {
                                         <CaretLeftFilled style={{ fontSize: '20px' }}></CaretLeftFilled> Prev
                                     </div>}
                                     <div style={{ display: 'flex', order: '1', width: '80%', justifyContent: 'center' }}>
-                                        {<Button style={{ marginRight: '10px' }} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : <>Add Another Data Center</>}</Button>}
-                                        {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : dataCenterList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
+                                        {<Button style={{ marginRight: '10px' }} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : <>Add Another Data Centre</>}</Button>}
+                                        {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : datacentreList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
                                     </div>
-                                    <div onClick={pageStep === 0 ? officeFinished ? goNextPage : null : pageStep === 1 ? dataCenterFinished ? goNextPage : null : null} style={{
-                                        opacity: `${pageStep === 0 ? officeFinished ? '1' : '0.2' : dataCenterFinished ? '1' : '0.2'}`,
-                                        order: '2', fontSize: '16px', cursor: `${pageStep === 0 ? officeFinished ? 'pointer' : 'not-allowed' : pageStep === 1 ? dataCenterFinished ? 'pointer' : 'not-allowed' : ''}`, zIndex: '500'
+                                    <div onClick={pageStep === 0 ? officeFinished ? goNextPage : null : pageStep === 1 ? datacentreFinished ? goNextPage : null : null} style={{
+                                        opacity: `${pageStep === 0 ? officeFinished ? '1' : '0.2' : datacentreFinished ? '1' : '0.2'}`,
+                                        order: '2', fontSize: '16px', cursor: `${pageStep === 0 ? officeFinished ? 'pointer' : 'not-allowed' : pageStep === 1 ? datacentreFinished ? 'pointer' : 'not-allowed' : ''}`, zIndex: '500'
                                     }}>
                                         Next<CaretRightOutlined></CaretRightOutlined>
                                     </div>
@@ -261,7 +263,7 @@ const AssessmentPage = () => {
                                         <Divider plain>{officeFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                     ) : (
                                         pageStep === 1 ? (
-                                            <Divider plain>{dataCenterFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                            <Divider plain>{datacentreFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                         ) : (
                                             <></>
                                         )
