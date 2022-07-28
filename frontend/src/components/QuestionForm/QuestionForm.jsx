@@ -62,7 +62,7 @@ const QuestionForm = (props) => {
                 }   else {
                     setIsLastForm(false);
                 }   break;
-            case 'data':
+            case 'dataCenter':
                 if (props.dataCenterList?.length === props.number && props.number > 1){
                     setIsLastForm(true);
                 }
