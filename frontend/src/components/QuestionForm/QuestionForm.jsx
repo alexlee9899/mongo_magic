@@ -23,13 +23,19 @@ const QuestionForm = (props) => {
 
     const providerAnswer = React.useMemo(() => ({ answer, setAnswer, questionUnfinished, setQuestionUnfinished }), [answer, setAnswer, setQuestionUnfinished]);
 
-    console.log(props.qList);
-
 
     useEffect(() => {
         QuestionListRender([...props.qList]);
         setCollapse(props.collapseNumber);
     }, [props.officeList]);
+
+    useEffect(() => {
+        QuestionListRender([...props.qList]);
+        setCollapse(props.collapseNumber);
+        if (props.number > 1 && props.type === 'datacentre') {
+            setAnswer({ ...answer, ['62dff0a2dd0aaca7f9e83a86']: 'true' });
+        }
+    }, [props.datacentreList])
 
     useEffect(() => {
         const type = props.type === 'office' ? 'office' : 'data';
@@ -52,6 +58,7 @@ const QuestionForm = (props) => {
         }
     },[props.assessment])
 
+
     useEffect(() => {
         switch (props.type){
             case 'office':
@@ -70,7 +77,6 @@ const QuestionForm = (props) => {
                 break;
         }
     }, [props.officeList, props.datacentreList]);
-    console.log(props)
 
     const removeLast = () => {
         props.setRemover(true);

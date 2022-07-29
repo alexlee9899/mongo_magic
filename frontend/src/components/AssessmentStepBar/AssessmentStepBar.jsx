@@ -23,7 +23,6 @@ const AssessmentStepBar = (props) => {
                 props.setStep(e);
                 break;
         }}
-        console.log(props.datacentreFinished);
 
         return (
             <Steps current={props.step} onChange={(e) => onStepChange(e)} size='small'>
