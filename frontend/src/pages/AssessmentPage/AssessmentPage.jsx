@@ -299,10 +299,10 @@ const AssessmentPage = () => {
                                 </div>
                                 {
                                     pageStep === 0 ? (
-                                        <Divider plain>{officeFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                        <Divider plain>{officeFinished ? `All Answered, Add More offices or Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                     ) : (
                                         pageStep === 1 ? (
-                                            <Divider plain>{datacentreFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                            <Divider plain>{datacentreFinished ? `All Answered, Add More Data Centres Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                         ) : (
                                             <></>
                                         )
