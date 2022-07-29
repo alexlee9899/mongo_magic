@@ -99,3 +99,14 @@ export const australianPostCode = async (postCode) => {
 
 
 
+
+export const loginRequest = (body) => {
+  const res = apiRequest({method:'POST',url:'/users/login', body:body});
+  return res;
+}
+
+
+export const regisRequest = (body) => {
+  const res = apiRequest({method:'POST',url:'/users/register', body:body});
+  return res;
+}
