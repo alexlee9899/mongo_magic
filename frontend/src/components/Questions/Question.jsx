@@ -104,9 +104,9 @@ const Question = (props) => {
                     default:
                         if (props.question._id === '62d7eb8720b23a61a4656ec2' || props.question._id === '62dff13edd0aaca7f9e83a87') {
                             return(
-                            <div className='questionContainer'>
+                            <div key={props.question._id} className='questionContainer'>
                                 {FinishSign()}
-                                <PostCodeInput style={{ order: '0' }} value={ans.answer[props.question._id]} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
+                                <PostCodeInput style={{ order: '0' }} content={qContent} value={ans.answer[props.question._id]} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
                             </div>
                             )
                         }

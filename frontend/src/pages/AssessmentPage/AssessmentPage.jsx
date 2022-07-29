@@ -89,17 +89,16 @@ const AssessmentPage = () => {
 
     const [remover, setRemover] = useState(false);
 
-    console.log(assessmentAnswer);
+    const [hasNoDatacentre, setHasNoDatacentre] = useState(false);
+
     useEffect(() => {
         getQuestionList().then(res => {
             if (res.ok) {
                 res.json().then(
                     data => {
                         handleQuestionList(data.question_list);
-                        console.log(data.question_list);
                         setOfficeList(['1']);
                         setdatacentreList(['1']);
-                        console.log(data.question_list);
                     }
                 )
             }
@@ -120,7 +119,6 @@ const AssessmentPage = () => {
         } else {
             setdatacentreFinished(false);
         }
-
     }, [assessmentAnswer]);
 
     useEffect(() => {
@@ -218,7 +216,6 @@ const AssessmentPage = () => {
         setQuestionListOffice(officeList);
         setQuestionListDataCenter(datacentreList);
     }
-
     const timeOut = (ms) => {
         setTimeout(() => {
             return true;
@@ -234,10 +231,9 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
-    console.log(pageStep, officeFinished, datacentreFinished);
     return (
         <PageContainer>
-            {((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0)) ? (
+            {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0 || pageStep === 2 || pageStep === 3)  ? (
                 <><NavContainer>
                     <h1>Navbar</h1>
                     <h1>Navbar</h1>
@@ -250,7 +246,7 @@ const AssessmentPage = () => {
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
                         <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
                     </StepContainer>
-                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) ?
+                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0  || pageStep === 2 || pageStep === 3) ?
                         (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
                             {
                                 (pageStep === 0) ?
@@ -303,10 +299,10 @@ const AssessmentPage = () => {
                                 </div>
                                 {
                                     pageStep === 0 ? (
-                                        <Divider plain>{officeFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                        <Divider plain>{officeFinished ? `All Answered, Add More offices or Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                     ) : (
                                         pageStep === 1 ? (
-                                            <Divider plain>{datacentreFinished ? `All Answered, Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                            <Divider plain>{datacentreFinished ? `All Answered, Add More Data Centres Go To Next Page Now` : `Please Finish All Questions`}</Divider>
                                         ) : (
                                             <></>
                                         )

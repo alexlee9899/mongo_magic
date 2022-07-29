@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import AdminSignupPage from './pages/adminSignupPage'
-import AdminSignIn from './pages/adminLoginPage';
+import LoginPage from './pages/Login_Signup/LoginPage';
+import SignupPage from './pages/Login_Signup/signup';
+import AdminSignupPage from './pages/Login_Signup/Adminsignup'
+import AdminLogin from './pages/Login_Signup/Adminloginpage';
 import Dashboard from './pages/Dashboard';
 import Results from './pages/Results';
 import Analytics from './pages/Analytics';
@@ -13,7 +13,7 @@ import Ranking from './pages/Ranking';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
-// import Newquiz from './pages/Newquiz';
+import Newquiz from './pages/Login_Signup/Newquiz';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import HeaderBar from './components/HeaderBar';
@@ -63,7 +63,7 @@ function App() {
               <Route path='/home' element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/adminlogin" element={<AdminSignIn />} />
+              <Route path="/adminlogin" element={<AdminLogin />} />
               <Route path="/adminsignup" element={<AdminSignupPage />} />
               <Route path="/assessment" element={<AssessmentPage/>}/>
               <Route path="/test" element={<TestPage />} />
@@ -78,7 +78,7 @@ function App() {
                 <Route path="settings" element={<><Layout><HeaderBar page='Settings'></HeaderBar><Settings /></Layout></>} />
               </Route>
               <Route path="*" element={<NotFound />} />
-              {/* <Route path="/newquiz" element={<Newquiz />} /> */}
+              <Route path="/newquiz" element={<Newquiz />} />
             </Routes>
           </ProfileContext.Provider>
         </Router>
