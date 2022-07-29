@@ -102,6 +102,14 @@ const Question = (props) => {
             case '2':
                 switch (qUnit) {
                     default:
+                        if (props.question._id === '62d7eb8720b23a61a4656ec2' || props.question._id === '62dff13edd0aaca7f9e83a87') {
+                            return(
+                            <div className='questionContainer'>
+                                {FinishSign()}
+                                <PostCodeInput style={{ order: '0' }} value={ans.answer[props.question._id]} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
+                            </div>
+                            )
+                        }
                         return (
                             <div key={props.question._id} className='questionContainer'>
                                 {FinishSign()}
@@ -120,12 +128,12 @@ const Question = (props) => {
                                 {FinishSign()}
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     {qContent}
-                                        <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
-                                                <Slider style={{marginLeft:'8px'}} value={ans.answer[props.question._id]} marks={percentSliderMarks} onChange={onSliderAfterChange}></Slider>
-                                                <div style={{ textAlign:'center', height:'20px' }}> 
-                                                {(ans.answer[props.question._id]) ? (<>{ans.answer[props.question._id]}%</>) : (<>0%</>)}
-                                                </div>
+                                    <div style={{ width: '100% ', order: '1', flexDirection: 'row', marginTop: '10px' }}>
+                                        <Slider style={{ marginLeft: '8px' }} value={ans.answer[props.question._id]} marks={percentSliderMarks} onChange={onSliderAfterChange}></Slider>
+                                        <div style={{ textAlign: 'center', height: '20px' }}>
+                                            {(ans.answer[props.question._id]) ? (<>{ans.answer[props.question._id]}%</>) : (<>0%</>)}
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -209,7 +217,7 @@ const Question = (props) => {
     }
 
     const onSliderAfterChange = (e) => {
-        ans.setAnswer(prev => ({ ...prev, [props.question._id]: `${e}`}));
+        ans.setAnswer(prev => ({ ...prev, [props.question._id]: `${e}` }));
     }
 
     const multiOption = () => {
@@ -232,20 +240,9 @@ const Question = (props) => {
     return (
         <>
             {
-                (props.question._id === '62d7eb8720b23a61a4656ec2' || props.question._id === '62dff13edd0aaca7f9e83a87') ?
-                    (
-                        <div className='questionContainer'>
-                            {FinishSign()}
-                            <PostCodeInput style={{ order: '0' }} value={ans.answer[props.question._id]} answer={props.answer} setAnswer={props.setAnswer} qId={props.question._id}></PostCodeInput>
-                        </div>
-                    )
-                    :
                     (
                         (JSON.stringify(qDepend) === '{}' || ans.answer[qDepend?.q_id] === qDepend?.q_option) && [renderSwitch()]
                     )
-            }
-            {
-
             }
         </>
     )

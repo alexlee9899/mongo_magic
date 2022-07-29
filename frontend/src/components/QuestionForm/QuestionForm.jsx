@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionForm.css';
-import { Divider, Collapse, Button, Typography } from 'antd';
-import { getQuestionList } from '../../utils/requests';
+import { Divider, Collapse, Typography } from 'antd';
 import Question from '../Questions/Question';
-import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
-import { usePreviousProps } from '@mui/utils';
-import { MinusSquareOutlined } from '@ant-design/icons';
-import useItems from 'antd/lib/menu/hooks/useItems';
 
 
 export const QuestionContext = React.createContext();
@@ -27,6 +22,9 @@ const QuestionForm = (props) => {
     const [remove, setRemove] = useState(false);
 
     const providerAnswer = React.useMemo(() => ({ answer, setAnswer, questionUnfinished, setQuestionUnfinished }), [answer, setAnswer, setQuestionUnfinished]);
+
+    console.log(props.qList);
+
 
     useEffect(() => {
         QuestionListRender([...props.qList]);
