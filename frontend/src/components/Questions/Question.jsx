@@ -232,7 +232,7 @@ const Question = (props) => {
     return (
         <>
             {
-                (props.question._id === '62d7eb8720b23a61a4656ec2') ?
+                (props.question._id === '62d7eb8720b23a61a4656ec2' || props.question._id === '62dff13edd0aaca7f9e83a87') ?
                     (
                         <div className='questionContainer'>
                             {FinishSign()}
