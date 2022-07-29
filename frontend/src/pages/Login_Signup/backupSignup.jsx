@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components'
-import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { asyncLocalStorage } from '../utils/functions'
 
@@ -14,7 +14,7 @@ const Newinput = styled.input`
   background: #F6F6F6;
   border-radius: 12px;
   width: 408px;
-  height: 62px;
+  height: 48px;
   margin: 10px;
   text-indent: 15px;
 `
@@ -30,8 +30,8 @@ const Newform = styled.form`
   justify-content: center;
   align-items:center;
   padding:20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  // margin-top: 15px;
+  // margin-bottom: 30px;
 
 `
 
@@ -70,6 +70,7 @@ const Head2 = styled.h2`
   font-size: 20px;
   color: #94959B;
   line-height: 150%;
+  margin-bottom: 0.3rem;
 `
 
 const Logoimg = styled.img`
@@ -113,14 +114,14 @@ const Span = styled.span`
 
 const theme = createTheme({
   palette: {
-    primary:{
+    primary: {
       main: '#4D7393',
     }
   },
 });
 
 
-const SignupPage = () => {
+const AdminSignupPage = () => {
   const navigate = useNavigate();
   const Api = (path, method, authToken, body, callback) => {
     const init = {
@@ -143,13 +144,12 @@ const SignupPage = () => {
           return body;
         }
       });
-};
-  const transLogin = (event) => {
+  };
+  const translogin = (event) => {
     navigate(`/login`);
   }
-
   const transRegis = (event) => {
-    navigate(`/adminsignup`);
+    navigate(`/signup`);
   }
 
   const handleSubmit = (event) => {
@@ -161,83 +161,90 @@ const SignupPage = () => {
       org: data.get('org'),
       password: data.get('password'),
       confirm: data.get('confirm'),
-      user_type: "1",
+      user_type: "0",
     }
     console.log(msg);
-    if (data.get('password') === data.get('check')){
-        switch(data.get('confirm')){
-        case null: 
+    if (data.get('password') === data.get('check') && data.get('code') === 'wdfvz') {
+      switch (data.get('confirm')) {
+        case null:
           alert('You need to confirm the terms')
           break;
         default:
           Api('users/register', 'POST', undefined, msg, (body) => {
-                console.log(body);
-                if (body.token){
-                  // localStorage.setItem('userToken', body.token);
-                  // navigate(`/users/dashboard`);
-                  asyncLocalStorage.setItem('userToken', body.token).then(() =>
-                    navigate(`/users/dashboard`)
-                  )
-                } else {
-                  alert(body.message);
-                }
-                
-        })
+            console.log(body);
+            if (body.token) {
+              // localStorage.setItem('userToken', body.token);
+              // navigate(`/users/dashboard`);
+              asyncLocalStorage.setItem('userToken', body.token).then(() =>
+                navigate(`/users/dashboard`)
+              )
+            } else {
+              alert(body.message);
+            }
+
+          })
       }
-    } else {
+    } else if (data.get('password') !== data.get('check')) {
       alert('Please check your password')
+    } else if (data.get('code') !== 'wdfvz') {
+      alert('Wrong invitation code. Please check your code')
+
     }
-    
-    
-    
-      
+
+
+
+
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Navbar><Logoimg src={logo} alt="logo" />G'Tracker <Span><Atag>Home</Atag><Atag>Rankings</Atag><Atag>Help</Atag><Atag>About</Atag></Span> </Navbar>
-    <Flexbox>
-    <Head>
-        User Register
-      </Head>
-      <Head2>Already have an account?  <Bluetag onClick={transLogin}>Login</Bluetag></Head2>
-      <Head2><Bluetag onClick={transRegis}>Switch to Admin Register</Bluetag></Head2>
-      <Newform onSubmit={handleSubmit}>
-      <Labelbox>
-          <Label htmlFor="name">Full Name</Label>
-          <Newinput type="text" placeholder="Full Name" id="name" name="name" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="org">Organization</Label>
-          <Newinput type="text" placeholder="Organization" id="org" name="org" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="email">Email</Label>
-          <Newinput type="email" placeholder="Email" id="email" name="email" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="password">Password</Label>
-          <Newinput type="password" placeholder="password" id="password" name="password" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-          <Label htmlFor="check">Password Confirmation</Label>
-          <Newinput type="password" placeholder="password" id="check" name="check" required></Newinput>
-        </Labelbox>
-        <Labelbox>
-        <FormControlLabel
+      <Flexbox>
+        <Head>
+          Admin Register
+        </Head>
+        <Head2>Already have an account?  <Bluetag onClick={translogin}>Login</Bluetag></Head2>
+        <Head2><Bluetag onClick={transRegis}>Switch to User Register</Bluetag></Head2>
+        <Newform onSubmit={handleSubmit}>
+          <Labelbox>
+            <Label htmlFor="name">Full Name</Label>
+            <Newinput type="text" placeholder="Full Name" id="name" name="name" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <Label htmlFor="org">Organization</Label>
+            <Newinput type="text" placeholder="Organization" id="org" name="org" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <Label htmlFor="email">Email</Label>
+            <Newinput type="email" placeholder="Email" id="email" name="email" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <Label htmlFor="password">Password</Label>
+            <Newinput type="password" placeholder="Password" id="password" name="password" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <Label htmlFor="check">Password Confirmation</Label>
+            <Newinput type="password" placeholder="Password" id="check" name="check" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <Label htmlFor="code">Invitation Code</Label>
+            <Newinput type="text" placeholder="Invitation Code" id="code" name="code" required></Newinput>
+          </Labelbox>
+          <Labelbox>
+            <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label={
-                <Typography sx={{ fontSize: 16 ,fontWeight:'bold'}}>
+                <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>
                   I agree to the Terms & Conditions
                 </Typography>
-              } sx={{marginBottom: '10px'} } required id="confirm" name="confirm"
+              } sx={{ marginBottom: '10px' }} required id="confirm" name="confirm"
             />
-        </Labelbox>
-        <Button color='primary' variant="contained" type="submit" sx={{width:'408px', height:'62px', borderRadius: '12px', fontSize: '15px', fontWeight:'bold', textTransform: 'none',}}>Register</Button>
-      </Newform>
-    </Flexbox>
+          </Labelbox>
+          <Button color='primary' variant="contained" type="submit" sx={{ width: '408px', height: '62px', borderRadius: '12px', fontSize: '15px', fontWeight: 'bold', textTransform: 'none', }}>Register</Button>
+        </Newform>
+      </Flexbox>
     </ThemeProvider>
   );
 }
 
-export default SignupPage;
+export default AdminSignupPage;
