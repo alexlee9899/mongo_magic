@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext, useMemo } from 'react';
 import { Button, Divider, Row, Col, Checkbox } from 'antd';
 import styled from 'styled-components';
 import themeColor from '../../config/theme';
@@ -12,7 +12,7 @@ import './AssessmentPage.css';
 import { listClasses } from '@mui/material';
 import { GroupContext } from 'antd/lib/checkbox/Group';
 
-
+export const SaveButton = createContext();
 
 const PageContainer = styled.div`
     display: flex;
@@ -89,9 +89,18 @@ const AssessmentPage = () => {
 
     const [remover, setRemover] = useState(false);
 
+    const [saving, setSaving] = useState(false);
+
     const [hasNoDatacentre, setHasNoDatacentre] = useState(false);
 
+    const saveButton = useMemo(() =>({saving}), [saving]);
+
+
+    // to test save function
+    const [notSaved, setNotSaved] = useState(true);
+
     useEffect(() => {
+        if (notSaved){
         getQuestionList().then(res => {
             if (res.ok) {
                 res.json().then(
@@ -103,23 +112,76 @@ const AssessmentPage = () => {
                 )
             }
         })
+    }   else {
+        // for saved assessment
+        // getQuestionList().then(res => {
+        //     if (res.ok) {
+        //         res.json().then(
+        //             data => {
+        //                 // get data
+        //                 handleQuestionList(data.question_list);
+        //             }
+        //         )
+        //     }
+        // }
+        // )
+        // setAssessmentAnswer(testSample);
+        // // get forms data
+        // setOfficeList(Object.keys(testSample).filter(item => item.substring(0,6) === 'office').map(item => item.substring(6,item.length)));
+        // setdatacentreList(Object.keys(testSample).filter(item => item.substring(0,4) === 'data').map(item => item.substring(4,item.length)));
+        // setOfficeNumber(Object.keys(testSample).filter(item => item.substring(0,6) === 'office').length);
+        // setdatacentreNumber(Object.keys(testSample).filter(item => item.substring(0,4) === 'data').length);
+        // setCollapseNumber(Object.keys(testSample).filter(item => item.substring(0,6) === 'office').length);
+        // setdatacentreCollapseNumber(Object.keys(testSample).filter(item => item.substring(0,4) === 'data').length);
+    }
     }, []);
-
-
-
+    console.log(assessmentAnswer);
 
     useEffect(() => {
-        if (assessmentAnswer[`office${officeNumber}`]) {
+        let officeUnfinishFlag = false;
+        let dataCentreUnfinishFlag = false;
+        const eleOffice = Object.keys(assessmentAnswer).filter(ele => ele.substring(0,6) === 'office');
+        const eleData = Object.keys(assessmentAnswer).filter(ele => ele.substring(0,4) === 'data');
+        for (const office of eleOffice) {
+            for (const officeAns in assessmentAnswer[`${office}`]){
+                if (assessmentAnswer[`${office}`][officeAns]?.length === 0){
+                    officeUnfinishFlag = true;
+                }
+            }
+        }
+        for (const data of eleData){
+            for (const dataAns in assessmentAnswer[`${data}`]){
+                if (assessmentAnswer[`${data}`][dataAns]?.length === 0){
+                    dataCentreUnfinishFlag = true;
+                }
+            }
+        }
+        if (assessmentAnswer[`office${officeList.length}`] && officeUnfinishFlag === false) {
             setOfficeFinished(true);
         } else {
             setOfficeFinished(false);
         }
-        if (assessmentAnswer[`data${datacentreNumber}`]) {
+        if (assessmentAnswer[`data${datacentreList.length}`] && dataCentreUnfinishFlag === false) {
             setdatacentreFinished(true);
         } else {
             setdatacentreFinished(false);
         }
-    }, [assessmentAnswer]);
+        // if (pageStep === 0 && notSaved === false) {
+        //     setCollapseNumber(Object.keys(assessmentAnswer).filter(item => item.substring(0,6) === 'office').map(item => item.substring(6,item.length)).length);
+        // }
+        // else if (pageStep === 1 && notSaved === false){
+        //     setdatacentreCollapseNumber(Object.keys(assessmentAnswer).filter(item => item.substring(0,4) === 'data').map(item => item.substring(4,item.length)).length);
+        // }
+    }, [assessmentAnswer, setAssessmentAnswer]);
+
+    // useEffect(() => {
+    //     if (pageStep === 0) {
+    //         setCollapseNumber(Object.keys(testSample).filter(item => item.substring(0,6) === 'office').map(item => item.substring(6,item.length)).length);
+    //     }
+    //     else if (pageStep === 1){
+    //         setdatacentreCollapseNumber(Object.keys(testSample).filter(item => item.substring(0,4) === 'data').map(item => item.substring(4,item.length)).length);
+    //     }
+    // }, [officeList, datacentreList, pageStep]);
 
     useEffect(() => {
         if (remover) {
@@ -131,34 +193,21 @@ const AssessmentPage = () => {
 
     const unitAdder = () => {
         switch (pageStep) {
-            case 0:
-                setOfficeList(prev => ([...prev, `${officeNumber + 1}`]));
-                setCollapseNumber(collapseNumber + 1);
-                setOfficeNumber(officeNumber + 1);
-                break;
             case 1:
                 setdatacentreList(prev => ([...prev, `${datacentreNumber + 1}`]));
                 setdatacentreCollapseNumber(datacentreCollapseNumber + 1);
                 setdatacentreNumber(datacentreNumber + 1);
+                break;
+            default:
+                setOfficeList(prev => ([...prev, `${officeNumber + 1}`]));
+                setCollapseNumber(collapseNumber + 1);
+                setOfficeNumber(officeNumber + 1);
                 break;
         }
     }
 
     const removeLastUnit = () => {
         switch (pageStep) {
-            case 0:
-                setOfficeNumber(officeNumber - 1);
-                setCollapseNumber(collapseNumber - 1);
-                if (officeList.length > 1) {
-                    setOfficeList(prev => prev.slice(0, officeList.length - 1));
-                    setOfficeNumber(officeNumber - 1);
-                    setAssessmentAnswer(prev => {
-                        const newAnswer = { ...prev };
-                        delete newAnswer[`office${officeList.length}`];
-                        return newAnswer;
-                    })
-                }
-                break;
             case 1:
                 setdatacentreNumber(datacentreNumber - 1);
                 setdatacentreCollapseNumber(datacentreCollapseNumber - 1);
@@ -172,6 +221,19 @@ const AssessmentPage = () => {
                     })
                 }
                 break;
+            default:
+                setOfficeNumber(officeNumber - 1);
+                setCollapseNumber(collapseNumber - 1);
+                if (officeList.length > 1) {
+                    setOfficeList(prev => prev.slice(0, officeList.length - 1));
+                    setOfficeNumber(officeNumber - 1);
+                    setAssessmentAnswer(prev => {
+                        const newAnswer = { ...prev };
+                        delete newAnswer[`office${officeList.length}`];
+                        return newAnswer;
+                    })
+                }
+                break;
         }
     }
 
@@ -181,12 +243,12 @@ const AssessmentPage = () => {
         let thisDepend = [];
         for (const key in data) {
             switch (data[key].title){
-                case '1':
-                    officeList.push(data[key]);
-                    delete (data[key]);
-                    break;
                 case '2':
                     datacentreList.push(data[key]);
+                    delete (data[key]);
+                    break;
+                default:
+                    officeList.push(data[key]);
                     delete (data[key]);
                     break;
             }
@@ -216,6 +278,7 @@ const AssessmentPage = () => {
         setQuestionListOffice(officeList);
         setQuestionListDataCenter(datacentreList);
     }
+
     const timeOut = (ms) => {
         setTimeout(() => {
             return true;
@@ -231,9 +294,14 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
+    const savePage = () => {
+        setSaving(true);
+        console.log(assessmentAnswer);
+    }
+
     return (
         <PageContainer>
-            {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0 || pageStep === 2 || pageStep === 3)  ? (
+            {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3)  ? (
                 <><NavContainer>
                     <h1>Navbar</h1>
                     <h1>Navbar</h1>
@@ -246,34 +314,36 @@ const AssessmentPage = () => {
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
                         <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
                     </StepContainer>
-                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0  || pageStep === 2 || pageStep === 3) ?
-                        (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
-                            {
+                    <SaveButton.Provider value={saving}>
+                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3)  ?
+                        (
+                        <QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
+                            {   
                                 (pageStep === 0) ?
                                     <>{officeList.map((office) =>
-                                        <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListOffice} ></QuestionForm>
+                                        <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListOffice}></QuestionForm>
                                     )}</> :
                                     (pageStep === 1) ?
                                         <>
                                             {datacentreList.map((datacentre) =>
-                                                <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListDataCenter} ></QuestionForm>
+                                                <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListDataCenter}></QuestionForm>
                                             )}
                                         </> :
                                         (pageStep === 2) ?
                                             <div style={{display:'flex', flexDirection:'column', alignItems:'flex-start'}}>
                                                 <Row>
                                                     <Col span={8}>
-                                                        <Checkbox value="A">dafkljadklsjfklasjfklasdjklfjasdkljflkdaafsd</Checkbox>
+                                                        <Checkbox >dafkljadklsjfklasjfklasdjklfjasdkljflkdaafsd</Checkbox>
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col span={8}>
-                                                        <Checkbox value="A">zxcvmljzvjlsdajkfl;kjkav</Checkbox>
+                                                        <Checkbox >zxcvmljzvjlsdajkfl;kjkav</Checkbox>
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col span={8}>
-                                                        <Checkbox value="A">fasdfasdlgjalksjfaksljaksd</Checkbox>
+                                                        <Checkbox >fasdfasdlgjalksjfaksljaksd</Checkbox>
                                                     </Col>
                                                 </Row>
                                                 </div> : <>page4</>
@@ -281,6 +351,7 @@ const AssessmentPage = () => {
 
                                             </QuestionContainer>) : <></>
                     }
+                    </SaveButton.Provider>
                             <div style={{ marginBottom: '50px', display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}>
                                 <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     {<div onClick={goPrevPage} style={{ visibility: `${pageStep > 0 ? '' : 'hidden'}`, cursor: 'pointer', display: 'flex', textAlign: 'center', alignItems: 'center', order: '0', fontSize: '16px' }}>
@@ -296,13 +367,14 @@ const AssessmentPage = () => {
                                     }}>
                                         Next<CaretRightOutlined></CaretRightOutlined>
                                     </div>
+                                    <Button onClick={()=>savePage()}>save</Button>
                                 </div>
                                 {
                                     pageStep === 0 ? (
-                                        <Divider plain>{officeFinished ? `All Answered, Add More offices or Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                        <Divider plain>{officeFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
                                     ) : (
                                         pageStep === 1 ? (
-                                            <Divider plain>{datacentreFinished ? `All Answered, Add More Data Centres Go To Next Page Now` : `Please Finish All Questions`}</Divider>
+                                            <Divider plain>{datacentreFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
                                         ) : (
                                             <></>
                                         )
