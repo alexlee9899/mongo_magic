@@ -231,10 +231,9 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
-
     return (
         <PageContainer>
-            {((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0)) ? (
+            {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0 || pageStep === 2 || pageStep === 3)  ? (
                 <><NavContainer>
                     <h1>Navbar</h1>
                     <h1>Navbar</h1>
@@ -247,7 +246,7 @@ const AssessmentPage = () => {
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
                         <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
                     </StepContainer>
-                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) ?
+                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0  || pageStep === 2 || pageStep === 3) ?
                         (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
                             {
                                 (pageStep === 0) ?
