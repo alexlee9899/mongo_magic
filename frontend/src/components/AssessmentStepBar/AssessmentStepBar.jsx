@@ -8,7 +8,6 @@ const { Step } = Steps;
 const AssessmentStepBar = (props) => {
 
     const onStepChange = (e) => {
-        console.log(e);
         switch (e) {
             case 1:
                 if (props.officeFinished) {

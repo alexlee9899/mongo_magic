@@ -79,40 +79,6 @@ const QuestionForm = (props) => {
     }
 
 
-    const sortQuestions = (data) => {
-        const qList = [];
-        const officeQuestions = data;
-        // extract questions with no dependency
-        for (const key in officeQuestions) {
-            if (JSON.stringify(officeQuestions[key].depend) === '{}') {    
-                qList.push(officeQuestions[key]);
-                delete (officeQuestions[key]);
-            }
-        }
-        // add questions to list based on dependencies
-        while (Object.keys(officeQuestions).length > 0) {
-            upperloop: for (const key in officeQuestions) {
-                for (const keyArray in qList) {
-                    if (qList[keyArray]._id === officeQuestions[key]?.depend.q_id) {
-                        qList.splice(parseInt(keyArray)+1, 0, officeQuestions[key]);
-                        delete (officeQuestions[key]);
-                        break upperloop;
-                    }
-                }
-            }
-        } 
-        return new Promise((resolve) => { 
-            switch (props.type){
-                case 'office':
-                    resolve(qList.filter( q=> q.title === '1'));
-                    break;
-                case 'datacentre':
-                    resolve(qList.filter( q=> q.title === '2'));
-                    break;
-            }
-        });
-    }
-
     const collapseChange = () => {
         if (collapse !== props.number) {
             setCollapse(props.number);
@@ -122,13 +88,11 @@ const QuestionForm = (props) => {
     }
 
     const QuestionListRender = async(data) => {
-        const sortedData = await sortQuestions(data);
-        setQuestionRender(sortedData.map((question) =>
+        setQuestionRender(data.map((question) =>
             <Question key={question._id} question={question} setAnswer={setAnswer} answer={answer}></Question>
         ))
     }
 
-    console.log(isLastForm, props.number);
 
 
     return (

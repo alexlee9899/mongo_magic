@@ -72,7 +72,8 @@ const HeaderText = styled.h3`
 
 const AssessmentPage = () => {
     // everything for office
-    const [questionList, setQuestionList] = useState(undefined);
+    const [questionListOffice, setQuestionListOffice] = useState(undefined);
+    const [questionListDataCenter, setQuestionListDataCenter] = useState(undefined);
     const [officeNumber, setOfficeNumber] = useState(1);
     const [officeList, setOfficeList] = useState([]);
     const [assessmentAnswer, setAssessmentAnswer] = useState({});
@@ -94,7 +95,7 @@ const AssessmentPage = () => {
             if (res.ok) {
                 res.json().then(
                     data => {
-                        setQuestionList(data.question_list);
+                        handleQuestionList(data.question_list);
                         console.log(data.question_list);
                         setOfficeList(['1']);
                         setdatacentreList(['1']);
@@ -176,6 +177,48 @@ const AssessmentPage = () => {
         }
     }
 
+    const handleQuestionList = (data) => {
+        const officeList = [];
+        const datacentreList = [];
+        let thisDepend = [];
+        for (const key in data) {
+            switch (data[key].title){
+                case '1':
+                    officeList.push(data[key]);
+                    delete (data[key]);
+                    break;
+                case '2':
+                    datacentreList.push(data[key]);
+                    delete (data[key]);
+                    break;
+            }
+        }
+        while (Object.keys(data).length > 0){
+            for (const oIndex in officeList) {
+                for (const dataIndex in data) {
+                    thisDepend = [];
+                    if (data[dataIndex]?.depend.q_id === officeList[oIndex]?.q_id) {
+                        thisDepend.push(data[dataIndex]);
+                        delete (data[dataIndex]);
+                    }
+                }
+                officeList.splice(parseInt(oIndex)+1, 0, ...thisDepend);
+            }
+            for (const dcIndex in datacentreList) {
+                for (const dataIndex in data) {
+                    thisDepend = [];
+                    if (data[dataIndex]?.depend.q_id === datacentreList[dcIndex]?.q_id) {
+                        thisDepend.push(data[dataIndex]);
+                        delete (data[dataIndex]);
+                    }
+                }
+                datacentreList.splice(parseInt(dcIndex)+1, 0, ...thisDepend);
+            }
+        }
+        setQuestionListOffice(officeList);
+        setQuestionListDataCenter(datacentreList);
+    }
+
     const timeOut = (ms) => {
         setTimeout(() => {
             return true;
@@ -194,7 +237,7 @@ const AssessmentPage = () => {
     console.log(pageStep, officeFinished, datacentreFinished);
     return (
         <PageContainer>
-            {(questionList?.length > 0) ? (
+            {((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0)) ? (
                 <><NavContainer>
                     <h1>Navbar</h1>
                     <h1>Navbar</h1>
@@ -207,17 +250,17 @@ const AssessmentPage = () => {
                     <StepContainer style={{ marginTop: '20px', width: '50%' }}>
                         <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
                     </StepContainer>
-                    {(questionList?.length > 0) ?
+                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) ?
                         (<QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
                             {
                                 (pageStep === 0) ?
                                     <>{officeList.map((office) =>
-                                        <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionList} ></QuestionForm>
+                                        <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListOffice} ></QuestionForm>
                                     )}</> :
                                     (pageStep === 1) ?
                                         <>
                                             {datacentreList.map((datacentre) =>
-                                                <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionList} ></QuestionForm>
+                                                <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListDataCenter} ></QuestionForm>
                                             )}
                                         </> :
                                         (pageStep === 2) ?
