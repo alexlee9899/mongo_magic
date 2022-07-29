@@ -89,17 +89,16 @@ const AssessmentPage = () => {
 
     const [remover, setRemover] = useState(false);
 
-    console.log(assessmentAnswer);
+    const [hasNoDatacentre, setHasNoDatacentre] = useState(false);
+
     useEffect(() => {
         getQuestionList().then(res => {
             if (res.ok) {
                 res.json().then(
                     data => {
                         handleQuestionList(data.question_list);
-                        console.log(data.question_list);
                         setOfficeList(['1']);
                         setdatacentreList(['1']);
-                        console.log(data.question_list);
                     }
                 )
             }
@@ -120,7 +119,6 @@ const AssessmentPage = () => {
         } else {
             setdatacentreFinished(false);
         }
-
     }, [assessmentAnswer]);
 
     useEffect(() => {
@@ -218,7 +216,6 @@ const AssessmentPage = () => {
         setQuestionListOffice(officeList);
         setQuestionListDataCenter(datacentreList);
     }
-
     const timeOut = (ms) => {
         setTimeout(() => {
             return true;
@@ -234,7 +231,7 @@ const AssessmentPage = () => {
         setPageStep(prev => prev - 1);
     }
 
-    console.log(pageStep, officeFinished, datacentreFinished);
+
     return (
         <PageContainer>
             {((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0)) ? (
