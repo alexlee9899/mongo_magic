@@ -120,3 +120,13 @@ li.ant-menu-item {
 .grecaptcha-badge:hover {
   width: 256px !important;
 }
+
+.ant-btn-primary {
+  background-color: #4D7393;
+  border-color: #4D7393;
+}
+
+.ant-btn-default:hover {
+  border-color: #4D7393;
+  color: #4D7393;
+}

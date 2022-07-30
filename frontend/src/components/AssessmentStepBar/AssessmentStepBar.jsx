@@ -10,10 +10,12 @@ const AssessmentStepBar = (props) => {
     const onStepChange = (e) => {
         switch (e) {
             case 1:
+                if (props.officeFinished) {
                     props.setStep(e)
+                }
                 break;
             case 2:
-                if (props.datacentreFinished) {
+                if (props.datacentreFinished && props.officeFinished) {
                     props.setStep(e)
                 }
                 break;
@@ -25,8 +27,8 @@ const AssessmentStepBar = (props) => {
         return (
             <Steps current={props.step} onChange={(e) => onStepChange(e)} size='small'>
                 <Step title="Office" />
-                <Step  title="Additional Info" />
-                <Step disabled={!props.datacentreFinished} title="Privacy & More" />
+                <Step disabled={!props.officeFinished} title="Additional Info" />
+                <Step disabled={!props.datacentreFinished || !props.officeFinished} title="Privacy & More" />
                 {/* TODO */}
                 <Step title="Report" />
             </Steps>
