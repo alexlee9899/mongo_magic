@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button } from 'antd';
+import { Modal, Button } from 'antd'
 
 const AssessmentModal = (props) => {
     const [loading, setLoading] = useState(false);
@@ -31,6 +31,8 @@ const AssessmentModal = (props) => {
 
     return (
         <Modal
+            centered = {true}
+            maskClosable={false}
             visible={visible}
             width={'300px'}
             closable={false}
@@ -45,7 +47,7 @@ const AssessmentModal = (props) => {
                     Continue
                 </Button>,
             ]}
-            style={{ textAlign:'center', minWidth:'350px' }}
+            style={{ textAlign:'center', minWidth:'350px', top:'-20vh' }}
         >
             <p>You have saved assessments</p>
         </Modal>

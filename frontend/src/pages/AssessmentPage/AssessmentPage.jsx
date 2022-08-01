@@ -6,12 +6,9 @@ import { getQuestionList } from '../../utils/requests'
 import AssessmentStepBar from '../../components/AssessmentStepBar/AssessmentStepBar';
 import QuestionForm from '../../components/QuestionForm/QuestionForm';
 import AssessmentModal from '../../components/AssessmentModal/AssessmentModal';
-import AddSharpIcon from '@mui/icons-material/AddSharp';
-import { PlusSquareOutlined, CaretRightOutlined, CaretLeftOutlined, CaretLeftFilled } from '@ant-design/icons';
+import {  CaretRightOutlined, CaretLeftFilled } from '@ant-design/icons';
 import LoadingIcon from '../../components/LoadingIcon';
 import './AssessmentPage.css';
-import { listClasses } from '@mui/material';
-import { GroupContext } from 'antd/lib/checkbox/Group';
 
 export const SaveButton = createContext();
 
@@ -49,7 +46,7 @@ const HeaderContainer = styled.div`
 
 const QuestionContainer = styled.div`
     width: 50%;
-    min-height: 70vh;
+    min-height: 60vh;
     /* overflow-y: auto; */
     display: flex;
     flex-direction: column;
@@ -59,16 +56,6 @@ const QuestionContainer = styled.div`
 const StepContainer = styled.div`
     display: flex;
     width: 100%;
-`
-
-const HeaderTitle = styled.h1`
-    font-size: 50px;
-
-`
-
-const HeaderText = styled.h3`
-    font-size: 18px;
-    color: grey;
 `
 
 const AssessmentPage = () => {
@@ -89,7 +76,6 @@ const AssessmentPage = () => {
     const [datacentreFinished, setdatacentreFinished] = useState(false);
 
     const [remover, setRemover] = useState(false);
-    const [hasNoDatacentre, setHasNoDatacentre] = useState(false);
 
 
     const [termsAgreed, setTermsAgreed] = useState(false);
@@ -102,8 +88,7 @@ const AssessmentPage = () => {
 
     const getSavedAssessment = () => {
         return new Promise((resolve, reject) => {
-            const rand = Math.random();
-            if (1> 0.5) {
+            if (1 > 0.5) {
                 setTimeout(() => {
                     resolve({
                         "office1": {
@@ -221,321 +206,326 @@ const AssessmentPage = () => {
         })
     }
 
-useEffect(() => {
-    if (usingSavedAssessment) {
-        getData().then(testSample => {
-            setAssessmentAnswer(testSample);
-            // get forms data
-            setOfficeList(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').map(item => item.substring(6, item.length)));
-            setdatacentreList(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').map(item => item.substring(4, item.length)));
-            setOfficeNumber(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').length);
-            setdatacentreNumber(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').length);
-            setCollapseNumber(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').length);
-            setdatacentreCollapseNumber(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').length);
-            setLoading(false);
-        }
-        )
-    }  else {
-        setHasSavedAssessment(false);
-        setOfficeList(['1']);
-        setdatacentreList(['1']);
-        // send abort request here
-    }
-}, [usingSavedAssessment]);
-
-
-// to test save function
-const [notSaved, setNotSaved] = useState(true);
-console.log(usingSavedAssessment);
-
-useEffect(() => {
-    if (notSaved) {
-        getQuestionList().then(res => {
-            if (res.ok) {
-                res.json().then(
-                    data => {
-                        handleQuestionList(data.question_list);
-                        getSavedAssessment().then(testSample => {
-                            if (Object.entries(testSample).length > 0) {
-                                setHasSavedAssessment(true);
-                            } else {
-                                setHasSavedAssessment(false);
-                                setOfficeList(['1']);
-                                setdatacentreList(['1']);
-                                setLoading(false);
-                            }
-                        })
-                    }
-                )
+    useEffect(() => {
+        if (usingSavedAssessment) {
+            getData().then(testSample => {
+                setAssessmentAnswer(testSample);
+                // get forms data
+                setOfficeList(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').map(item => item.substring(6, item.length)));
+                setdatacentreList(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').map(item => item.substring(4, item.length)));
+                setOfficeNumber(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').length);
+                setdatacentreNumber(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').length);
+                setCollapseNumber(Object.keys(testSample).filter(item => item.substring(0, 6) === 'office').length);
+                setdatacentreCollapseNumber(Object.keys(testSample).filter(item => item.substring(0, 4) === 'data').length);
+                setLoading(false);
             }
-        })
-    } else {
-    }
-}, []);
-
-console.log(assessmentAnswer);
-
-
-useEffect(() => {
-    let officeUnfinishFlag = false;
-    let dataCentreUnfinishFlag = false;
-    const eleOffice = Object.keys(assessmentAnswer).filter(ele => ele.substring(0, 6) === 'office');
-    const eleData = Object.keys(assessmentAnswer).filter(ele => ele.substring(0, 4) === 'data');
-    for (const office of eleOffice) {
-        for (const officeAns in assessmentAnswer[`${office}`]) {
-            if (assessmentAnswer[`${office}`][officeAns]?.length === 0) {
-                officeUnfinishFlag = true;
-            }
+            )
+        } else {
+            setHasSavedAssessment(false);
+            setOfficeList(['1']);
+            setdatacentreList(['1']);
+            // send abort request here
         }
-    }
-    for (const data of eleData) {
-        for (const dataAns in assessmentAnswer[`${data}`]) {
-            if (assessmentAnswer[`${data}`][dataAns]?.length === 0) {
-                dataCentreUnfinishFlag = true;
+    }, [usingSavedAssessment]);
+
+
+    // to test save function
+    const [notSaved, setNotSaved] = useState(true);
+    console.log(usingSavedAssessment);
+
+    useEffect(() => {
+        if (notSaved) {
+            getQuestionList().then(res => {
+                if (res.ok) {
+                    res.json().then(
+                        data => {
+                            handleQuestionList(data.question_list);
+                            getSavedAssessment().then(testSample => {
+                                if (Object.entries(testSample).length > 0) {
+                                    setHasSavedAssessment(true);
+                                } else {
+                                    setHasSavedAssessment(false);
+                                    setOfficeList(['1']);
+                                    setdatacentreList(['1']);
+                                    setLoading(false);
+                                }
+                            })
+                        }
+                    )
+                }
+            })
+        } else {
+        }
+    }, [notSaved]);
+
+    console.log(assessmentAnswer);
+
+
+    useEffect(() => {
+        let officeUnfinishFlag = false;
+        let dataCentreUnfinishFlag = false;
+        const eleOffice = Object.keys(assessmentAnswer).filter(ele => ele.substring(0, 6) === 'office');
+        const eleData = Object.keys(assessmentAnswer).filter(ele => ele.substring(0, 4) === 'data');
+        for (const office of eleOffice) {
+            for (const officeAns in assessmentAnswer[`${office}`]) {
+                if (assessmentAnswer[`${office}`][officeAns]?.length === 0) {
+                    officeUnfinishFlag = true;
+                }
             }
         }
-    }
-    if (assessmentAnswer[`office${officeList.length}`] && officeUnfinishFlag === false) {
-        setOfficeFinished(true);
-    } else {
-        setOfficeFinished(false);
-    }
-    if (assessmentAnswer[`data${datacentreList.length}`] && dataCentreUnfinishFlag === false) {
-        setdatacentreFinished(true);
-    } else {
-        setdatacentreFinished(false);
-    }
-}, [assessmentAnswer, setAssessmentAnswer]);
-
-
-useEffect(() => {
-    if (remover) {
-        setRemover(false)
-        removeLastUnit();
-    }
-}, [remover])
-
-
-const unitAdder = () => {
-    switch (pageStep) {
-        case 1:
-            setdatacentreList(prev => ([...prev, `${datacentreNumber + 1}`]));
-            setdatacentreCollapseNumber(datacentreCollapseNumber + 1);
-            setdatacentreNumber(datacentreNumber + 1);
-            break;
-        default:
-            setOfficeList(prev => ([...prev, `${officeNumber + 1}`]));
-            setCollapseNumber(collapseNumber + 1);
-            setOfficeNumber(officeNumber + 1);
-            break;
-    }
-}
-
-const removeLastUnit = () => {
-    switch (pageStep) {
-        case 1:
-            setdatacentreNumber(datacentreNumber - 1);
-            setdatacentreCollapseNumber(datacentreCollapseNumber - 1);
-            if (datacentreList.length > 1) {
-                setdatacentreList(prev => prev.slice(0, datacentreList.length - 1));
-                setdatacentreNumber(datacentreNumber - 1);
-                setAssessmentAnswer(prev => {
-                    const newAnswer = { ...prev };
-                    delete newAnswer[`dataCentre${datacentreList.length}`];
-                    return newAnswer;
-                })
+        for (const data of eleData) {
+            for (const dataAns in assessmentAnswer[`${data}`]) {
+                if (assessmentAnswer[`${data}`][dataAns]?.length === 0) {
+                    dataCentreUnfinishFlag = true;
+                }
             }
-            break;
-        default:
-            setOfficeNumber(officeNumber - 1);
-            setCollapseNumber(collapseNumber - 1);
-            if (officeList.length > 1) {
-                setOfficeList(prev => prev.slice(0, officeList.length - 1));
-                setOfficeNumber(officeNumber - 1);
-                setAssessmentAnswer(prev => {
-                    const newAnswer = { ...prev };
-                    delete newAnswer[`office${officeList.length}`];
-                    return newAnswer;
-                })
-            }
-            break;
-    }
-}
+        }
+        if (assessmentAnswer[`office${officeList.length}`] && officeUnfinishFlag === false) {
+            setOfficeFinished(true);
+        } else {
+            setOfficeFinished(false);
+        }
+        if (assessmentAnswer[`data${datacentreList.length}`] && dataCentreUnfinishFlag === false) {
+            setdatacentreFinished(true);
+        } else {
+            setdatacentreFinished(false);
+        }
+    }, [assessmentAnswer, setAssessmentAnswer, datacentreList.length, officeList.length]);
 
-const handleQuestionList = (data) => {
-    const officeList = [];
-    const datacentreList = [];
-    let thisDepend = [];
-    for (const key in data) {
-        switch (data[key].title) {
-            case '2':
-                datacentreList.push(data[key]);
-                delete (data[key]);
+
+    useEffect(() => {
+        if (remover) {
+            setRemover(false)
+            removeLastUnit();
+        }
+    }, [remover])
+
+
+    const unitAdder = () => {
+        switch (pageStep) {
+            case 1:
+                setdatacentreList(prev => ([...prev, `${datacentreNumber + 1}`]));
+                setdatacentreCollapseNumber(datacentreCollapseNumber + 1);
+                setdatacentreNumber(datacentreNumber + 1);
                 break;
             default:
-                officeList.push(data[key]);
-                delete (data[key]);
+                setOfficeList(prev => ([...prev, `${officeNumber + 1}`]));
+                setCollapseNumber(collapseNumber + 1);
+                setOfficeNumber(officeNumber + 1);
                 break;
         }
     }
-    while (Object.keys(data).length > 0) {
-        for (const oIndex in officeList) {
-            for (const dataIndex in data) {
-                thisDepend = [];
-                if (data[dataIndex]?.depend.q_id === officeList[oIndex]?.q_id) {
-                    thisDepend.push(data[dataIndex]);
-                    delete (data[dataIndex]);
+
+    const removeLastUnit = () => {
+        switch (pageStep) {
+            case 1:
+                setdatacentreNumber(datacentreNumber - 1);
+                setdatacentreCollapseNumber(datacentreCollapseNumber - 1);
+                if (datacentreList.length > 1) {
+                    setdatacentreList(prev => prev.slice(0, datacentreList.length - 1));
+                    setdatacentreNumber(datacentreNumber - 1);
+                    setAssessmentAnswer(prev => {
+                        const newAnswer = { ...prev };
+                        delete newAnswer[`dataCentre${datacentreList.length}`];
+                        return newAnswer;
+                    })
                 }
-            }
-            officeList.splice(parseInt(oIndex) + 1, 0, ...thisDepend);
-        }
-        for (const dcIndex in datacentreList) {
-            for (const dataIndex in data) {
-                thisDepend = [];
-                if (data[dataIndex]?.depend.q_id === datacentreList[dcIndex]?.q_id) {
-                    thisDepend.push(data[dataIndex]);
-                    delete (data[dataIndex]);
+                break;
+            default:
+                setOfficeNumber(officeNumber - 1);
+                setCollapseNumber(collapseNumber - 1);
+                if (officeList.length > 1) {
+                    setOfficeList(prev => prev.slice(0, officeList.length - 1));
+                    setOfficeNumber(officeNumber - 1);
+                    setAssessmentAnswer(prev => {
+                        const newAnswer = { ...prev };
+                        delete newAnswer[`office${officeList.length}`];
+                        return newAnswer;
+                    })
                 }
-            }
-            datacentreList.splice(parseInt(dcIndex) + 1, 0, ...thisDepend);
+                break;
         }
     }
-    setQuestionListOffice(officeList);
-    setQuestionListDataCenter(datacentreList);
-}
 
-const timeOut = (ms) => {
-    setTimeout(() => {
+    const handleQuestionList = (data) => {
+        const officeList = [];
+        const datacentreList = [];
+        let thisDepend = [];
+        for (const key in data) {
+            switch (data[key].title) {
+                case '2':
+                    datacentreList.push(data[key]);
+                    delete (data[key]);
+                    break;
+                default:
+                    officeList.push(data[key]);
+                    delete (data[key]);
+                    break;
+            }
+        }
+        while (Object.keys(data).length > 0) {
+            for (const oIndex in officeList) {
+                for (const dataIndex in data) {
+                    thisDepend = [];
+                    if (data[dataIndex]?.depend.q_id === officeList[oIndex]?.q_id) {
+                        thisDepend.push(data[dataIndex]);
+                        delete (data[dataIndex]);
+                    }
+                }
+                officeList.splice(parseInt(oIndex) + 1, 0, ...thisDepend);
+            }
+            for (const dcIndex in datacentreList) {
+                for (const dataIndex in data) {
+                    thisDepend = [];
+                    if (data[dataIndex]?.depend.q_id === datacentreList[dcIndex]?.q_id) {
+                        thisDepend.push(data[dataIndex]);
+                        delete (data[dataIndex]);
+                    }
+                }
+                datacentreList.splice(parseInt(dcIndex) + 1, 0, ...thisDepend);
+            }
+        }
+        setQuestionListOffice(officeList);
+        setQuestionListDataCenter(datacentreList);
+    }
+
+    const timeOut = (ms) => {
+        setTimeout(() => {
+            return true;
+        }, ms);
         return true;
-    }, ms);
-    return true;
-}
-
-const goNextPage = () => {
-    setPageStep(prev => prev + 1);
-}
-
-const goPrevPage = () => {
-    setPageStep(prev => prev - 1);
-}
-
-const savePage = () => {
-    setSaving(true);
-    console.log(assessmentAnswer);
-}
-
-const onPrivacyChange = (e) => {
-    if (e.target.checked) {
-        setAssessmentAnswer(prev => ({
-            ...prev, ['privacy']: true
-    }))
-    }   else {
-        setAssessmentAnswer(prev => ({
-            ...prev, ['privacy']: false
-        }))
     }
-}
 
-const onTermsChange = (e) => {
-    if (e.target.checked) {
-        setTermsAgreed(true);
-    }   else {
-        setTermsAgreed(false);
+    const goNextPage = () => {
+        setPageStep(prev => prev + 1);
     }
-}
 
-return (
-    <PageContainer>
-        {(!loading) && ((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3)) ? (
-            <><NavContainer>
-                <h1>Navbar</h1>
-                <h1>Navbar</h1>
-                <h1>Navbar</h1>
-            </NavContainer>
-                <HeaderContainer>
-                    <h3 className='headerContent'>The Assessment of the sustainability score will be done based on the data provided.</h3>
-                    <h3 className='headerContent'>G'Tracker will not store or share your data with anyone without your permission.</h3>
-                </HeaderContainer>
-                <StepContainer style={{ marginTop: '20px', width: '50%' }}>
-                    <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
-                </StepContainer>
-                <SaveButton.Provider value={saving}>
-                    {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3) ?
-                        (
-                            <QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
-                                {
-                                    (pageStep === 0) ?
-                                        <>{officeList.map((office) =>
-                                            <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListOffice}></QuestionForm>
-                                        )}</> :
-                                        (pageStep === 1) ?
-                                            <>
-                                                {datacentreList.map((datacentre) =>
-                                                    <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListDataCenter}></QuestionForm>
-                                                )}
-                                            </> :
-                                            (pageStep === 2) ?
-                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                                                    <Row>
-                                                        <Col span={32} style={{marginTop:'30px'}}>
-                                                            <Checkbox defaultChecked={assessmentAnswer['privacy']} onChange={(e) => onPrivacyChange(e)}>I agree to share the data of this assessment with other users.</Checkbox>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col span={50}>
-                                                            <small style={{color:'grey'}}>Notice: By selecting this option, your results might be visible to other users. </small>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row style={{marginTop:'30px'}}>
-                                                        <Col span={32}>
-                                                            <Checkbox defaultChecked={termsAgreed} onChange={(e)=>onTermsChange(e)}>I agree to the <a>Terms & Conditions</a> and the <a>Privacy Policy</a>.</Checkbox>
-                                                        </Col>
-                                                    </Row>
-                                                </div> : <>page4</>
-                                }
+    const goPrevPage = () => {
+        setPageStep(prev => prev - 1);
+    }
 
-                            </QuestionContainer>) : <></>
-                    }
-                </SaveButton.Provider>
-                <div style={{ marginBottom: '50px', display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}>
-                    <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        {<div onClick={goPrevPage} style={{ visibility: `${pageStep > 0 ? '' : 'hidden'}`, cursor: 'pointer', display: 'flex', textAlign: 'center', alignItems: 'center', order: '0', fontSize: '16px' }}>
-                            <CaretLeftFilled style={{ fontSize: '20px' }}></CaretLeftFilled> Prev
-                        </div>}
-                        <div style={{ display: 'flex', order: '1', width: '80%', justifyContent: 'center' }}>
-                            {<Button style={{ marginRight: '10px' }} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : <>Add Another Data Centre</>}</Button>}
-                            {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : datacentreList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
-                        </div>
-                        <div onClick={pageStep === 0 ? officeFinished ? goNextPage : null : pageStep === 1 ? datacentreFinished ? goNextPage : null : null} style={{
-                            opacity: `${pageStep === 0 ? officeFinished ? '1' : '0.2' : datacentreFinished ? '1' : '0.2'}`,
-                            order: '2', fontSize: '16px', cursor: `${pageStep === 0 ? officeFinished ? 'pointer' : 'not-allowed' : pageStep === 1 ? datacentreFinished ? 'pointer' : 'not-allowed' : ''}`, zIndex: '500'
-                        }}>
-                            Next<CaretRightOutlined></CaretRightOutlined>
-                        </div>
-                        <Button onClick={() => savePage()}>save</Button>
-                    </div>
-                    {
-                        pageStep === 0 ? (
-                            <Divider plain>{officeFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
-                        ) : (
-                            pageStep === 1 ? (
-                                <Divider plain>{datacentreFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
-                            ) : (
-                                <></>
-                            )
-                        )
-                    }
-                </div>
-            </>) : <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexDirection: 'column' }}>
-            <LoadingIcon />
-        {hasSavedAssessment ?
-            (<div style={{ minWidth: '300px' }}>
-                <AssessmentModal  setLoading={setLoading} assessmentSetter={setAssessmentAnswer} hasSavedAssessment={hasSavedAssessment} usingSavedSetter={setUsingSavedAssessment}>
-                </AssessmentModal>
-            </div>): <></>
+    const savePage = () => {
+        setSaving(true);
+        console.log(assessmentAnswer);
+    }
+
+    const onPrivacyChange = (e) => {
+        if (e.target.checked) {
+            setAssessmentAnswer(prev => ({
+                ...prev, ['privacy']: true
+            }))
+        } else {
+            setAssessmentAnswer(prev => ({
+                ...prev, ['privacy']: false
+            }))
         }
-        </div>}
-    </PageContainer>
-)
+    }
+
+    const onTermsChange = (e) => {
+        if (e.target.checked) {
+            setTermsAgreed(true);
+        } else {
+            setTermsAgreed(false);
+        }
+    }
+
+    return (
+        <PageContainer>
+            {(!loading) && ((pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3)) ? (
+                <><NavContainer>
+                    <h1>Navbar</h1>
+                    <h1>Navbar</h1>
+                    <h1>Navbar</h1>
+                </NavContainer>
+                    <HeaderContainer>
+                        <h3 className='headerContent'>The Assessment of the sustainability score will be done based on the data provided.</h3>
+                        <h3 className='headerContent'>G'Tracker will not store or share your data with anyone without your permission.</h3>
+                    </HeaderContainer>
+                    <StepContainer style={{ marginTop: '20px', width: '50%' }}>
+                        <AssessmentStepBar step={pageStep} setStep={setPageStep} officeFinished={officeFinished} datacentreFinished={datacentreFinished} />
+                    </StepContainer>
+                    <SaveButton.Provider value={saving}>
+                        {(pageStep === 0 && questionListOffice?.length > 0) || (pageStep === 1 && questionListDataCenter?.length > 0) || (pageStep === 2) || (pageStep === 3) ?
+                            (
+                                <QuestionContainer style={{ minHeight: pageStep === 1 ? '30vh' : '' }}>
+                                    {
+                                        (pageStep === 0) ?
+                                            <>{officeList.map((office) =>
+                                                <QuestionForm type={'office'} setRemover={setRemover} key={`office${office}`} collapseNumber={collapseNumber} officeList={officeList} number={parseInt(office)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListOffice}></QuestionForm>
+                                            )}</> :
+                                            (pageStep === 1) ?
+                                                <>
+                                                    {datacentreList.map((datacentre) =>
+                                                        <QuestionForm type={'datacentre'} setRemover={setRemover} key={`Data Centre${datacentre}`} collapseNumber={datacentreCollapseNumber} datacentreList={datacentreList} number={parseInt(datacentre)} assessmentSetter={setAssessmentAnswer} assessment={assessmentAnswer} qList={questionListDataCenter}></QuestionForm>
+                                                    )}
+                                                </> :
+                                                (pageStep === 2) ?
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                                        <Row>
+                                                            <Col span={32} style={{ marginTop: '30px' }}>
+                                                                <Checkbox defaultChecked={assessmentAnswer['privacy']} onChange={(e) => onPrivacyChange(e)}>I agree to share the data of this assessment with other users.</Checkbox>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col span={50}>
+                                                                <small style={{ color: 'grey', paddingLeft: '24px' }}>Notice: By selecting this option, your results might be visible to other users. </small>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row style={{ marginTop: '30px' }}>
+                                                            <Col span={32}>
+                                                                <Checkbox defaultChecked={termsAgreed} onChange={(e) => onTermsChange(e)}>I agree to the <a>Terms & Conditions</a> and the <a>Privacy Policy</a>.</Checkbox>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row style={{ marginTop: '30px', alignSelf: 'center' }}>
+                                                            <Col span={32}>
+                                                                <Button>Submit</Button>
+                                                            </Col>
+                                                        </Row>
+                                                    </div> : <>page4</>
+                                    }
+
+                                </QuestionContainer>) : <></>
+                        }
+                    </SaveButton.Provider>
+                    <div style={{ marginBottom: '50px', display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}>
+                        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            {<div onClick={goPrevPage} style={{ visibility: `${pageStep > 0 ? '' : 'hidden'}`, cursor: 'pointer', display: 'flex', textAlign: 'center', alignItems: 'center', order: '0', fontSize: '16px' }}>
+                                <CaretLeftFilled style={{ fontSize: '20px' }}></CaretLeftFilled> Prev
+                            </div>}
+                            <div style={{ display: 'flex', order: '1', width: '80%', justifyContent: 'center' }}>
+                                {pageStep < 2 && <Button style={{ marginRight: '10px' }} onClick={unitAdder}>{pageStep === 0 ? <>Add Another Office</> : pageStep === 1 && <>Add Another Data Centre</>}</Button>}
+                                {/* {<Button disabled={pageStep===0 ? officeList.length=== 1 : datacentreList.length === 1} style={{ alignItems: 'flex-start', order:'2' }} onClick={removeLastUnit}>{pageStep === 0 ? <>Remove Last Office</> : <>Remove Last Data Center</>}</Button>} */}
+                            </div>
+                            <div onClick={pageStep === 0 ? officeFinished ? goNextPage : null : pageStep === 1 ? datacentreFinished ? goNextPage : null : null} style={{
+                                opacity: `${pageStep === 0 ? officeFinished ? '1' : '0.2' : datacentreFinished ? '1' : '0.2'}`,
+                                order: '2', fontSize: '16px', cursor: `${pageStep === 0 ? officeFinished ? 'pointer' : 'not-allowed' : pageStep === 1 ? datacentreFinished ? 'pointer' : 'not-allowed' : ''}`, zIndex: '500'
+                            }}>
+                                Next<CaretRightOutlined></CaretRightOutlined>
+                            </div>
+                            {/* <Button onClick={() => savePage()}>save</Button> */}
+                        </div>
+                        {
+                            pageStep === 0 ? (
+                                <Divider plain>{officeFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
+                            ) : (
+                                pageStep === 1 ? (
+                                    <Divider plain>{datacentreFinished ? `All Answered, Add More or Go Ahead` : `Please Finish All Questions`}</Divider>
+                                ) : (
+                                    <></>
+                                )
+                            )
+                        }
+                    </div>
+                </>) : <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexDirection: 'column' }}>
+                <LoadingIcon />
+                {hasSavedAssessment ?
+                    (<div style={{ minWidth: '300px' }}>
+                        <AssessmentModal cancel setLoading={setLoading} assessmentSetter={setAssessmentAnswer} hasSavedAssessment={hasSavedAssessment} usingSavedSetter={setUsingSavedAssessment}>
+                        </AssessmentModal>
+                    </div>) : <></>
+                }
+            </div>}
+        </PageContainer>
+    )
 }
 export default AssessmentPage;

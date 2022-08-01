@@ -107,7 +107,7 @@ li.ant-menu-item {
 
 .ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
   overflow: auto;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .grecaptcha-badge {
@@ -125,8 +125,14 @@ li.ant-menu-item {
   background-color: #4D7393;
   border-color: #4D7393;
 }
+.ant-btn-primary:hover {
+  background-color: #4D7193;
+  border-color: #4D7393;
+  color:black;
+}
 
 .ant-btn-default:hover {
   border-color: #4D7393;
   color: #4D7393;
 }
+
