@@ -8,7 +8,7 @@ import Avatar from '../Avatar'
 
 import sendMail from "../../../utils/sendMail"
 
-import { Button, message } from 'antd'
+import { Button, message, Input } from 'antd'
 
 const EmailForm = props => {    
     const [email, setEmail] = useState('')
@@ -75,7 +75,8 @@ const EmailForm = props => {
                         onChange={e => setEmail(e.target.value)}
                         style={styles.emailInput}
                     />
-                    <input 
+                    <Input.TextArea 
+                        rows={4}
                         placeholder='Description'
                         onChange={e => setContent(e.target.value)}
                         style={{...styles.emailInput, marginTop:'30px', height:'100px'}}

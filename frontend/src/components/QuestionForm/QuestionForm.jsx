@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './QuestionForm.css';
 import { Divider, Collapse, Typography } from 'antd';
 import Question from '../Questions/Question';
+import { SaveButton } from '../../pages/AssessmentPage/AssessmentPage';
 
 
 export const QuestionContext = React.createContext();
@@ -37,12 +38,14 @@ const QuestionForm = (props) => {
         }
     }, [props.datacentreList])
 
+    //         }
     useEffect(() => {
         const type = props.type === 'office' ? 'office' : 'data';
         if (questionUnfinished.length === 0 && questionRender.length > 0 ){
             props.assessmentSetter(prev => ({...prev, [`${type}${props.number}`]: answer}));
         };
         if (questionUnfinished.length > 0 && questionRender.length > 0){
+            console.log(props.number);
             props.assessmentSetter(prev => {
                 const copy = {...prev};
                 delete copy[`${type}${props.number}`];
@@ -91,13 +94,11 @@ const QuestionForm = (props) => {
         }
     }
 
-    const QuestionListRender = async(data) => {
+    const QuestionListRender = (data) => {
         setQuestionRender(data.map((question) =>
-            <Question key={question._id} question={question} setAnswer={setAnswer} answer={answer}></Question>
+            <Question number={props.number} key={question._id} question={question} setAnswer={setAnswer} answer={answer}></Question>
         ))
     }
-
-
 
     return (
         <>

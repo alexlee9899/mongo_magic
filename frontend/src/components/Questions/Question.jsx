@@ -4,6 +4,7 @@ import { Input, Radio, Checkbox, Col, Row, Slider } from 'antd';
 import { QuestionContext } from '../QuestionForm/QuestionForm';
 import { CheckOutlined } from '@ant-design/icons';
 import { SliderMark } from '@mui/material';
+import { SaveButton } from '../../pages/AssessmentPage/AssessmentPage';
 
 const Question = (props) => {
     const qType = props.question.question_type;
@@ -32,7 +33,6 @@ const Question = (props) => {
             }
         }
     }, [ans]);
-
 
     const unitContext = (props) => {
         switch (qUnit) {
@@ -76,7 +76,7 @@ const Question = (props) => {
                                 {FinishSign()}
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     {qContent}
-                                    <Checkbox.Group style={{ width: '100% ' }} onChange={onMultiChange}>
+                                    <Checkbox.Group defaultValue={ans.answer[props.question._id]} style={{ width: '100% ' }} onChange={onMultiChange}>
                                         <Row>
                                             {multiOption()}
                                         </Row>

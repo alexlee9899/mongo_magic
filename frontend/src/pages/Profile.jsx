@@ -21,6 +21,7 @@ function Profile() {
     const prof = useContext(ProfileContext);
     const [change, setChange] = React.useState({});
     const navigate = useNavigate();
+    const [hasDiff, setHasDiff] = React.useState(false);
 
     useEffect(() => {
         if (prof.providerProfile.profile) {
@@ -28,6 +29,19 @@ function Profile() {
             setImgUrl(prof.providerProfile.profile.photo);
         }
     }, [prof]);
+
+    useEffect(() => {
+        let flag = false;
+        for(const key of Object.keys(change)) {
+            console.log(change[key], prof.providerProfile.profile[key]);
+            if (change[key] !== prof.providerProfile.profile[key]){
+                flag = true;
+            }
+        }
+        setHasDiff(flag);
+    },[change, prof.providerProfile.profile])
+
+    console.log(hasDiff);
 
     let contentStyle = {
         padding: '24px',
@@ -48,8 +62,8 @@ function Profile() {
 
     let uploadStyle = {
         borderRadius: '4px',
-        background: '#4d7393',
-        color: '#fff',
+        background: hasDiff ? '#4d7393' : '',
+        color: hasDiff? '#fff': '',
         width: 'min(15vw, 200px)',
         minWidth: '150px',
         margin: '50px',
@@ -89,7 +103,7 @@ function Profile() {
             .then(res => {
                 if (res.ok) {
                     if (data?.email) {
-                        message.success('Email Updated, Please Login Again');
+                        message.success('Email Updated, Please Login using the new Email');
                         navigate('/login');
                     } else {
                         message.success('Profile updated successfully');
@@ -125,14 +139,14 @@ function Profile() {
                             <Input size="large" maxLength='20' style={{ maxWidth:'600px', marginLeft:'auto', marginRight:'auto' }} defaultValue={prof.providerProfile.profile.fullname} onChange={(e) => setChange({ fullname: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px', textAlign:'center', maxWidth:'600px' }}>
-                            <h3 style= {{ textAlign:'left' }}> Email (required)</h3>
-                            <Input size="large" maxLength='40' style={{ width: '100%' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
+                            <h3 style= {{ textAlign:'left' }}> Email</h3>
+                            <Input disabled size="large" type='email' maxLength='40' style={{ width: '100%' }} defaultValue={prof.providerProfile.profile.email} onChange={(e) => setChange({ email: e.target.value })} />
                         </div>
                         <div style={{ width: '40vw', marginTop: '20px', textAlign:'center', maxWidth:'600px' }}>
                             <h3 style= {{ textAlign:'left' }}> Organisation Name</h3>
                             <Input size="large" maxLength='50' style={{ width: '100%' }} defaultValue={prof.providerProfile.profile.org} onChange={(e) => setChange({ org: e.target.value })} />
                         </div>
-                        <Button style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
+                        <Button disabled={!!!hasDiff} style={uploadStyle} onClick={() => (update(change))}>Update My Profile</Button>
                         <div style={{ height: '40px', width: '40px' }}><br></br></div>
                     </Content>
                 ) : (<Layout style={{ display: 'flex', justifyContent: 'center' }}><LoadingIcon></LoadingIcon></Layout>)}
