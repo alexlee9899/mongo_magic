@@ -7,10 +7,12 @@ from flasgger.utils import swag_from
 users_blueprint = Blueprint('users', __name__)
 
 @users_blueprint.route('/users/register', methods=['POST'])
+@swag_from('../docs/users/register.yml', methods=['POST'])
 def register():
   return user_register(request.json)
 
 @users_blueprint.route('/users/login', methods=['POST'])
+@swag_from('../docs/users/login.yml', methods=['POST'])
 def login():
   return user_login(request.json)
 
@@ -24,6 +26,6 @@ def get_profile():
 def update_profile():
   return user_update_profile(request.json)
 
-@users_blueprint.route('/', methods=['GET'])
-def hello():
-  return "hello"
+# @users_blueprint.route('/', methods=['GET'])
+# def hello():
+#   return "hello"

@@ -35,7 +35,10 @@ def user_register(req):
   
   db_col.insert_one(new_user)
   token = create_access_token(identity=email)
-  response = make_response({"token": token})
+  response = make_response({
+    "token": token,
+    "user_type": user_type
+  })
   response.headers['Content-Type'] = 'application/json'
   response.headers['Authorization'] = 'Bearer ' + token
   return response, 200
