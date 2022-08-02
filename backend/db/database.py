@@ -1,7 +1,7 @@
 import pymongo
-
+from config import database_url
 def db_connect():
-    client = pymongo.MongoClient("mongodb+srv://sam:sam@cluster0.ubskf.mongodb.net/?retryWrites=true&w=majority")
+    client = pymongo.MongoClient(database_url)
     db = client.mongo_magic
     return db
 

@@ -1,0 +1,1 @@
+database_url = "mongodb+srv://sam:sam@cluster0.ubskf.mongodb.net/?retryWrites=true&w=majority"
