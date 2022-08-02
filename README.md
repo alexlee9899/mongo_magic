@@ -17,9 +17,9 @@ the sustainability progress of their organisations. The platform will collect va
 ```
 ## System Articture
 
-> Frontend  ------  React
-> Backend   ------  Flask
-> Database  ------  MongoDB
+> Frontend  ------  React   
+> Backend   ------  Flask   
+> Database  ------  MongoDB   
 ```sh
 |---Project File (Root Path)
 
