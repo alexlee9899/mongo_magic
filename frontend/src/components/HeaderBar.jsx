@@ -1,10 +1,8 @@
 import { React, useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
-import { Layout, Image, Space, message } from 'antd';
-// import { getProfile } from '../utils/requests';
+import { Layout, Image, message } from 'antd';
 import { ProfileContext } from '../App';
-import { checkToken } from '../utils/functions';
-import { getProfile, userLogout } from '../utils/requests';
+import { getProfile } from '../utils/requests';
 import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
@@ -71,12 +69,6 @@ const HeaderBar = (props) => {
                         }
                     )
                 } else {
-                    // console.log(res);
-                    // res.json().then(
-                    //     data => {
-                    //         console.log(data);
-                    //     }
-                    // )
                     const responseContent = (
                         <>
                             <h>Please Login</h>
@@ -131,8 +123,6 @@ const HeaderBar = (props) => {
         (profile === undefined ? <></> :
             <Header style={{ backgroundColor: '#FBFBFB', display: 'flex', justifyContent: 'space-between', lineHeight:'40px', textAlign:'center'}}>
                 <LeftContainer>
-                    {/* <MenuLogo src={dashBoardLines} style={{ marginRight: '100px' }}>
-                    </MenuLogo> */}
                     <DashBoardText style={{ marginLeft:'30px'}}>{props.page}</DashBoardText>
                 </LeftContainer>
                 <UserContainer onClick={(e) => mouseOnUser(e)}>

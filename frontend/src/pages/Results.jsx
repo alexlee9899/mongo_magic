@@ -20,7 +20,6 @@ const Results = () => {
 
     return (
         <>
-            {/* <Navbar  page='Results'></Navbar> */}
                 <Content style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
                     <ResultsContainer>
                         {results ?

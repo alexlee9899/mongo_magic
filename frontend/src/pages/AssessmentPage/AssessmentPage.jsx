@@ -6,7 +6,7 @@ import { getQuestionList } from '../../utils/requests'
 import AssessmentStepBar from '../../components/AssessmentStepBar/AssessmentStepBar';
 import QuestionForm from '../../components/QuestionForm/QuestionForm';
 import AssessmentModal from '../../components/AssessmentModal/AssessmentModal';
-import {  CaretRightOutlined, CaretLeftFilled } from '@ant-design/icons';
+import { CaretRightOutlined, CaretLeftFilled } from '@ant-design/icons';
 import LoadingIcon from '../../components/LoadingIcon';
 import './AssessmentPage.css';
 
@@ -351,23 +351,26 @@ const AssessmentPage = () => {
         const officeList = [];
         const datacentreList = [];
         let thisDepend = [];
+        console.log(data);
         for (const key in data) {
-            switch (data[key].title) {
-                case '2':
-                    datacentreList.push(data[key]);
-                    delete (data[key]);
-                    break;
-                default:
-                    officeList.push(data[key]);
-                    delete (data[key]);
-                    break;
+                if (JSON.stringify(data[key].depend) === '{}') {
+                switch (data[key].title) {
+                    case '2':
+                        datacentreList.push(data[key]);
+                        delete (data[key]);
+                        break;
+                    default:
+                        officeList.push(data[key]);
+                        delete (data[key]);
+                        break;
+                }
             }
         }
         while (Object.keys(data).length > 0) {
             for (const oIndex in officeList) {
+                thisDepend = [];
                 for (const dataIndex in data) {
-                    thisDepend = [];
-                    if (data[dataIndex]?.depend.q_id === officeList[oIndex]?.q_id) {
+                    if (data[dataIndex]?.depend.q_id === officeList[oIndex]?._id) {
                         thisDepend.push(data[dataIndex]);
                         delete (data[dataIndex]);
                     }
@@ -375,9 +378,9 @@ const AssessmentPage = () => {
                 officeList.splice(parseInt(oIndex) + 1, 0, ...thisDepend);
             }
             for (const dcIndex in datacentreList) {
+                thisDepend = [];
                 for (const dataIndex in data) {
-                    thisDepend = [];
-                    if (data[dataIndex]?.depend.q_id === datacentreList[dcIndex]?.q_id) {
+                    if (data[dataIndex]?.depend.q_id === datacentreList[dcIndex]?._id) {
                         thisDepend.push(data[dataIndex]);
                         delete (data[dataIndex]);
                     }
@@ -385,9 +388,11 @@ const AssessmentPage = () => {
                 datacentreList.splice(parseInt(dcIndex) + 1, 0, ...thisDepend);
             }
         }
+        console.log(officeList, datacentreList);
         setQuestionListOffice(officeList);
         setQuestionListDataCenter(datacentreList);
     }
+
 
     const timeOut = (ms) => {
         setTimeout(() => {

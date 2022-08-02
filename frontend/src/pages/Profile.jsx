@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
-import { message, Layout, Upload, Button, Input, Spin } from 'antd';
+import { message, Layout, Upload, Button, Input} from 'antd';
 import uploadAvatar from '../assets/uploadAvatar.png';
 import { ProfileContext } from '../App';
 import { fileToDataUrl } from "../utils/functions";
@@ -119,7 +119,6 @@ function Profile() {
 
     return (
         <>
-            {/* <LoginChecker></LoginChecker> */}
                 {(prof.providerProfile.profile) ? (
                     <Content style={contentStyle}>
                         <div>
@@ -132,7 +131,6 @@ function Profile() {
                             </br>
                             <br>
                             </br>
-                            {/* <EditOutlined />Click or drop an image(.JPG or .PNG) */}
                         </div>
                         <div style={{ width: '40vw', marginTop: '80px', textAlign:'center', maxWidth:'600px' }}>
                             <h3 style= {{ textAlign:'left' }}> Name</h3>
