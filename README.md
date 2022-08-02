@@ -62,10 +62,23 @@ After all the dependencies are installed, you can run the following command to r
 ```sh
 $ yarn start
 ```
-Finally, if everything is working, you can see the application in the browser, and you may go to this address on your web browser to see the frontend site.
+Finally, if everything is working, you may see below information in the terminal.
 ```sh
-http://localhost:3000
+------------------------------------------------
+Compiled successfully!
+
+You can now view frontend in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.50.3:3000
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
+
+webpack compiled successfully
+------------------------------------------------
 ```
+
 
 
 ## Back-end
@@ -83,8 +96,16 @@ Run the command below to start the app in backend folder:
 ```sh
 $ python3 app.py
 ```
-4) The server shoud be able to run on local server
-
+4) The server shoud be able to run on local server when you see the following information in the terminal.
+```sh
+------------------------------------------------
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 246-364-033
+------------------------------------------------
+```
 ## Database
 This project's database is an online database on MongoDB Atlas, you don't need implement database on localhost for testing. 
 

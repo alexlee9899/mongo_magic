@@ -1,7 +1,7 @@
 import pymongo
-from config import database_url
+from db.config import get_db_url
 def db_connect():
-    client = pymongo.MongoClient(database_url)
+    client = pymongo.MongoClient(get_db_url())
     db = client.mongo_magic
     return db
 
