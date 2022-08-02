@@ -26,7 +26,7 @@ Reference:
 https://www.energy.gov.au/data/states-and-territories
 
 ## Question - Public Transport:
-We will give 1 point for each public transport option in the user's area. Based on the article below(Kennedy et al., 2002), the CO2 emission of an private car (7L/100km) is between 47g/person-km. But for metro train, the emission is between 7.5-11g/person-km. Based on this, with no public transport option, the user will get a score of 0, and with public transport option, the user will get a maximum score of 5. 
+We will give 1 point for each public transport option in the user's area. Based on the article below(Kennedy et al., 2002), the CO2 emission of an private car (7L/100km) is between 47g/person-km. But for metro train, the emission is between 7.5-11g/person-km. Based on this, with no public transport option, the user will get a score of 0, and with public transport option, the user will get a maximum score of 20. 
 
 Reference:    
 Miller, P., de Barros, A.G., Kattan, L. et al. Public transportation and sustainability: A review. KSCE J Civ Eng 20, 1076–1083 (2016). https://doi.org/10.1007/s12205-016-0705-0   
