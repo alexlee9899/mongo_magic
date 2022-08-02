@@ -18,6 +18,7 @@ def login():
 
 @users_blueprint.route('/users/profile', methods=['GET'])
 @jwt_required()
+@swag_from('../docs/users/user_profile.yml', methods=['GET'])
 def get_profile():
   return user_get_profile(request)
 
@@ -25,7 +26,3 @@ def get_profile():
 @jwt_required()
 def update_profile():
   return user_update_profile(request.json)
-
-# @users_blueprint.route('/', methods=['GET'])
-# def hello():
-#   return "hello"

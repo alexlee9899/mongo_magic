@@ -4,12 +4,10 @@ parameters:
   - in: body
     name: body
     schema:
-      id: register
+      id: login
       required:
         - email
         - password
-        - fullname
-        - org
         - user_type
       properties:
         email:
@@ -18,18 +16,12 @@ parameters:
         password:
           type: string
           example: "123"
-        fullname:
-          type: string
-          example: "User 1"
-        org:
-          type: string
-          example: "UNSW"
         user_type:
           type: string
           example: "1" 
 responses:
   200:
-    description: Successful registration
+    description: Successful login
     schema:
       required:
         - token
@@ -38,9 +30,9 @@ responses:
         token:
           type: string
           example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1OTQ0MjI1MCwianRpIjoiZjFlMTkzMzMtNzk0Yy00MzczLTg5OGYtOTBiNWUxZWZmMDE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZTMxQHVuc3cuY29tIiwibmJmIjoxNjU5NDQyMjUwLCJleHAiOjE2NjgwODIyNTB9.xm_FKhbtF5JtOJULTFGVUSylLYLxWuWBuIgBLdmtnGE"
-          user_type:
-            type: string
-            example: "1"
+        user_type:
+          type: string
+          example: "1"
     examples:
       - {
           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1OTQ0MjI1MCwianRpIjoiZjFlMTkzMzMtNzk0Yy00MzczLTg5OGYtOTBiNWUxZWZmMDE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZTMxQHVuc3cuY29tIiwibmJmIjoxNjU5NDQyMjUwLCJleHAiOjE2NjgwODIyNTB9.xm_FKhbtF5JtOJULTFGVUSylLYLxWuWBuIgBLdmtnGE",
@@ -54,6 +46,7 @@ responses:
       properties:
         message:
           type: string
-          example: "Email already exists"
+          example: "Invalid email or password"
     examples:
-      - {"message": "Email already exists"}
+      - {"message": "Invalid email or password"}
+      - {"message": "Invalid user type"}

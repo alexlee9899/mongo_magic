@@ -38,9 +38,9 @@ responses:
         token:
           type: string
           example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1OTQ0MjI1MCwianRpIjoiZjFlMTkzMzMtNzk0Yy00MzczLTg5OGYtOTBiNWUxZWZmMDE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZTMxQHVuc3cuY29tIiwibmJmIjoxNjU5NDQyMjUwLCJleHAiOjE2NjgwODIyNTB9.xm_FKhbtF5JtOJULTFGVUSylLYLxWuWBuIgBLdmtnGE"
-          user_type:
-            type: string
-            example: "1"
+        user_type:
+          type: string
+          example: "1"
     examples:
       - {
           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1OTQ0MjI1MCwianRpIjoiZjFlMTkzMzMtNzk0Yy00MzczLTg5OGYtOTBiNWUxZWZmMDE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZTMxQHVuc3cuY29tIiwibmJmIjoxNjU5NDQyMjUwLCJleHAiOjE2NjgwODIyNTB9.xm_FKhbtF5JtOJULTFGVUSylLYLxWuWBuIgBLdmtnGE",
