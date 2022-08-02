@@ -1,45 +1,95 @@
-# mongo_magic
+# COMP9323 Mongo Magic Project
 
-哥哥们，前端看前端的readme，后端看后端的readme。
+------
 
-
-请记住：
-自己用自己的branch，不要随便merge到master里面。
-merge的话，要自己弄pull request，我会定期merge pull request的代码的。
-
-每个人都有一个专属branch，branch的名字是自己的名字。
-要切换到自己的branch，可以用下面的命令：  
-`git checkout 你的名字`  
-比如我的就是：
-`git checkout yu_liang`  
+The goal of our project is to develop a cloud-based sustainability assessment platform for industry organisations. The platform will help the decision maker of organisations to track
+the sustainability progress of their organisations. The platform will collect various consumption and preservation metrics and then provide a sustainability score with suggestions on how to improve the business operations further to the users. 
 
 
-===============================================================
+**This document describes the following points.**
 
-每次写完了，可以用下面的命令push到自己的branch：
-`git add .`  
-`git commit -m "message"`  
-`git push`  
+```sh
+> * System Articture
+> * Front-End setup on localhost
+> * Back-End setup on localhost
+> * Database
+> * Cloud Access
+```
+## System Articture
 
-如果要想merge到master，在push到自己的branch以后，在github网页上做pull request，我会帮你merge到master。
+> Frontend  ------  React   
+> Backend   ------  Flask   
+> Database  ------  MongoDB   
+```sh
+|---Project File (Root Path)
 
-第一次可能会报错没有远端链接，可以用下面的命令：
+ |---backend	(Backend file path)
+  |---controller
+  |---db
+  |---service
+  |---__init_.py
+  |---config.py
+  |---requirements.txt
+  |---app.py 
+ 
+ |---frontend (Frontend file path)
+  |---public 
+  |---src 
+  |---package-lock.json 
+  |---package.json 
+  |---yarn.lock
+  |---README.md 
 
-`git push --set-upstream origin 你的名字（yu_liang)`
+```
 
-===============================================================
+## Front-end
 
-每次如果master有更新，可以用下面的命令pull到自己的branch：
-`git add .`  
-`git commit -m "message"`  
-`git push`  
-`git checkout master`  
-`git pull`  
-`git checkout 你的名字`  
-`git rebase master`  
-`git push`  
+Step 1:    
+Install npm and yarn package manager.
+Details of the installation can be found in the [installation guide](https://yarnpkg.com/en/docs/install).
+After installation, you can run the following command to install the dependencies in /root/frontend folder.
+```sh
+> yarn -v
+> npm -v
+```
+Step 2:   
+After installation, you can run the following command to install the dependencies.
+```sh
+$ yarn install
+```
+Step 3:   
+After all the dependencies are installed, you can run the following command to run the application.
+```sh
+$ yarn start
+```
+Finally, if everything is working, you can see the application in the browser, and you may go to this address on your web browser to see the frontend site.
+```sh
+http://localhost:3000
+```
 
-如果有冲突，给我说，我帮你看看。但是千万不要随便弄到master里面
 
-===============================================================
+## Back-end
+We use python 3.8 as the backend language. So before you start to use the backend, you need to ensure the python version of your computer is 3.8. You can check the version of your computer by running the following command.
+```sh
+> python3 --version
+```
+Step 1: Install the dependencies.   
+In the backend folder, you can run the following command to install the dependencies. Depending on the pip version, you may try with pip3 or pip for the below commands.
+```sh
+$ pip3 install -r requirements.txt
+```
+Step 2: Run the application.
+Run the command below to start the app in backend folder:
+```sh
+$ python3 app.py
+```
+4) The server shoud be able to run on local server
 
+## Database
+This project's database is an online database on MongoDB Atlas, you don't need implement database on localhost for testing. 
+
+## Cloud Access
+This project's backend is hosted on AWS server, the access url is: https://d1c543cslxqz58.cloudfront.net.   
+
+The frontend is also have a cloud access on AWS server, the address is:   
+https://aws-deployment.dr6mpjsbodgkw.amplifyapp.com/
