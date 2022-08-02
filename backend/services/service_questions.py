@@ -44,5 +44,4 @@ def question_list(req):
     return make_response(json.dumps({'message': 'Server Error'}), 404)
   
 def question_answer(req):
-  print(req)
   return "success"
