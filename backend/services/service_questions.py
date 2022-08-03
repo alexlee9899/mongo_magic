@@ -41,7 +41,7 @@ def question_list(req):
       question['_id'] = str(question['_id'])
     return make_response(json.dumps({'question_list': questions}), 200)
   except Exception:
-    return make_response(json.dumps({'message': 'Server Error'}), 404)
+    return make_response(json.dumps({'message': 'Server Error'}), 500)
   
 def question_answer(req):
   return "success"

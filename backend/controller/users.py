@@ -24,5 +24,6 @@ def get_profile():
 
 @users_blueprint.route('/users/update_profile', methods=['PATCH'])
 @jwt_required()
+@swag_from('../docs/users/update_profile.yml', methods=['PATCH'])
 def update_profile():
   return user_update_profile(request.json)
