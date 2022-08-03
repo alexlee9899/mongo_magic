@@ -59,7 +59,7 @@ def question_temp_save(req):
   except:
     return make_response(json.dumps({'message': 'Server Error'}), 500)
 
-def question_temp_get(req):
+def question_temp_load(req):
   try:
     email = get_jwt_identity()
     pack = db['questions_cache'].find_one({'email': email})
