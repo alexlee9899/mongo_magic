@@ -63,7 +63,11 @@ def question_temp_load(req):
   try:
     email = get_jwt_identity()
     pack = db['questions_cache'].find_one({'email': email})
-    return make_response(json.dumps({ email: pack['metadata']}), 200)
+    if pack:
+      db['questions_cache'].delete_one({'email': email})
+      return make_response(json.dumps({ email: pack['metadata']}), 200)
+    else:
+      return make_response(json.dumps({'message': 'Does not find data'}), 404)
   except:
     return make_response(json.dumps({'message': 'Server Error'}), 500)
 
