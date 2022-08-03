@@ -1,37 +1,49 @@
 tags:
   - Users
-summary: get user profile
+summary: update user profile
 security:
   - Bearer: [Bearer] 
   - APIKeyHeader: ['authorization']
-responses:
-  200:
-    description: Get user profile
+parameters:
+  - in: body
+    name: body
     schema:
+      id: update_profile
       required:
         - email
+        - password
         - fullname
         - org
-        - photo
+        - user_type
       properties:
         email:
           type: string
-          example: "user@unsw.com"
+          example: "user1@unsw.com"
+        password:
+          type: string
+          example: "123"
         fullname:
           type: string
           example: "User 1"
         org:
           type: string
           example: "UNSW"
-        photo:
+        user_type:
           type: string
-          example: "https://www.unsw.edu.au/__data/assets/image/0003/9078/9078_logo_1.png"
+          example: "1" 
+responses:
+  200:
+    description: Profile updated successfully
+    schema:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: "Profile updated"
     examples:
       - {
-          "email": "use31@unsw.com",
-          "fullname": "User 1",
-          "org": "UNSW",
-          "photo": ""
+          'message': 'Profile updated'
         }
   400:
     description: Invalid request
@@ -41,10 +53,10 @@ responses:
       properties:
         message:
           type: string
-          example: "Invalid email or password"
+          example: "Email already exists"
     examples:
-      - {"message": "Invalid email or password"}
-      - {"message": "Invalid user type"}
+      - {'message': 'Email already exists'}
+      - {'message': 'Missing required fields'}
   500:
     description: Internal server error
     schema:

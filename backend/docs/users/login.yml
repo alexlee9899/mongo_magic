@@ -1,5 +1,6 @@
 tags:
-  - users
+  - Users
+summary: login a user
 parameters:
   - in: body
     name: body
