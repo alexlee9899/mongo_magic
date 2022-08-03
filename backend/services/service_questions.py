@@ -1,5 +1,8 @@
+import email
 import json
 from datetime import datetime
+
+import jwt
 from db.database import db_connect
 import hashlib
 from flask import make_response
@@ -42,6 +45,27 @@ def question_list(req):
     return make_response(json.dumps({'question_list': questions}), 200)
   except Exception:
     return make_response(json.dumps({'message': 'Server Error'}), 500)
-  
+
+def question_temp_save(req):
+  try:
+    db_col = db['questions_cache']
+    email = get_jwt_identity()
+    pack = {
+      "email": email,
+      "metadata": req
+    }
+    db_col.insert_one(pack)
+    return make_response(json.dumps({'message': 'success saved'}), 200)
+  except:
+    return make_response(json.dumps({'message': 'Server Error'}), 500)
+
+def question_temp_get(req):
+  try:
+    email = get_jwt_identity()
+    pack = db['questions_cache'].find_one({'email': email})
+    return make_response(json.dumps({ email: pack['metadata']}), 200)
+  except:
+    return make_response(json.dumps({'message': 'Server Error'}), 500)
+
 def question_answer(req):
   return "success"
