@@ -27,6 +27,7 @@ the sustainability progress of their organisations. The platform will collect va
   |---controller
   |---db
   |---service
+  |---docs
   |---__init_.py
   |---config.py
   |---requirements.txt
