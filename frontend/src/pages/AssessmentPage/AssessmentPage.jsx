@@ -398,44 +398,44 @@ const AssessmentPage = () => {
         setAssessmentAnswer({
             "office1": {
                 "62d7eb8720b23a61a4656ec2": "3211",
-                "62d7ecc120b23a61a4656ec3": "true",
+                "62d7ecc120b23a61a4656ec3": "T",
                 "62dbbf7fe82cdd10987ecd1e": [
                     "Lightrail"
                 ],
                 "62dbbba0e82cdd10987ecd15": "123",
                 "62dbbb56e82cdd10987ecd14": "123",
-                "62dbbc12e82cdd10987ecd16": "false",
-                "62dbbd34e82cdd10987ecd19": "true",
-                "62dbbd0ae82cdd10987ecd18": "true",
+                "62dbbc12e82cdd10987ecd16": "F",
+                "62dbbd34e82cdd10987ecd19": "T",
+                "62dbbd0ae82cdd10987ecd18": "T",
                 "62dbbd6ee82cdd10987ecd1a": "123",
                 "62dbbe4ee82cdd10987ecd1b": "14",
-                "62dbbe8be82cdd10987ecd1c": "false",
-                "62dbbe9ae82cdd10987ecd1d": "false"
+                "62dbbe8be82cdd10987ecd1c": "F",
+                "62dbbe9ae82cdd10987ecd1d": "F"
             },
             "office2": {
                 "62d7eb8720b23a61a4656ec2": "3111",
-                "62d7ecc120b23a61a4656ec3": "false",
+                "62d7ecc120b23a61a4656ec3": "F",
                 "62dbbb56e82cdd10987ecd14": "123",
                 "62dbbba0e82cdd10987ecd15": "123",
-                "62dbbc12e82cdd10987ecd16": "true",
+                "62dbbc12e82cdd10987ecd16": "T",
                 "62dbbc98e82cdd10987ecd17": "4 Stars",
                 "62dbbd6ee82cdd10987ecd1a": "321",
                 "62dbbe4ee82cdd10987ecd1b": "18",
-                "62dbbe8be82cdd10987ecd1c": "false",
-                "62dbbe9ae82cdd10987ecd1d": "false"
+                "62dbbe8be82cdd10987ecd1c": "F",
+                "62dbbe9ae82cdd10987ecd1d": "F"
             },
             "data1": {
-                "62dff0a2dd0aaca7f9e83a86": "true",
+                "62dff0a2dd0aaca7f9e83a86": "T",
                 "62dff202dd0aaca7f9e83a88": "123",
                 "62dff13edd0aaca7f9e83a87": "2311",
                 "62dff2ecdd0aaca7f9e83a8b": "123",
-                "62dff22add0aaca7f9e83a89": "false",
+                "62dff22add0aaca7f9e83a89": "F",
                 "62e269bfe93d521d7ac25a12": "22",
-                "62e26a1ee93d521d7ac25a13": "false"
+                "62e26a1ee93d521d7ac25a13": "F"
             },
             "data2": {
-                "62dff0a2dd0aaca7f9e83a86": "false",
-                "62e8f46032a02279ec5058d6": "false"
+                "62dff0a2dd0aaca7f9e83a86": "F",
+                "62e8f46032a02279ec5058d6": "F"
             }
         })
     }
