@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout } from 'antd'
 import styled from 'styled-components';
 import { Button } from 'antd';
 import { Parallax } from 'react-parallax';
 import { getResult } from '../../utils/requests';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const TopNavContainer = styled.div`
 display: flex;
@@ -21,8 +25,8 @@ display: flex;
 const ResultCardContainer = styled.div`
     display: flex;
     /* flex-direction: column; */
-    height: 1000px;
-    width: 900px;
+    height: 800px;
+    width: 1000px;
     background: hsla(0,0%,100%,.95);
     margin-top: 100px;
     margin-bottom: 200px;
@@ -31,37 +35,172 @@ const ResultCardContainer = styled.div`
 
 const ContentContainerRight = styled.div`
     display: flex;
-    flex-direction: column;
-    background-color: white;
-    min-width: 100%;
+    flex-flow: column wrap;
     margin: auto;
+    height: 100%;
+    margin-right: 10px;
+    margin-top: 30px;
 `
 
 const ContentContainerLeft = styled.div`
-    background-color: green;
+    /* background-color: white; */
     height: 600px;
-    min-width: 400px;
+    width: 400px;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin-left: 50px;
+    margin-top: 100px;
+    margin-right: 50px;
+`
+const ParamContext = styled.span`
+    color: #4D7393;
+`
+
+const TextContext = styled.p`
+    color: #89c5d1;
+    line-height: 2;
+    margin-left: 5px;
 `
 
 
 const AssessmentResultPage = () => {
     const { id } = useParams();
     const { Content } = Layout
+    const [value, setValue] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [preparing, setPreparing] = useState(true);
+    const [data, setData] = useState({});
 
     const themeColor_light = '#89c5d1';
 
+
     useEffect(() => {
         getResult(id).then(res => {
-            if (res.status === 200){
-                res.json().then(data=>{
-                    console.log(data);
+            if (res.status === 200) {
+                res.json().then(data => {
+                    setData(data);
                 })
             }
         })
     }, []);
+
+    useEffect(() => {
+        if (value < 100) {
+            addToOneHundred();
+        }
+    }, [value])
+
+    useEffect(() => {
+        if (value >= 100) {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+            setTimeout(() => {
+                setPreparing(false);
+            }, 600);
+        }
+
+    }, [value])
+
+    const addToOneHundred = () => {
+        returnArbitraryTime().then(
+            res => {
+                setValue(prev => prev + res);
+            }
+        )
+    }
+
+
+    const returnArbitraryTime = () => {
+        return new Promise(resolve => setTimeout(() =>
+            resolve(Math.floor(Math.random() * (20 - 1)) + 1)
+            , Math.random() * (600 - 1) + 1));
+    }
+
+    const bulletPoints = () => {
+        const suggestion = data['suggestion'];
+        // return(
+        //     Object.keys(data['suggestion']).map((key, index) =>
+        //     {   
+        //         <div key={index}>dafadsfdk</div>
+        //     }
+        //     )
+        // )
+        return (
+            Object.keys(data['suggestion']).map((key, index) => {
+                return (
+                    <div>
+                        <div style={{ marginLeft: '20px', marginRight: '20px', color: '#4D7393', fontWeight: '700' }}>{key}</div>
+                        <div>
+                            {
+                                suggestion[key].map((item, index) => {
+                                    console.log(item);
+                                    return (<div style={{ marginLeft: '20px', marginRight: '20px', color: '#89c5d1' }}>
+                                        {item}
+                                    </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                )
+            })
+        )
+    }
+
+    const downloadPdf = () => {
+        const element = document.getElementById('contentCard');
+        const w = element.offsetWidth;
+        const h = element.offsetHeight;
+        const offsetTop = element.offsetTop;   
+        const offsetLeft = element.offsetLeft;
+        const canvas = document.createElement("canvas");
+        let abs = 0;
+        const win_i = document.body.clientWidth;
+        const win_o = window.innerWidth; 
+        if (win_o > win_i) {
+            abs = (win_o - win_i) / 2;
+        }
+        canvas.width = w * 2;
+        canvas.height = h * 2;
+        const context = canvas.getContext('2d');
+        context.scale(2, 2);
+        context.translate(-offsetLeft - abs, -offsetTop);
+        html2canvas(element, {
+            allowTaint: true,
+            scale: 2 
+        }).then(canvas => {
+            const contentWidth = canvas.width;
+            const contentHeight = canvas.height;
+            const pageHeight = contentWidth / 592.28 * 841.89;
+            const leftHeight = contentHeight;
+            const position = 0;
+            const imgWidth = 595.28;
+            const imgHeight = 592.28 / contentWidth * contentHeight;
+
+            const pageDate = canvas.toDataURL('image/jpeg', 1.0);
+
+            const pdf = new jsPDF('', 'pt', 'a4');
+            if (leftHeight < pageHeight) {
+                pdf.addImage(pageDate, 'JPEG', 0, position, imgWidth, imgHeight);
+            } else {
+                while (leftHeight > 0) {
+                    pdf.addImage(pageDate, 'JPEG', 0, position, imgWidth, imgHeight)
+                    leftHeight -= pageHeight;
+                    position -= 841.89;
+                    if (leftHeight > 0) {
+                        pdf.addPage()
+                    }
+                }
+            }
+
+            pdf.save(`G'Tracker_${data['_id']}.pdf`);
+        })
+
+    }
+
+
+
 
     const tempData = {
         "score": "99",
@@ -87,21 +226,31 @@ const AssessmentResultPage = () => {
         }
     }
 
-    console.log(id);
     return (
-        <Parallax className='image' blur={0} bgImage={require('../../assets/banner1.jpg')} strength={800} bgImageStyle={{ minHeight: "100vh" }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ResultCardContainer>
-                <ContentContainer>
-                    <ContentContainerLeft>
-                        <div style={{ height: '400px', width: '100%', backgroundColor: `${themeColor_light}` }}>Picture</div>
-                        <p style={{ display: 'block', whiteSpace: 'normal', overflowWrap: 'break-word' }}>Your organisation's annual carbon footprint is kdafjkla ddnagh kdlfjajhbc dafsjhfa fjaj</p>
-                    </ContentContainerLeft>
-                    <ContentContainerRight>
-
-                    </ContentContainerRight>
-                </ContentContainer>
-            </ResultCardContainer>
-        </Parallax>
+        <>
+            <Parallax className='image' blur={0} bgImage={require('../../assets/banner1.jpg')} strength={800} bgImageStyle={{ minHeight: "100vh" }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <ResultCardContainer id='contentCard' style={{ justifyContent: loading ? 'center' : '' }}>
+                    {(loading) ? (<div style={{ width: '150px', height: '150px', alignSelf: 'center' }}><CircularProgressbar text={value < 100 ? `${value}%` : preparing ? `100%` : `Ready`} value={value} /></div>) :
+                        (<ContentContainer>
+                            <ContentContainerLeft>
+                                <div style={{ height: '400px', width: '100%', backgroundColor: `${themeColor_light}` }}>Picture</div>
+                                <TextContext style={{ display: 'block', whiteSpace: 'normal', overflowWrap: 'break-word', color: '#89c5d1', fontWeight: '600' }}>
+                                    Your organisation's annual carbon footprint is <ParamContext style={{ color: '#4D7393' }}>{data.co2}</ParamContext> tonnes of Carbon Dioxide equivalent (tCO<sub>2</sub>e).
+                                    To compensate for your emissions, around <ParamContext>{data.natural_habitat}</ParamContext>m<sup>2</sup> of natural habitat must be restored.
+                                </TextContext>
+                            </ContentContainerLeft>
+                            <ContentContainerRight>
+                                <div style={{height:'100px', width:'100%', display:'flex', justifyContent:'end'}}>
+                                    <Button style={{ borderRadius:'5px', width:'150px', alignSelf:'end', marginRight:'20px', marginBottom:'50px' ,color: '#4D7393'}} onClick={downloadPdf} data-html2canvas-ignore="true">Save as PDF</Button>
+                                </div>
+                                <h3 style={{ display: 'block', whiteSpace: 'normal', overflowWrap: 'break-word', color: '#4D7393', fontWeight: '600', marginLeft: '20px', fontSize: '32px' }} >Result</h3>
+                                <h1 style={{ marginLeft: '20px', color: '#4D7393' }}>Your Organisation's Scored <ParamContext style={{ fontSize: '30px', color: '#89c5d1' }}>99</ParamContext> in our assessment</h1>
+                                <div>{bulletPoints()}</div>
+                            </ContentContainerRight>
+                        </ContentContainer>)}
+                </ResultCardContainer>
+            </Parallax>
+        </>
     )
 }
 
