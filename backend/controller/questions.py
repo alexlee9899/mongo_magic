@@ -2,7 +2,7 @@ from flask import request, Blueprint
 from flask_jwt_extended import jwt_required
 from flasgger import Swagger
 from flasgger.utils import swag_from
-from services.service_questions import question_add, question_list, question_answer, question_temp_save, question_temp_get
+from services.service_questions import question_add, question_list, question_answer, question_temp_save, question_temp_load
 
 questions_blueprint = Blueprint('question', __name__)
 
@@ -30,8 +30,8 @@ def get_answer():
 def temp_save():
     return question_temp_save(request.json)
 
-@questions_blueprint.route('/question/temp', methods=['GET'])
+@questions_blueprint.route('/question/load', methods=['GET'])
 @jwt_required()
-@swag_from('../docs/question/temp_save_question.yml', methods=['GET'])
+@swag_from('../docs/question/temp_load_question.yml', methods=['GET'])
 def temp_get():
-    return question_temp_get(request)
+    return question_temp_load(request)
