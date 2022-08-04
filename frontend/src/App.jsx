@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
+import { getProfile } from './utils/requests';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/Login_Signup/LoginPage';
 import SignupPage from './pages/Login_Signup/signup';
@@ -30,25 +31,25 @@ function App() {
   const providerProfile = React.useMemo(() => ({ profile, setProfile }), [profile, setProfile]);
 
   React.useEffect(() => {
-    // getProfile().then(res => {
-    //   if (res.ok) {
-    //     res.json().then(
-    //       data => {
-    //         setProfile(data);
-    //       }
-    //     )
-    //   }
-    //   else {
-    //     res.json().then(
-    //       data => {
-    //         if (data.msg === 'Token has expired'){
-    //           localStorage.removeItem('userToken');
-    //           setProfile(null);
-    //         }
-    //       }
-    //     )
-    //   }
-    // })
+    getProfile().then(res => {
+      if (res.ok) {
+        res.json().then(
+          data => {
+            setProfile(data);
+          }
+        )
+      }
+      else {
+        res.json().then(
+          data => {
+            if (data.msg === 'Token has expired'){
+              localStorage.removeItem('userToken');
+              setProfile(null);
+            }
+          }
+        )
+      }
+    })
   }, []);
 
   return (
