@@ -9,7 +9,7 @@ responses:
     description: Get answer
     schema:
       required:
-        - email
+        - office1
       properties:
         email:
           type: object
