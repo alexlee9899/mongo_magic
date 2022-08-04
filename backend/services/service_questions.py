@@ -1,6 +1,7 @@
 import email
 import json
 from datetime import datetime
+from bson import ObjectId
 
 import jwt
 from db.database import db_connect
@@ -78,7 +79,37 @@ def question_temp_load(req):
 
 def question_answer(req):
   ans_pack = req
-  if ans_pack:
-    
-  return "success"
+  db_col = db['reults']
+  demo_pack = {
+    "score": "99",
+    "co2":"1500",
+    "natural_habitat": "500",
+    "roughly_size": "20",
+    "suggestion": {
+      "Location Location Location":[
+        "One or more of your offices only have limited access to the public transport system", 
+        "One or more of your offices are located in a state which has a high percentage of electircity generation from fossil fuels"],
+      "Reduce, reuse, recycle":[
+        "You may need to consider go forward with LED lighting in your offices",
+        "Your data centre may need a passive cooling system in order to reduce the energy consumption"
+      ],
+      "Go cloud, go greens":[
+        "A physical data centre is not the best place to store your data and servers, considering a cloud solution",
+        "You may consider to increase the percentage of renewable sources in your electricity bill"
+      ],
+      "Get certified, get ahead":[
+        "You may consider to get certified for your offices with Green Star Rating",
+        "You may consider to get certified for your data centre with NABERS"
+      ]
+    }
+  }
+  id = "62eb7a135dd6e5814f16a7af"
+  return make_response(json.dumps({'result_id': str(id)}), 200)
 
+def question_get_result(result_id):
+  try:
+    result = db['reults'].find_one({'_id': ObjectId(result_id)})
+    result['_id'] = str(result['_id'])
+    return make_response(json.dumps({'result': result}), 200)
+  except:
+    return make_response(json.dumps({'message': 'Result not found'}), 404)

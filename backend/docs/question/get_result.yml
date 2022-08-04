@@ -1,19 +1,24 @@
 tags:
   - Questions
-summary: Load temporary saved answer
+summary: Get the result of a test
 security:
   - Bearer: [Bearer] 
   - APIKeyHeader: ['authorization']
+parameters:
+  - in: query
+    name: id
+    schema:
+      id: test_result
+      required:
+        - id
+      properties:
+        result_id:
+          type: string
+          example: "62dff0a2dd0aaca7f9e83a86"
+    required: true
 responses:
   200:
-    description: Get answer
-    schema:
-      required:
-        - office1
-      properties:
-        email:
-          type: object
-          example: {"62dff0a2dd0aaca7f9e83a86": "true"}
+    description: Get result
   500:
     description: Server error
     schema:
