@@ -1,5 +1,6 @@
 
 def office_postcode(ans):
+  ans = str(ans)
   if ans[0] == '2':
     return 3
   elif ans[0] == '3':
@@ -17,7 +18,7 @@ def office_postcode(ans):
   return 0
 
 def is_public_transport(ans):
-  if ans:
+  if ans == "true":
     return 4
   return 0
 
@@ -31,7 +32,7 @@ def office_employee_num(ans):
   return int(ans)
 
 def is_green_star(ans):
-  if ans:
+  if ans == "true":
     return 15
   return 0
 
@@ -44,28 +45,28 @@ def green_star_ans(ans):
     return 15
 
 def is_ac_maintained(ans):
-  if ans:
+  if ans == "true":
     return 10
   return 0
 
 def is_ac_smart(ans):
-  if ans:
+  if ans == "true":
     return 10
   return 
 
-def office_elec_percent(ans):
+def office_elec_amount(ans):
   return int(ans)
 
 def office_elec_percent(ans):
   return int(ans)/100
 
 def office_led(ans):
-  if ans:
+  if ans == "true":
     return 5
   return 0
 
 def office_smart(ans):
-  if ans:
+  if ans == "true":
     return 5
   return 0
 
@@ -110,11 +111,11 @@ def data_elec_percent(ans):
   return int(ans)/100
 
 def is_data_cool(ans):
-  if ans:
+  if ans == "true":
     return 10
   return 0
 
 def is_cloud(ans):
-  if ans:
+  if ans == "true":
     return 10
   return 0
