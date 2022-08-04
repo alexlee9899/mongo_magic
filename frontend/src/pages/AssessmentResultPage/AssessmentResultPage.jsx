@@ -228,7 +228,7 @@ const AssessmentResultPage = () => {
         <>
             <Parallax className='image' blur={0} bgImage={require('../../assets/banner1.jpg')} strength={800} bgImageStyle={{ minHeight: "100vh" }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <ResultCardContainer style={{ justifyContent: loading ? 'center' : '' }}>
-                    <div id="contentCard">
+                    <div id="contentCard" style={{ justifyContent: 'center', display:'flex' }}>
                     {(loading) ? (<div style={{ width: '150px', height: '150px', alignSelf: 'center' }}><CircularProgressbar text={value < 100 ? `${value}%` : preparing ? `100%` : `Ready`} value={value} /></div>) :
                         (<ContentContainer>
                             <ContentContainerLeft>
