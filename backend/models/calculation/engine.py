@@ -19,7 +19,7 @@ def engine(office, data):
         elif key == "office_elec_amount":
           electricity = eval(f"{key}({item[key]})")
         else:
-          print(key, item[key])
-          total += eval(f"{key}({item[key]})")
+          x = eval(f"{key}('{item[key]}')")
+          print(x)
         
   return None
