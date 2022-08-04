@@ -2,12 +2,14 @@ import email
 import json
 from datetime import datetime
 from bson import ObjectId
-
+import re
 import jwt
 from db.database import db_connect
 import hashlib
 from flask import make_response
 from flask_jwt_extended import create_access_token, get_jwt_identity
+from services.utils import data_process
+from models.calculation.engine import engine
 
 db = db_connect()
 
@@ -79,7 +81,26 @@ def question_temp_load(req):
 
 def question_answer(req):
   ans_pack = req
-  db_col = db['reults']
+  db_col = db['results']
+  
+  office_list = []
+  data_list = []
+  question_list = db['questions'].find()
+  question_set = {}
+  
+  for question in question_list:
+    question_set[str(question['_id'])] = question
+    
+  for ans in ans_pack.keys():
+    if re.search(r'^office', ans):
+      office_list.append(ans_pack[ans])
+    if re.search(r'^data', ans):
+      data_list.append(ans_pack[ans])
+      
+  office_data = data_process(office_list, question_set)
+  data_centre_data = data_process(data_list, question_set)
+  
+  result = engine(office_data, data_centre_data)
   demo_pack = {
     "score": "99",
     "co2":"1500",
@@ -103,12 +124,12 @@ def question_answer(req):
       ]
     }
   }
-  id = "62eb7a135dd6e5814f16a7af"
+  id = "62ebb64ebc16ea3c26d10239"
   return make_response(json.dumps({'result_id': str(id)}), 200)
 
 def question_get_result(result_id):
   try:
-    result = db['reults'].find_one({'_id': ObjectId(result_id)})
+    result = db['results'].find_one({'_id': ObjectId(result_id)})
     result['_id'] = str(result['_id'])
     return make_response(json.dumps(result), 200)
   except:
