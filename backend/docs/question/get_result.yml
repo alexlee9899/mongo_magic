@@ -8,7 +8,6 @@ parameters:
   - in: query
     name: id
     schema:
-      id: test_result
       required:
         - id
       properties:
@@ -19,6 +18,33 @@ parameters:
 responses:
   200:
     description: Get result
+    schema:
+      required:
+        - _id
+        - score
+        - co2
+        - natural_habitat
+        - roughly_size
+        - suggestion
+      properties:
+        _id:
+          type: string
+          example: "62dff0a2dd0aaca7f9e83a86"
+        score:
+          type: number
+          example: "0.5"
+        co2:
+          type: number
+          example: "0.5"
+        natural_habitat:
+          type: number
+          example: "0.5"
+        roughly_size:
+          type: number
+          example: "0.5"
+        suggestion:
+          type: array
+          example: "Suggestion"
   500:
     description: Server error
     schema:
