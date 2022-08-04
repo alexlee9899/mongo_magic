@@ -52,20 +52,33 @@ def question_temp_save(req):
     email = get_jwt_identity()
     pack = {
       "email": email,
-      "metadata": req
+      "metadata": req,
+      "count": 0
     }
     db_col.insert_one(pack)
     return make_response(json.dumps({'message': 'success saved'}), 200)
   except:
     return make_response(json.dumps({'message': 'Server Error'}), 500)
 
-def question_temp_get(req):
+def question_temp_load(req):
   try:
     email = get_jwt_identity()
     pack = db['questions_cache'].find_one({'email': email})
-    return make_response(json.dumps({ email: pack['metadata']}), 200)
+    if pack:
+      if pack['count'] < 1:
+        pack['count'] += 1
+        db['questions_cache'].update_one({'email': email}, {'$set': pack})
+        return make_response(json.dumps({'metadata': pack['metadata']}), 200)
+      db['questions_cache'].delete_one({'email': email})
+      return make_response(json.dumps({ email: pack['metadata']}), 200)
+    else:
+      return make_response(json.dumps({'message': 'Does not find data'}), 404)
   except:
     return make_response(json.dumps({'message': 'Server Error'}), 500)
 
 def question_answer(req):
+  ans_pack = req
+  if ans_pack:
+    
   return "success"
+
