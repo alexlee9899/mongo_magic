@@ -110,6 +110,6 @@ def question_get_result(result_id):
   try:
     result = db['reults'].find_one({'_id': ObjectId(result_id)})
     result['_id'] = str(result['_id'])
-    return make_response(json.dumps({'result': result}), 200)
+    return make_response(json.dumps(result), 200)
   except:
     return make_response(json.dumps({'message': 'Result not found'}), 404)
