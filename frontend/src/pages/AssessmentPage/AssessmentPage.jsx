@@ -9,6 +9,7 @@ import AssessmentModal from '../../components/AssessmentModal/AssessmentModal';
 import { CaretRightOutlined, CaretLeftFilled } from '@ant-design/icons';
 import LoadingIcon from '../../components/LoadingIcon';
 import './AssessmentPage.css';
+import { useNavigate } from 'react-router-dom';
 
 export const SaveButton = createContext();
 
@@ -76,6 +77,8 @@ const AssessmentPage = () => {
     const [datacentreFinished, setdatacentreFinished] = useState(false);
 
     const [remover, setRemover] = useState(false);
+
+    const navigate = useNavigate();
 
 
     const [termsAgreed, setTermsAgreed] = useState(false);
@@ -377,6 +380,11 @@ const AssessmentPage = () => {
         .then(res => {
             if(res.status === 200){
                 message.success('Assessment submitted successfully');
+                res.json().then(data => {
+                    console.log(data);
+                    const id = data.result_id;
+                    navigate(`/assessment/result/${id}`);
+                })
             } else {
                 message.error('Error: Server error');
             }
@@ -385,6 +393,8 @@ const AssessmentPage = () => {
 
     const answerAllShits = () => {
         setPageStep(2);
+        setOfficeList(['1','2']);
+        setdatacentreList(['1','2']);
         setAssessmentAnswer({
             "office1": {
                 "62d7eb8720b23a61a4656ec2": "3211",
@@ -429,6 +439,8 @@ const AssessmentPage = () => {
             }
         })
     }
+
+    console.log(assessmentAnswer);
 
     return (
         <PageContainer>

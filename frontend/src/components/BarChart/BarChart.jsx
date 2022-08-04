@@ -64,10 +64,10 @@ const BarChart = () => {
                 option={option}
                 style={{ height: '500px', width: '400px' }}
                 onChartReady={onChartReady}
-                onEvents={{
-                    'click': onChartClick,
-                    'legendselectchanged': onChartLegendselectchanged
-                }}
+                // onEvents={{
+                //     'click': onChartClick,
+                //     'legendselectchanged': onChartLegendselectchanged
+                // }}
             />
 
         </>
