@@ -385,6 +385,8 @@ const AssessmentPage = () => {
 
     const answerAllShits = () => {
         setPageStep(2);
+        setOfficeList(['1','2']);
+        setdatacentreList(['1','2']);
         setAssessmentAnswer({
             "office1": {
                 "62d7eb8720b23a61a4656ec2": "3211",
@@ -429,6 +431,8 @@ const AssessmentPage = () => {
             }
         })
     }
+
+    console.log(assessmentAnswer);
 
     return (
         <PageContainer>
