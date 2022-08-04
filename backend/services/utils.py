@@ -9,3 +9,6 @@ def get_approval(public_token):
     return result.json()["success"]
   except:
     return False
+  
+  
+def 
