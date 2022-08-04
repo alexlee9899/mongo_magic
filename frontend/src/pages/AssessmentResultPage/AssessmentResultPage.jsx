@@ -31,6 +31,7 @@ const ResultCardContainer = styled.div`
     margin-top: 100px;
     margin-bottom: 200px;
     border-radius: 10px;
+    border: solid #89c5d1;
 `
 
 const ContentContainerRight = styled.div`
@@ -163,6 +164,7 @@ const AssessmentResultPage = () => {
         }
         canvas.width = w * 2;
         canvas.height = h * 2;
+
         const context = canvas.getContext('2d');
         context.scale(2, 2);
         context.translate(-offsetLeft - abs, -offsetTop);
@@ -172,27 +174,23 @@ const AssessmentResultPage = () => {
         }).then(canvas => {
             const contentWidth = canvas.width;
             const contentHeight = canvas.height;
-            const pageHeight = contentWidth / 592.28 * 841.89;
-            const leftHeight = contentHeight;
-            const position = 0;
-            const imgWidth = 595.28;
-            const imgHeight = 592.28 / contentWidth * contentHeight;
 
             const pageDate = canvas.toDataURL('image/jpeg', 1.0);
 
-            const pdf = new jsPDF('', 'pt', 'a4');
-            if (leftHeight < pageHeight) {
-                pdf.addImage(pageDate, 'JPEG', 0, position, imgWidth, imgHeight);
-            } else {
-                while (leftHeight > 0) {
-                    pdf.addImage(pageDate, 'JPEG', 0, position, imgWidth, imgHeight)
-                    leftHeight -= pageHeight;
-                    position -= 841.89;
-                    if (leftHeight > 0) {
-                        pdf.addPage()
-                    }
-                }
-            }
+            const pdf = new jsPDF('l', 'pt', 'letter');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const widthRatio = pageWidth / canvas.width;
+            const heightRatio = pageHeight / canvas.height;
+            const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+
+            const canvasWidth = canvas.width * ratio;
+            const canvasHeight = canvas.height * ratio;
+
+            const marginX = (pageWidth - canvasWidth) / 2;
+            const marginY = (pageHeight - canvasHeight) / 2;
+
+            pdf.addImage(pageDate, 'JPEG', marginX, marginY, canvasWidth, canvasHeight);
 
             pdf.save(`G'Tracker_${data['_id']}.pdf`);
         })
@@ -229,7 +227,8 @@ const AssessmentResultPage = () => {
     return (
         <>
             <Parallax className='image' blur={0} bgImage={require('../../assets/banner1.jpg')} strength={800} bgImageStyle={{ minHeight: "100vh" }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <ResultCardContainer id='contentCard' style={{ justifyContent: loading ? 'center' : '' }}>
+                <ResultCardContainer style={{ justifyContent: loading ? 'center' : '' }}>
+                    <div id="contentCard">
                     {(loading) ? (<div style={{ width: '150px', height: '150px', alignSelf: 'center' }}><CircularProgressbar text={value < 100 ? `${value}%` : preparing ? `100%` : `Ready`} value={value} /></div>) :
                         (<ContentContainer>
                             <ContentContainerLeft>
@@ -248,6 +247,7 @@ const AssessmentResultPage = () => {
                                 <div>{bulletPoints()}</div>
                             </ContentContainerRight>
                         </ContentContainer>)}
+                    </div>
                 </ResultCardContainer>
             </Parallax>
         </>
