@@ -15,6 +15,7 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import Newquiz from './pages/Login_Signup/Newquiz';
+import AssessmentResultPage from './pages/AssessmentResultPage/AssessmentResultPage';
 import { Layout } from 'antd';
 import NavBar from './components/Navbar';
 import HeaderBar from './components/HeaderBar';
@@ -67,6 +68,7 @@ function App() {
               <Route path="/adminlogin" element={<AdminLogin />} />
               <Route path="/adminsignup" element={<AdminSignupPage />} />
               <Route path="/assessment" element={<AssessmentPage/>}/>
+              <Route path="/assessment/result/:id" element={<AssessmentResultPage/>}/>
               <Route path="/test" element={<TestPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/help" element={<HelpPage />} />

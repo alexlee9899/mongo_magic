@@ -69,6 +69,10 @@ export const getSavedQuestion = (url = '/question/load') => {
     return apiRequest({ url: url });
 }
 
+export const getResult = (resultId) => {
+    return apiRequest({ url: `/question/result?id=${resultId}` });
+}
+
 
 export const loginRequest = (body) => {
     const res = apiRequest({ method: 'POST', url: '/users/login', body: body });
