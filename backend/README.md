@@ -21,7 +21,7 @@ Based on the postcode, we can determine the location of the office/data centre.
 We used the energy mix data from the federal government to determine the renewable energy mix in the user's area.
 The baseline we set is the national average of the percentage of gas + renawerable energy mix.
 Based on the calculation, the score of each state is calculated and listed below:
-National average: 5, NSW: 4, ACT: 4, VIC: 3, QLD: 4, SA: 7, WA: 5, NT: 6, TAS: 10 which higher is better.   
+National average: 5, NSW: 5, ACT: 5, VIC: 2, QLD: 5, SA: 8, WA: 6, NT: 7, TAS: 10 which higher is better.   
 Reference:   
 https://www.energy.gov.au/data/states-and-territories
 
