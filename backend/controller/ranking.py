@@ -6,7 +6,6 @@ from services.ranking import ranking_get_list
 ranking_blueprint = Blueprint('ranking', __name__)
 
 @ranking_blueprint.route('/ranking/list', methods=['GET'])
-@jwt_required()
 @swag_from('../docs/ranking/get_ranking.yml', methods=['GET'])
 def get_list():
     return ranking_get_list(request)
