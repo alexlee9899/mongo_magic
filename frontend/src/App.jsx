@@ -86,7 +86,7 @@ function App() {
           </ProfileContext.Provider>
         </Router>
         </>
-        <SupportEngine style={{ position:'fixed', bottom:'0', right:'0' }}></SupportEngine>
+        <SupportEngine prof={profile} style={{ position:'fixed', bottom:'0', right:'0' }}></SupportEngine>
       </Layout>
     </div>
   );

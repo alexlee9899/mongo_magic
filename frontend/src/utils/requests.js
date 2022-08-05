@@ -79,6 +79,10 @@ export const loginRequest = (body) => {
     return res;
 }
 
+export const sendSupportQuestion = (body) => {
+    return apiRequest({ method: 'POST', url: '/support/question', body: body });
+}
+
 
 export const regisRequest = (body) => {
     const res = apiRequest({ method: 'POST', url: '/users/register', body: body });

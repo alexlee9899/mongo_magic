@@ -19,8 +19,8 @@ const Avatar = props => {
             </div>
 
             <div 
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                onPointerEnter={() => setHovered(true)}
+                onPointerLeave={() => setHovered(false)}
                 onClick={() => props.onClick && props.onClick()}
                 className='transition-3'
                 style={{
