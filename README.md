@@ -1,4 +1,4 @@
-# COMP9323 Mongo Magic Project
+#Mongo Magic Project
 
 ------
 
